@@ -1,40 +1,26 @@
 
-import { useAPIHealth } from '@/hooks/useFrappeAPI';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Badge } from '@/components/ui/badge';
-import { CheckCircle, XCircle, Loader2 } from 'lucide-react';
+import { ConnectionStatus } from './ConnectionStatus';
+import { APIMetrics } from './APIMetrics';
 
-export const APIStatus = () => {
-  const { data, isLoading, error } = useAPIHealth();
+interface APIStatusProps {
+  variant?: 'badge' | 'alert' | 'metrics';
+  showDetails?: boolean;
+  className?: string;
+}
 
-  if (isLoading) {
-    return (
-      <Badge variant="secondary" className="flex items-center gap-1">
-        <Loader2 className="w-3 h-3 animate-spin" />
-        Проверка API...
-      </Badge>
-    );
+export const APIStatus = ({ 
+  variant = 'badge', 
+  showDetails = false, 
+  className 
+}: APIStatusProps) => {
+  if (variant === 'metrics') {
+    return <APIMetrics />;
   }
 
-  if (error) {
-    return (
-      <Alert variant="destructive" className="mb-4">
-        <XCircle className="h-4 w-4" />
-        <AlertDescription>
-          Нет подключения к Frappe API. Проверьте настройки.
-        </AlertDescription>
-      </Alert>
-    );
-  }
-
-  if (data?.status === 'connected') {
-    return (
-      <Badge variant="default" className="flex items-center gap-1 bg-green-500">
-        <CheckCircle className="w-3 h-3" />
-        API подключен
-      </Badge>
-    );
-  }
-
-  return null;
+  return (
+    <ConnectionStatus 
+      showDetails={showDetails || variant === 'alert'} 
+      className={className}
+    />
+  );
 };
