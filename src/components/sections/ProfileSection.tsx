@@ -2,23 +2,20 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 
 export const ProfileSection = () => {
   const userEmail = localStorage.getItem("userEmail") || "user@loov.com";
-  const userName = "Анна Петрова"; // Заглушка, в реальном проекте из Keycloak
-  const userPosition = "Технический директор"; // Заглушка
+  const userName = "Анна Петрова";
+  const userPosition = "Оптик-консультант";
 
-  const profileItems = [
-    { label: "Фото профиля", value: "Не загружено" },
-    { label: "ФИО", value: userName },
-    { label: "Должность", value: userPosition },
-    { label: "Зарплата", value: "Конфиденциально" },
-    { label: "Кол-во дней отпуска", value: "28 дней" },
-    { label: "Где работает", value: "Москва, офис" },
-    { label: "Контакты", value: userEmail },
-    { label: "Мой руководитель", value: "Сергей Иванов" },
-    { label: "Ачивки (достижения)", value: "5 наград" },
-    { label: "Календарь", value: "Синхронизирован" },
+  const achievements = ["Лучший продавец месяца", "Эксперт по контактным линзам", "Сертификат по детской оптике"];
+  const stats = [
+    { label: "Продаж в месяце", value: "127" },
+    { label: "Средний чек", value: "₽ 8,500" },
+    { label: "Рейтинг клиентов", value: "4.9/5" },
+    { label: "Конверсия", value: "68%" }
   ];
 
   const handleLogout = () => {
@@ -29,6 +26,7 @@ export const ProfileSection = () => {
 
   return (
     <div className="space-y-6">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Мой профиль</h1>
         <Button variant="outline" onClick={handleLogout}>
@@ -36,27 +34,129 @@ export const ProfileSection = () => {
         </Button>
       </div>
 
+      {/* Profile Header Card */}
       <Card>
-        <CardHeader>
-          <div className="flex items-center gap-4">
-            <Avatar className="h-20 w-20">
-              <AvatarImage src="" />
-              <AvatarFallback className="text-lg">АП</AvatarFallback>
-            </Avatar>
-            <div>
-              <CardTitle>{userName}</CardTitle>
-              <p className="text-muted-foreground">{userPosition}</p>
+        <CardContent className="pt-6">
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+            <div className="flex flex-col items-center">
+              <Avatar className="h-24 w-24 md:h-32 md:w-32">
+                <AvatarImage src="" />
+                <AvatarFallback className="text-2xl bg-primary text-primary-foreground">АП</AvatarFallback>
+              </Avatar>
+              <Button variant="outline" size="sm" className="mt-2">
+                Изменить фото
+              </Button>
+            </div>
+            
+            <div className="flex-1 text-center md:text-left">
+              <h2 className="text-2xl font-bold">{userName}</h2>
+              <p className="text-lg text-muted-foreground mb-2">{userPosition}</p>
+              <p className="text-sm text-muted-foreground mb-4">Салон оптики "Четкое зрение", Москва</p>
+              
+              <div className="flex flex-wrap gap-2 justify-center md:justify-start mb-4">
+                {achievements.map((achievement, index) => (
+                  <Badge key={index} variant="secondary" className="text-xs">
+                    {achievement}
+                  </Badge>
+                ))}
+              </div>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {stats.map((stat, index) => (
+                  <div key={index} className="text-center">
+                    <div className="text-lg font-bold">{stat.value}</div>
+                    <div className="text-xs text-muted-foreground">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
+        </CardContent>
+      </Card>
+
+      {/* Personal Info */}
+      <div className="grid md:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Личная информация</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="text-sm text-muted-foreground">ФИО:</span>
+                <span className="text-sm font-medium">{userName}</span>
+              </div>
+              <Separator />
+              <div className="flex justify-between">
+                <span className="text-sm text-muted-foreground">Email:</span>
+                <span className="text-sm font-medium">{userEmail}</span>
+              </div>
+              <Separator />
+              <div className="flex justify-between">
+                <span className="text-sm text-muted-foreground">Телефон:</span>
+                <span className="text-sm font-medium">+7 (999) 123-45-67</span>
+              </div>
+              <Separator />
+              <div className="flex justify-between">
+                <span className="text-sm text-muted-foreground">Дата рождения:</span>
+                <span className="text-sm font-medium">15 марта 1992</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Рабочая информация</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="text-sm text-muted-foreground">Должность:</span>
+                <span className="text-sm font-medium">{userPosition}</span>
+              </div>
+              <Separator />
+              <div className="flex justify-between">
+                <span className="text-sm text-muted-foreground">Стаж работы:</span>
+                <span className="text-sm font-medium">3 года 2 месяца</span>
+              </div>
+              <Separator />
+              <div className="flex justify-between">
+                <span className="text-sm text-muted-foreground">Отпуск доступен:</span>
+                <span className="text-sm font-medium">28 дней</span>
+              </div>
+              <Separator />
+              <div className="flex justify-between">
+                <span className="text-sm text-muted-foreground">Руководитель:</span>
+                <span className="text-sm font-medium">Сергей Иванов</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Recent Activity */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Последняя активность</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4">
-            {profileItems.map((item, index) => (
-              <div key={index} className="flex justify-between items-center py-2 border-b border-border last:border-0">
-                <span className="font-medium">{item.label}:</span>
-                <span className="text-muted-foreground">{item.value}</span>
-              </div>
-            ))}
+          <div className="space-y-3">
+            <div className="flex items-center gap-3 p-2 rounded border">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <span className="text-sm">Пройден курс "Консультирование по прогрессивным линзам"</span>
+              <span className="text-xs text-muted-foreground ml-auto">2 дня назад</span>
+            </div>
+            <div className="flex items-center gap-3 p-2 rounded border">
+              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+              <span className="text-sm">Обновлен профиль: добавлен сертификат</span>
+              <span className="text-xs text-muted-foreground ml-auto">5 дней назад</span>
+            </div>
+            <div className="flex items-center gap-3 p-2 rounded border">
+              <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+              <span className="text-sm">Достигнут план продаж на 150%</span>
+              <span className="text-xs text-muted-foreground ml-auto">1 неделя назад</span>
+            </div>
           </div>
         </CardContent>
       </Card>
