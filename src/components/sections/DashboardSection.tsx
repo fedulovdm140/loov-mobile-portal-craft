@@ -1,6 +1,5 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 
 export const DashboardSection = () => {
   const dashboardItems = [
@@ -79,10 +78,10 @@ export const DashboardSection = () => {
   ];
 
   const tasks = [
-    { task: "Связаться с клиентом по заказу прогрессивных линз", priority: "high", dueTime: "до 14:00" },
-    { task: "Подготовить отчет по продажам за неделю", priority: "medium", dueTime: "до 18:00" },
-    { task: "Обучение: новая коллекция Ray-Ban", priority: "low", dueTime: "завтра" },
-    { task: "Проверить поступление товара", priority: "medium", dueTime: "до 16:00" },
+    { task: "Связаться с клиентом по заказу прогрессивных линз", priority: "high", dueTime: "до 14:00", trackerUrl: "https://tracker.yandex.ru/OPTIC-123" },
+    { task: "Подготовить отчет по продажам за неделю", priority: "medium", dueTime: "до 18:00", trackerUrl: "https://tracker.yandex.ru/OPTIC-124" },
+    { task: "Обучение: новая коллекция Ray-Ban", priority: "low", dueTime: "завтра", trackerUrl: "https://tracker.yandex.ru/OPTIC-125" },
+    { task: "Проверить поступление товара", priority: "medium", dueTime: "до 16:00", trackerUrl: "https://tracker.yandex.ru/OPTIC-126" },
   ];
 
   const getPriorityColor = (priority: string) => {
@@ -94,8 +93,19 @@ export const DashboardSection = () => {
     }
   };
 
+  const getProgressBarColor = (progress: number) => {
+    if (progress >= 100) return "bg-green-500";
+    if (progress >= 80) return "bg-blue-500";
+    if (progress >= 60) return "bg-orange-500";
+    return "bg-red-500";
+  };
+
   const handleKpiClick = (dashboardUrl: string) => {
     window.open(dashboardUrl, '_blank');
+  };
+
+  const handleTaskClick = (trackerUrl: string) => {
+    window.open(trackerUrl, '_blank');
   };
 
   const handleQuickAction = (action: string) => {
@@ -126,12 +136,20 @@ export const DashboardSection = () => {
         {dashboardItems.map((item, index) => (
           <Card 
             key={index} 
-            className="cursor-pointer hover:shadow-md transition-shadow"
+            className="cursor-pointer hover:shadow-md transition-shadow overflow-hidden"
             onClick={() => handleKpiClick(item.dashboardUrl)}
           >
-            <CardHeader className="pb-2">
-              <div className={`w-full h-1.5 rounded ${item.color} mb-2`} />
-              <CardTitle className="text-xs md:text-sm font-medium leading-tight">{item.title}</CardTitle>
+            <CardHeader className="pb-2 relative">
+              {/* Цветная шкала прогресса */}
+              <div className="absolute top-0 left-0 right-0 h-2 bg-gray-200">
+                <div 
+                  className={`h-full ${getProgressBarColor(item.progress || 0)} transition-all duration-300`}
+                  style={{ width: `${Math.min(item.progress || 0, 100)}%` }}
+                />
+              </div>
+              <div className="pt-2">
+                <CardTitle className="text-xs md:text-sm font-medium leading-tight">{item.title}</CardTitle>
+              </div>
             </CardHeader>
             <CardContent className="space-y-2">
               <p className="text-lg md:text-xl font-bold">{item.value}</p>
@@ -146,16 +164,13 @@ export const DashboardSection = () => {
                 </p>
               )}
               {item.progress && (
-                <div className="space-y-1">
-                  <div className="flex justify-between text-xs">
-                    <span>Прогресс</span>
-                    <span>{item.progress}%</span>
-                  </div>
-                  <Progress value={item.progress} className="h-2" />
+                <div className="flex justify-between text-xs">
+                  <span>Прогресс</span>
+                  <span>{item.progress}%</span>
                 </div>
               )}
               {item.trend && (
-                <p className="text-xs font-medium text-green-600">
+                <p className={`text-xs font-medium ${item.trend.startsWith('+') ? 'text-green-600' : 'text-red-600'}`}>
                   {item.trend}
                 </p>
               )}
@@ -178,7 +193,11 @@ export const DashboardSection = () => {
           <CardContent>
             <div className="space-y-3">
               {tasks.map((item, index) => (
-                <div key={index} className="flex items-start gap-3 p-3 rounded border">
+                <div 
+                  key={index} 
+                  className="flex items-start gap-3 p-3 rounded border cursor-pointer hover:bg-accent transition-colors"
+                  onClick={() => handleTaskClick(item.trackerUrl)}
+                >
                   <div className={`w-3 h-3 rounded-full ${getPriorityColor(item.priority)} mt-1 flex-shrink-0`} />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium leading-tight">{item.task}</p>
