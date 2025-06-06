@@ -1,7 +1,9 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Progress } from "@/components/ui/progress";
 import { useState } from "react";
 
 export const StandardsSection = () => {
@@ -17,117 +19,153 @@ export const StandardsSection = () => {
 
   const standardsData = [
     {
-      id: "customer-consultation",
-      title: "Консультирование клиентов",
-      description: "Правила и процедуры консультирования клиентов по выбору оптических изделий",
+      id: "service",
+      zone: "Сервис",
+      title: "Дарим вау-опыт",
+      description: "Создаем идеальный сервис и консультируем с заботой",
+      status: "in-progress",
+      progress: 80,
+      responsible: "Менеджер заботы",
+      owner: "Владимир Амосов",
+      metrics: [
+        "Чек-лист торговой точки пройден на ≥ 80%",
+        "NPS ≥ 85%, жалоб ≤ 2 в месяц",
+        "Конверсия Входящий→Оформленные заказы ≥ 70%"
+      ],
+      standards: [
+        "Конверсия Входящий→Продажи ≥ 70%, ≥ 5 персонализированных предложений в смену"
+      ],
+      links: ["Базовый подход заботы в LOOV", "Работа с CJM"]
+    },
+    {
+      id: "sales",
+      zone: "Продажи",
+      title: "Помогаем выбрать лучшее",
+      description: "Достигаем плана продаж и знаем наши продукты",
+      status: "active",
+      progress: 95,
+      responsible: "Менеджер заботы",
+      owner: "Коммерческий директор",
+      metrics: [
+        "План продаж ≥ 100%, допродажи в ≥ 50% заказов",
+        "Средний чек с ценовой значимостью"
+      ],
+      standards: [
+        "Тест по продуктам >90%",
+        "Выполненные целевые планы продаж"
+      ],
+      links: ["Структура Рудников в Клубах и Клиниках"]
+    },
+    {
+      id: "development",
+      zone: "Саморазвитие",
+      title: "Растем с LOOV",
+      description: "Учимся и растем, проходим обучающие программы",
       status: "completed",
       progress: 100,
-      subsections: [
-        { title: "Определение потребностей клиента", progress: 100 },
-        { title: "Подбор оправы по типу лица", progress: 100 },
-        { title: "Консультирование по линзам", progress: 100 }
+      responsible: "Менеджер заботы",
+      owner: "HRD",
+      metrics: [
+        "Пройденные тесты >80%, Грейды??"
       ],
-      courses: [
-        { title: "Основы консультирования в оптике", duration: "2 часа", progress: 100 },
-        { title: "Психология продаж оптических изделий", duration: "1.5 часа", progress: 100 }
-      ]
+      standards: [],
+      links: []
     },
     {
-      id: "vision-testing",
-      title: "Проверка зрения",
-      description: "Стандарты проведения диагностики и проверки остроты зрения",
-      status: "in-progress",
+      id: "crm",
+      zone: "CRM",
+      title: "Строим отношения",
+      description: "Ведем данные в CRM и поддерживаем порядок",
+      status: "active",
       progress: 75,
-      subsections: [
-        { title: "Визометрия", progress: 100 },
-        { title: "Рефрактометрия", progress: 75 },
-        { title: "Авторефрактометрия", progress: 50 }
+      responsible: "Менеджер заботы",
+      owner: "Игорь Николаев",
+      metrics: [
+        "100% заказов и клиентов заведены без ошибок",
+        "Ввод данных ≤ 5 минут после заказа"
       ],
-      courses: [
-        { title: "Методы исследования зрения", duration: "3 часа", progress: 100 },
-        { title: "Работа с диагностическим оборудованием", duration: "2 часа", progress: 25 }
-      ]
+      standards: [
+        "0 замечаний по выкладке при еженедельных проверках, онлайн и офлайн ТП"
+      ],
+      links: ["Заказы. Общая информация", "Основные принципы выкладки оправ"]
     },
     {
-      id: "lens-selection",
-      title: "Подбор линз",
-      description: "Правила подбора очковых и контактных линз по рецепту врача",
+      id: "inventory",
+      zone: "Инвентаризация",
+      title: "Помогаем с инвентаризацией",
+      description: "Поддерживаем порядок и выкладку товаров",
       status: "active",
-      progress: 60,
-      subsections: [
-        { title: "Интерпретация рецепта", progress: 80 },
-        { title: "Типы линз и покрытий", progress: 60 },
-        { title: "Центрирование линз", progress: 40 }
+      progress: 85,
+      responsible: "Менеджер заботы",
+      owner: "Мерчендайзер",
+      metrics: [
+        "Расхождение <1%, 100% участие в инвентаризациях"
       ],
-      courses: [
-        { title: "Оптические свойства линз", duration: "2.5 часа", progress: 80 },
-        { title: "Современные покрытия линз", duration: "1.5 часа", progress: 0 }
-      ]
+      standards: [],
+      links: ["Мерчендайзинг с учетом приоритета LOOV", "Идеальная инвентаризация"]
     },
     {
-      id: "contact-lenses",
-      title: "Контактные линзы",
-      description: "Работа с контактными линзами и обучение пациентов",
-      status: "assigned",
-      progress: 0,
-      subsections: [
-        { title: "Подбор контактных линз", progress: 0 },
-        { title: "Обучение пациентов", progress: 0 },
-        { title: "Уход за контактными линзами", progress: 0 }
+      id: "atmosphere",
+      zone: "Зал",
+      title: "Создаем стильное пространство",
+      description: "Создаем атмосферу LOOV в торговом зале",
+      status: "in-progress",
+      progress: 70,
+      responsible: "Менеджер заботы",
+      owner: "Лидер стиля",
+      metrics: [
+        "0 замечаний по форме и музыке при еженедельных проверках ТП"
       ],
-      courses: [
-        { title: "Контактная коррекция зрения", duration: "4 часа", progress: 0 },
-        { title: "Осложнения при ношении КЛ", duration: "2 часа", progress: 0 }
-      ]
+      standards: [],
+      links: ["Стандарт внешнего вида в клубах и клиниках LOOV", "Музыка в LOOV", "Микроклимат в LOOV"]
     },
     {
-      id: "frame-adjustment",
-      title: "Подгонка оправ",
-      description: "Техники правильной подгонки и ремонта очковых оправ",
-      status: "assigned",
-      progress: 0,
-      subsections: [
-        { title: "Анатомия лица и посадка оправы", progress: 0 },
-        { title: "Регулировка заушников", progress: 0 },
-        { title: "Ремонт оправ", progress: 0 }
+      id: "cashier",
+      zone: "Касса",
+      title: "Делаем расчеты безупречно",
+      description: "Соблюдаем кассовую дисциплину и работаем с операциями",
+      status: "completed",
+      progress: 100,
+      responsible: "Менеджер заботы",
+      owner: "Бухгалтер",
+      metrics: [
+        "0 ошибок в кассовых операциях, время на кассе ≤ 3 минуты"
       ],
-      courses: [
-        { title: "Техники подгонки оправ", duration: "3 часа", progress: 0 },
-        { title: "Ремонт и обслуживание очков", duration: "2 часа", progress: 0 }
-      ]
+      standards: [],
+      links: ["Кассовые операции"]
     },
     {
-      id: "lens-processing",
-      title: "Обработка линз",
-      description: "Технология изготовления и обработки очковых линз",
-      status: "assigned", 
-      progress: 0,
-      subsections: [
-        { title: "Разметка и центрирование", progress: 0 },
-        { title: "Обработка на станке", progress: 0 },
-        { title: "Контроль качества", progress: 0 }
-      ],
-      courses: [
-        { title: "Технология изготовления очков", duration: "4 часа", progress: 0 },
-        { title: "Работа на обрабатывающем оборудовании", duration: "3 часа", progress: 0 }
-      ]
-    },
-    {
-      id: "sales-process",
-      title: "Процесс продажи",
-      description: "Стандарты ведения продаж и обслуживания клиентов",
+      id: "craftsmen",
+      zone: "Работа с крафтерами и оптик-мастерами",
+      title: "Доводим заказы до готовы",
+      description: "Передаем заказы крафтерам и оптик-мастерам",
       status: "active",
-      progress: 45,
-      subsections: [
-        { title: "Встреча и приветствие клиента", progress: 60 },
-        { title: "Презентация товара", progress: 30 },
-        { title: "Закрытие сделки", progress: 45 }
+      progress: 90,
+      responsible: "Менеджер заботы",
+      owner: "Коммерческий директор",
+      metrics: [
+        "100% заказов переданы с корректными параметрами, ошибки ≤ 1%"
       ],
-      courses: [
-        { title: "Техники продаж в оптике", duration: "2.5 часа", progress: 60 },
-        { title: "Работа с возражениями", duration: "1.5 часа", progress: 30 },
-        { title: "Послепродажное обслуживание", duration: "1 час", progress: 0 }
-      ]
+      standards: [
+        "Контролируем сроки заказов"
+      ],
+      links: ["Как принимать и отдавать заказы на ремонт и изготовление"]
+    },
+    {
+      id: "optometrists",
+      zone: "Работа с оптометристами/офтальмологами",
+      title: "Заботимся о зрении",
+      description: "Организуем проверку зрения для клиентов",
+      status: "active",
+      progress: 80,
+      responsible: "Менеджер заботы",
+      owner: "Коммерческий директор",
+      metrics: [
+        "≥ 95% заказов выполнены в срок, 100% клиентов уведомлены",
+        "Конверсия Входящий→Проверка зрения ≥ 80%, время ожидания ≤ 15 минут"
+      ],
+      standards: [],
+      links: []
     }
   ];
 
@@ -154,7 +192,7 @@ export const StandardsSection = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Стандарты работы</h1>
+        <h1 className="text-2xl font-bold">Стандарты работы LOOV</h1>
         <Button>Добавить базу знаний</Button>
       </div>
 
@@ -173,6 +211,11 @@ export const StandardsSection = () => {
                         {openStandards.includes(standard.id) ? "▼" : "▶"}
                       </div>
                       <div className="text-left">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Badge variant="outline" className="text-xs">
+                            {standard.zone}
+                          </Badge>
+                        </div>
                         <CardTitle className="text-lg">{standard.title}</CardTitle>
                         <p className="text-sm text-muted-foreground mt-1">{standard.description}</p>
                       </div>
@@ -184,36 +227,35 @@ export const StandardsSection = () => {
                       <div className="text-sm font-medium">{standard.progress}%</div>
                     </div>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2 mt-3">
-                    <div 
-                      className="bg-primary h-2 rounded-full transition-all duration-300"
-                      style={{ width: `${standard.progress}%` }}
-                    />
-                  </div>
+                  <Progress value={standard.progress} className="mt-3 h-2" />
                 </CardHeader>
               </CollapsibleTrigger>
               
               <CollapsibleContent>
                 <CardContent className="border-t">
                   <div className="grid md:grid-cols-2 gap-6 pt-4">
-                    {/* Подразделы стандарта */}
+                    {/* Информация о зоне ответственности */}
                     <div>
-                      <h4 className="font-medium mb-3">Разделы стандарта</h4>
+                      <h4 className="font-medium mb-3">Информация о стандарте</h4>
                       <div className="space-y-3">
-                        {standard.subsections.map((subsection, index) => (
-                          <div key={index} className="space-y-2">
-                            <div className="flex justify-between text-sm">
-                              <span>{subsection.title}</span>
-                              <span className="font-medium">{subsection.progress}%</span>
-                            </div>
-                            <div className="w-full bg-gray-200 rounded-full h-1.5">
-                              <div 
-                                className="bg-primary h-1.5 rounded-full transition-all duration-300"
-                                style={{ width: `${subsection.progress}%` }}
-                              />
-                            </div>
+                        <div className="p-3 border rounded-lg">
+                          <div className="text-xs text-muted-foreground mb-1">Ответственный</div>
+                          <div className="text-sm font-medium">{standard.responsible}</div>
+                        </div>
+                        <div className="p-3 border rounded-lg">
+                          <div className="text-xs text-muted-foreground mb-1">Владелец процесса</div>
+                          <div className="text-sm font-medium">{standard.owner}</div>
+                        </div>
+                        {standard.metrics.length > 0 && (
+                          <div className="p-3 border rounded-lg">
+                            <div className="text-xs text-muted-foreground mb-2">Метрики</div>
+                            <ul className="space-y-1">
+                              {standard.metrics.map((metric, index) => (
+                                <li key={index} className="text-sm">• {metric}</li>
+                              ))}
+                            </ul>
                           </div>
-                        ))}
+                        )}
                       </div>
                       <div className="flex gap-2 mt-4">
                         <Button size="sm">Изучить стандарт</Button>
@@ -221,33 +263,35 @@ export const StandardsSection = () => {
                       </div>
                     </div>
 
-                    {/* Связанные курсы */}
+                    {/* Стандарты и статьи */}
                     <div>
-                      <h4 className="font-medium mb-3">Связанные курсы</h4>
+                      <h4 className="font-medium mb-3">Стандарты и материалы</h4>
                       <div className="space-y-3">
-                        {standard.courses.map((course, index) => (
-                          <div key={index} className="p-3 border rounded-lg space-y-2">
-                            <div className="flex justify-between items-start">
-                              <h5 className="text-sm font-medium leading-tight">{course.title}</h5>
-                              <Badge variant="outline" className="text-xs">
-                                {course.duration}
-                              </Badge>
-                            </div>
-                            <div className="flex justify-between text-xs">
-                              <span className="text-muted-foreground">Прогресс</span>
-                              <span className="font-medium">{course.progress}%</span>
-                            </div>
-                            <div className="w-full bg-gray-200 rounded-full h-1.5">
-                              <div 
-                                className="bg-green-500 h-1.5 rounded-full transition-all duration-300"
-                                style={{ width: `${course.progress}%` }}
-                              />
-                            </div>
-                            <Button size="sm" variant="outline" className="w-full mt-2">
-                              {course.progress > 0 ? "Продолжить курс" : "Начать курс"}
-                            </Button>
+                        {standard.standards.length > 0 && (
+                          <div className="p-3 border rounded-lg">
+                            <div className="text-xs text-muted-foreground mb-2">Стандарты</div>
+                            <ul className="space-y-1">
+                              {standard.standards.map((item, index) => (
+                                <li key={index} className="text-sm">• {item}</li>
+                              ))}
+                            </ul>
                           </div>
-                        ))}
+                        )}
+                        {standard.links.length > 0 && (
+                          <div className="p-3 border rounded-lg">
+                            <div className="text-xs text-muted-foreground mb-2">Полезные статьи</div>
+                            <ul className="space-y-1">
+                              {standard.links.map((link, index) => (
+                                <li key={index} className="text-sm text-blue-600 hover:underline cursor-pointer">
+                                  • {link}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                        <Button size="sm" variant="outline" className="w-full">
+                          Открыть полную документацию
+                        </Button>
                       </div>
                     </div>
                   </div>

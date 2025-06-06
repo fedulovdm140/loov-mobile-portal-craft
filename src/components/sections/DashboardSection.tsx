@@ -1,16 +1,81 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 
 export const DashboardSection = () => {
   const dashboardItems = [
-    { title: "План продаж на месяц", value: "85%", target: "₽ 150,000", actual: "₽ 127,500", color: "bg-blue-500", trend: "+5%" },
-    { title: "Средний чек", value: "₽ 8,500", target: "₽ 8,000", trend: "+6.25%", color: "bg-green-500" },
-    { title: "Конверсия консультаций", value: "68%", target: "65%", trend: "+3%", color: "bg-purple-500" },
-    { title: "Продажи оправ", value: "45 шт", target: "40 шт", trend: "+12.5%", color: "bg-orange-500" },
-    { title: "Продажи линз", value: "78 пар", target: "70 пар", trend: "+11.4%", color: "bg-red-500" },
-    { title: "Обмены/возвраты", value: "2.3%", target: "<5%", trend: "-0.7%", color: "bg-indigo-500" },
-    { title: "NPS клиентов", value: "4.9/5", target: "4.5/5", trend: "+0.2", color: "bg-pink-500" },
-    { title: "Активных акций", value: "3", description: "Скидка на вторую пару, Детская оптика -20%, Прогрессивные линзы", color: "bg-cyan-500" },
+    { 
+      title: "План продаж на месяц", 
+      value: "85%", 
+      target: "₽ 150,000", 
+      actual: "₽ 127,500", 
+      color: "bg-blue-500", 
+      trend: "+5%",
+      progress: 85,
+      dashboardUrl: "https://datalens.yandex.ru/sales-dashboard"
+    },
+    { 
+      title: "Средний чек", 
+      value: "₽ 8,500", 
+      target: "₽ 8,000", 
+      trend: "+6.25%", 
+      color: "bg-green-500",
+      progress: 106,
+      dashboardUrl: "https://datalens.yandex.ru/average-check-dashboard"
+    },
+    { 
+      title: "Конверсия консультаций", 
+      value: "68%", 
+      target: "65%", 
+      trend: "+3%", 
+      color: "bg-purple-500",
+      progress: 105,
+      dashboardUrl: "https://datalens.yandex.ru/conversion-dashboard"
+    },
+    { 
+      title: "Продажи оправ", 
+      value: "45 шт", 
+      target: "40 шт", 
+      trend: "+12.5%", 
+      color: "bg-orange-500",
+      progress: 113,
+      dashboardUrl: "https://datalens.yandex.ru/frames-dashboard"
+    },
+    { 
+      title: "Продажи линз", 
+      value: "78 пар", 
+      target: "70 пар", 
+      trend: "+11.4%", 
+      color: "bg-red-500",
+      progress: 111,
+      dashboardUrl: "https://datalens.yandex.ru/lenses-dashboard"
+    },
+    { 
+      title: "Обмены/возвраты", 
+      value: "2.3%", 
+      target: "<5%", 
+      trend: "-0.7%", 
+      color: "bg-indigo-500",
+      progress: 77,
+      dashboardUrl: "https://datalens.yandex.ru/returns-dashboard"
+    },
+    { 
+      title: "NPS клиентов", 
+      value: "4.9/5", 
+      target: "4.5/5", 
+      trend: "+0.2", 
+      color: "bg-pink-500",
+      progress: 98,
+      dashboardUrl: "https://datalens.yandex.ru/nps-dashboard"
+    },
+    { 
+      title: "Активных акций", 
+      value: "3", 
+      description: "Скидка на вторую пару, Детская оптика -20%, Прогрессивные линзы", 
+      color: "bg-cyan-500",
+      progress: 100,
+      dashboardUrl: "https://datalens.yandex.ru/promotions-dashboard"
+    },
   ];
 
   const tasks = [
@@ -29,6 +94,24 @@ export const DashboardSection = () => {
     }
   };
 
+  const handleKpiClick = (dashboardUrl: string) => {
+    window.open(dashboardUrl, '_blank');
+  };
+
+  const handleQuickAction = (action: string) => {
+    const itigrisUrls = {
+      'new-client': 'https://itigris.ru/crm/clients/new',
+      'vision-test': 'https://itigris.ru/crm/services/vision-test',
+      'product-search': 'https://itigris.ru/crm/inventory/search',
+      'create-sale': 'https://itigris.ru/crm/sales/new'
+    };
+    
+    const url = itigrisUrls[action as keyof typeof itigrisUrls];
+    if (url) {
+      window.open(url, '_blank');
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -41,12 +124,16 @@ export const DashboardSection = () => {
       {/* KPI Cards - 2-3 в ряд на мобильных */}
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
         {dashboardItems.map((item, index) => (
-          <Card key={index} className="cursor-pointer hover:shadow-md transition-shadow">
+          <Card 
+            key={index} 
+            className="cursor-pointer hover:shadow-md transition-shadow"
+            onClick={() => handleKpiClick(item.dashboardUrl)}
+          >
             <CardHeader className="pb-2">
               <div className={`w-full h-1.5 rounded ${item.color} mb-2`} />
               <CardTitle className="text-xs md:text-sm font-medium leading-tight">{item.title}</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-1">
+            <CardContent className="space-y-2">
               <p className="text-lg md:text-xl font-bold">{item.value}</p>
               {item.target && (
                 <p className="text-xs text-muted-foreground">
@@ -57,6 +144,15 @@ export const DashboardSection = () => {
                 <p className="text-xs text-muted-foreground">
                   Факт: {item.actual}
                 </p>
+              )}
+              {item.progress && (
+                <div className="space-y-1">
+                  <div className="flex justify-between text-xs">
+                    <span>Прогресс</span>
+                    <span>{item.progress}%</span>
+                  </div>
+                  <Progress value={item.progress} className="h-2" />
+                </div>
               )}
               {item.trend && (
                 <p className="text-xs font-medium text-green-600">
@@ -133,19 +229,31 @@ export const DashboardSection = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <button className="p-4 rounded border hover:bg-accent text-center">
+            <button 
+              className="p-4 rounded border hover:bg-accent text-center"
+              onClick={() => handleQuickAction('new-client')}
+            >
               <div className="text-2xl mb-2">👥</div>
               <div className="text-sm font-medium">Новый клиент</div>
             </button>
-            <button className="p-4 rounded border hover:bg-accent text-center">
+            <button 
+              className="p-4 rounded border hover:bg-accent text-center"
+              onClick={() => handleQuickAction('vision-test')}
+            >
               <div className="text-2xl mb-2">🔍</div>
               <div className="text-sm font-medium">Проверка зрения</div>
             </button>
-            <button className="p-4 rounded border hover:bg-accent text-center">
+            <button 
+              className="p-4 rounded border hover:bg-accent text-center"
+              onClick={() => handleQuickAction('product-search')}
+            >
               <div className="text-2xl mb-2">📦</div>
               <div className="text-sm font-medium">Поиск товара</div>
             </button>
-            <button className="p-4 rounded border hover:bg-accent text-center">
+            <button 
+              className="p-4 rounded border hover:bg-accent text-center"
+              onClick={() => handleQuickAction('create-sale')}
+            >
               <div className="text-2xl mb-2">💰</div>
               <div className="text-sm font-medium">Оформить продажу</div>
             </button>
