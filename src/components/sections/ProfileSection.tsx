@@ -30,9 +30,6 @@ export const ProfileSection = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <h1 className="text-2xl font-bold">Мой профиль</h1>
-        <Button variant="outline" onClick={handleLogout} className="w-full sm:w-auto">
-          Выйти
-        </Button>
       </div>
 
       {/* Profile Header Card */}
@@ -170,6 +167,13 @@ export const ProfileSection = () => {
 
       {/* Calendar Section */}
       <CalendarSection />
+
+      {/* Logout Button at the bottom */}
+      <div className="flex justify-center pt-6">
+        <Button variant="outline" onClick={handleLogout} className="w-full sm:w-auto">
+          Выйти
+        </Button>
+      </div>
     </div>
   );
 };

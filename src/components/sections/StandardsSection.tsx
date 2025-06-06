@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -356,20 +355,18 @@ export const StandardsSection = () => {
                           <BookOpen className="h-4 w-4" />
                           Статьи и материалы
                         </h4>
-                        <div className="space-y-2">
+                        <div className="space-y-1">
                           {standard.articles.map((article, index) => (
-                            <div key={index} className="p-3 border rounded-lg hover:bg-accent/50 cursor-pointer transition-colors">
-                              <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2">
-                                  {getArticleTypeIcon(article.type)}
-                                  <span className="text-sm font-medium">{article.title}</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  <Badge variant="outline" className="text-xs">
-                                    {getArticleTypeBadge(article.type)}
-                                  </Badge>
-                                  <ExternalLink className="h-3 w-3" />
-                                </div>
+                            <div key={index} className="flex items-center justify-between p-2 hover:bg-accent/50 rounded cursor-pointer transition-colors">
+                              <div className="flex items-center gap-2 flex-1">
+                                {getArticleTypeIcon(article.type)}
+                                <span className="text-sm">{article.title}</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <Badge variant="outline" className="text-xs">
+                                  {getArticleTypeBadge(article.type)}
+                                </Badge>
+                                <ExternalLink className="h-3 w-3 text-muted-foreground" />
                               </div>
                             </div>
                           ))}
@@ -387,21 +384,18 @@ export const StandardsSection = () => {
                               <Play className="h-3 w-3" />
                               Назначенные курсы
                             </h5>
-                            <div className="space-y-2">
+                            <div className="space-y-1">
                               {standard.courses.assigned.map((course, index) => (
-                                <div key={index} className="p-3 border rounded-lg hover:bg-accent/50 cursor-pointer transition-colors">
-                                  <div className="flex items-center justify-between mb-2">
+                                <div key={index} className="p-2 hover:bg-accent/50 rounded cursor-pointer transition-colors">
+                                  <div className="flex items-center justify-between mb-1">
                                     <span className="text-sm font-medium">{course.title}</span>
-                                    <Button size="sm" variant="outline" className="h-6 px-2 text-xs">
-                                      Открыть в LMS
-                                      <ExternalLink className="h-3 w-3 ml-1" />
-                                    </Button>
+                                    <ExternalLink className="h-3 w-3 text-muted-foreground" />
                                   </div>
-                                  <div className="flex items-center justify-between text-xs text-muted-foreground">
+                                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
                                     <span>Прогресс: {course.progress}%</span>
                                     <span>До: {course.deadline}</span>
                                   </div>
-                                  <Progress value={course.progress} className="mt-2 h-1" />
+                                  <Progress value={course.progress} className="h-1" />
                                 </div>
                               ))}
                             </div>
@@ -415,15 +409,12 @@ export const StandardsSection = () => {
                               <CheckCircle className="h-3 w-3" />
                               Завершенные курсы
                             </h5>
-                            <div className="space-y-2">
+                            <div className="space-y-1">
                               {standard.courses.completed.map((course, index) => (
-                                <div key={index} className="p-3 border rounded-lg hover:bg-accent/50 cursor-pointer transition-colors">
-                                  <div className="flex items-center justify-between mb-2">
+                                <div key={index} className="p-2 hover:bg-accent/50 rounded cursor-pointer transition-colors">
+                                  <div className="flex items-center justify-between mb-1">
                                     <span className="text-sm font-medium">{course.title}</span>
-                                    <Button size="sm" variant="outline" className="h-6 px-2 text-xs">
-                                      Сертификат
-                                      <ExternalLink className="h-3 w-3 ml-1" />
-                                    </Button>
+                                    <ExternalLink className="h-3 w-3 text-muted-foreground" />
                                   </div>
                                   <div className="flex items-center justify-between text-xs text-muted-foreground">
                                     <span>Оценка: {course.score}%</span>
