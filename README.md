@@ -1,73 +1,370 @@
-# Welcome to your Lovable project
 
-## Project info
+# LOOV Оптика - Система управления салоном оптики
 
-**URL**: https://lovable.dev/projects/bd2945f4-ee15-4485-b1d9-f2fd3de9a923
+Современная web-система для управления салоном оптики с интеграцией Frappe/ERPNext.
 
-## How can I edit this code?
+## 🚀 Быстрый старт
 
-There are several ways of editing your application.
+### Требования
+- Node.js 18+ 
+- npm или bun
+- Frappe/ERPNext сервер
 
-**Use Lovable**
+### Установка фронтенда
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/bd2945f4-ee15-4485-b1d9-f2fd3de9a923) and start prompting.
+1. **Клонируйте репозиторий:**
+   ```bash
+   git clone <YOUR_GIT_URL>
+   cd <YOUR_PROJECT_NAME>
+   ```
 
-Changes made via Lovable will be committed automatically to this repo.
+2. **Установите зависимости:**
+   ```bash
+   npm install
+   # или
+   bun install
+   ```
 
-**Use your preferred IDE**
+3. **Запустите приложение:**
+   ```bash
+   npm run dev
+   # или
+   bun dev
+   ```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Приложение будет доступно по адресу `http://localhost:8080`
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🔧 Настройка интеграции с Frappe/ERPNext
 
-Follow these steps:
+### 1. Подготовка Frappe сервера
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+#### Установка ERPNext (если еще не установлен)
+```bash
+# Создание нового сайта
+bench new-site your-optik-site.com
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Установка ERPNext
+bench --site your-optik-site.com install-app erpnext
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+# Создание пользователя
+bench --site your-optik-site.com add-user optik-user optik@example.com
 ```
 
-**Edit a file directly in GitHub**
+#### Настройка API доступа
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+1. **Создайте API ключи:**
+   - Войдите в ERPNext как администратор
+   - Перейдите в "User" > найдите пользователя для API
+   - В разделе "API Access" нажмите "Generate Keys"
+   - Сохраните `API Key` и `API Secret`
 
-**Use GitHub Codespaces**
+2. **Настройте CORS (если требуется):**
+   ```python
+   # В site_config.json
+   {
+     "allow_cors": "*",
+     "cors_allowed_origins": [
+       "http://localhost:8080",
+       "https://your-frontend-domain.com"
+     ]
+   }
+   ```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### 2. Создание кастомных полей
 
-## What technologies are used for this project?
+Выполните в Frappe консоли (`bench --site your-site.com console`):
 
-This project is built with:
+```python
+# Кастомные поля для Customer (Клиент)
+from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+customer_fields = {
+    "Customer": [
+        {
+            "fieldname": "custom_phone",
+            "label": "Телефон",
+            "fieldtype": "Data",
+            "insert_after": "email_id"
+        },
+        {
+            "fieldname": "custom_birth_date",
+            "label": "Дата рождения",
+            "fieldtype": "Date",
+            "insert_after": "custom_phone"
+        },
+        {
+            "fieldname": "custom_vision_left",
+            "label": "Зрение левый глаз",
+            "fieldtype": "Data",
+            "insert_after": "custom_birth_date"
+        },
+        {
+            "fieldname": "custom_vision_right",
+            "label": "Зрение правый глаз",
+            "fieldtype": "Data",
+            "insert_after": "custom_vision_left"
+        },
+        {
+            "fieldname": "custom_notes",
+            "label": "Заметки",
+            "fieldtype": "Text",
+            "insert_after": "custom_vision_right"
+        }
+    ]
+}
 
-## How can I deploy this project?
+create_custom_fields(customer_fields)
 
-Simply open [Lovable](https://lovable.dev/projects/bd2945f4-ee15-4485-b1d9-f2fd3de9a923) and click on Share -> Publish.
+# Кастомные поля для Item (Товар)
+item_fields = {
+    "Item": [
+        {
+            "fieldname": "custom_brand",
+            "label": "Бренд",
+            "fieldtype": "Data",
+            "insert_after": "item_group"
+        },
+        {
+            "fieldname": "custom_model",
+            "label": "Модель",
+            "fieldtype": "Data",
+            "insert_after": "custom_brand"
+        },
+        {
+            "fieldname": "custom_color",
+            "label": "Цвет",
+            "fieldtype": "Data",
+            "insert_after": "custom_model"
+        },
+        {
+            "fieldname": "custom_size",
+            "label": "Размер",
+            "fieldtype": "Data",
+            "insert_after": "custom_color"
+        }
+    ]
+}
 
-## Can I connect a custom domain to my Lovable project?
+create_custom_fields(item_fields)
+```
 
-Yes, you can!
+### 3. Создание DocType для проверки зрения
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+```python
+# Создание кастомного DocType "Vision Test"
+vision_test_doctype = {
+    "doctype": "DocType",
+    "name": "Vision Test",
+    "module": "Custom",
+    "autoname": "naming_series:",
+    "naming_series_options": "VT-.YYYY.-",
+    "fields": [
+        {
+            "fieldname": "customer",
+            "label": "Клиент",
+            "fieldtype": "Link",
+            "options": "Customer",
+            "reqd": 1
+        },
+        {
+            "fieldname": "test_date",
+            "label": "Дата проверки",
+            "fieldtype": "Date",
+            "reqd": 1
+        },
+        {
+            "fieldname": "optometrist",
+            "label": "Оптометрист",
+            "fieldtype": "Data"
+        },
+        {
+            "fieldname": "vision_left_sphere",
+            "label": "Левый глаз - Сфера",
+            "fieldtype": "Float"
+        },
+        {
+            "fieldname": "vision_left_cylinder",
+            "label": "Левый глаз - Цилиндр",
+            "fieldtype": "Float"
+        },
+        {
+            "fieldname": "vision_left_axis",
+            "label": "Левый глаз - Ось",
+            "fieldtype": "Int"
+        },
+        {
+            "fieldname": "vision_right_sphere",
+            "label": "Правый глаз - Сфера",
+            "fieldtype": "Float"
+        },
+        {
+            "fieldname": "vision_right_cylinder",
+            "label": "Правый глаз - Цилиндр",
+            "fieldtype": "Float"
+        },
+        {
+            "fieldname": "vision_right_axis",
+            "label": "Правый глаз - Ось",
+            "fieldtype": "Int"
+        },
+        {
+            "fieldname": "notes",
+            "label": "Заметки",
+            "fieldtype": "Text"
+        },
+        {
+            "fieldname": "next_checkup",
+            "label": "Следующий осмотр",
+            "fieldtype": "Date"
+        }
+    ]
+}
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+frappe.get_doc(vision_test_doctype).insert()
+```
+
+### 4. Настройка переменных окружения
+
+Создайте файл `.env.local` в корне проекта:
+
+```env
+VITE_FRAPPE_URL=https://your-frappe-site.com
+VITE_FRAPPE_API_KEY=your-api-key
+VITE_FRAPPE_API_SECRET=your-api-secret
+```
+
+### 5. Настройка API клиента
+
+Создайте файл конфигурации API:
+
+```typescript
+// src/lib/frappe-api.ts
+export const frappeConfig = {
+  baseURL: import.meta.env.VITE_FRAPPE_URL || 'http://localhost:8000',
+  apiKey: import.meta.env.VITE_FRAPPE_API_KEY,
+  apiSecret: import.meta.env.VITE_FRAPPE_API_SECRET,
+};
+
+export class FrappeAPI {
+  private baseURL: string;
+  private apiKey: string;
+  private apiSecret: string;
+
+  constructor() {
+    this.baseURL = frappeConfig.baseURL;
+    this.apiKey = frappeConfig.apiKey;
+    this.apiSecret = frappeConfig.apiSecret;
+  }
+
+  private getHeaders() {
+    return {
+      'Authorization': `token ${this.apiKey}:${this.apiSecret}`,
+      'Content-Type': 'application/json',
+    };
+  }
+
+  // Методы для работы с API...
+}
+```
+
+## 📋 Функциональность
+
+### Текущие возможности
+- ✅ Дашборд с KPI метриками
+- ✅ Управление стандартами работы
+- ✅ Календарь задач
+- ✅ Адаптивный дизайн
+- ✅ Система аутентификации
+
+### Планируемые интеграции с Frappe
+- 🔄 Управление клиентами
+- 🔄 Каталог товаров (оправы, линзы)
+- 🔄 Система заказов
+- 🔄 Проверка зрения
+- 🔄 Инвентаризация
+- 🔄 Отчеты и аналитика
+- 🔄 CRM функции
+
+## 🏗️ Архитектура
+
+```
+src/
+├── components/
+│   ├── auth/          # Компоненты аутентификации
+│   ├── navigation/    # Навигация
+│   ├── sections/      # Основные разделы
+│   └── ui/           # UI компоненты (shadcn/ui)
+├── lib/
+│   ├── frappe-api.ts  # API клиент для Frappe
+│   └── utils.ts      # Утилиты
+├── hooks/            # React хуки
+└── pages/           # Страницы приложения
+```
+
+## 🔌 API Документация
+
+Подробная документация API доступна в [docs/frappe-api.md](./docs/frappe-api.md)
+
+### Основные эндпоинты:
+- `/api/resource/Customer` - Управление клиентами
+- `/api/resource/Item` - Каталог товаров
+- `/api/resource/Sales Order` - Заказы
+- `/api/resource/Vision Test` - Проверка зрения
+
+## 🚀 Развертывание
+
+### Фронтенд (Lovable)
+1. Нажмите кнопку "Publish" в Lovable
+2. Настройте кастомный домен (опционально)
+
+### Фронтенд (самостоятельно)
+```bash
+# Сборка
+npm run build
+
+# Развертывание на любом web-сервере
+# Статические файлы будут в папке dist/
+```
+
+### Frappe/ERPNext
+Следуйте [официальной документации Frappe](https://frappeframework.com/docs/user/en/installation) для production развертывания.
+
+## 🔧 Настройка Frappe для оптики
+
+### Дополнительные настройки
+
+1. **Создание групп товаров:**
+   ```
+   - Frames (Оправы)
+     - Designer Frames
+     - Budget Frames
+   - Lenses (Линзы)
+     - Single Vision
+     - Bifocal
+     - Progressive
+   - Accessories (Аксессуары)
+   ```
+
+2. **Настройка складов:**
+   ```
+   - Display Room (Выставочный зал)
+   - Storage (Склад)
+   - Repair Shop (Мастерская)
+   ```
+
+3. **Пользовательские роли:**
+   ```
+   - Optician (Оптик)
+   - Manager (Менеджер)
+   - Optometrist (Оптометрист)
+   ```
+
+## 🤝 Поддержка
+
+- Документация Frappe: https://frappeframework.com/docs
+- Документация ERPNext: https://docs.erpnext.com
+- Сообщество: https://discuss.frappe.io
+
+## 📄 Лицензия
+
+MIT License - подробности в файле [LICENSE](LICENSE)
