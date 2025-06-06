@@ -1,4 +1,3 @@
-
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { frappeAPI, FrappeAPIError } from '@/lib/frappe-api';
 import { toast } from '@/components/ui/sonner';
@@ -11,6 +10,7 @@ export function useFrappeQuery<T>(
     enabled?: boolean;
     staleTime?: number;
     cacheTime?: number;
+    retry?: number | boolean | ((failureCount: number, error: any) => boolean);
   } = {}
 ) {
   return useQuery({
@@ -19,7 +19,7 @@ export function useFrappeQuery<T>(
     enabled: !!frappeAPI && (options.enabled !== false),
     staleTime: options.staleTime || 5 * 60 * 1000, // 5 minutes
     gcTime: options.cacheTime || 10 * 60 * 1000, // 10 minutes
-    retry: (failureCount, error) => {
+    retry: options.retry !== undefined ? options.retry : (failureCount, error) => {
       // Don't retry on authentication errors
       if (error instanceof FrappeAPIError && error.statusCode === 401) {
         return false;
