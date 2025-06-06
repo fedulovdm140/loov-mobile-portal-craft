@@ -77,3 +77,91 @@ export const getTelegramWebApp = (): TelegramWebApp | undefined => {
 export const isTelegramWebApp = (): boolean => {
   return !!window.Telegram?.WebApp;
 };
+
+// Telegram service object that provides all the methods needed by useTelegram hook
+export const telegramService = {
+  isInTelegram(): boolean {
+    return isTelegramWebApp();
+  },
+
+  getUserData() {
+    const webApp = getTelegramWebApp();
+    return webApp?.initDataUnsafe?.user || null;
+  },
+
+  getThemeParams() {
+    const webApp = getTelegramWebApp();
+    return webApp?.themeParams || {};
+  },
+
+  setMainButton(text: string, onClick: () => void) {
+    const webApp = getTelegramWebApp();
+    if (webApp) {
+      webApp.MainButton.setText(text);
+      webApp.MainButton.onClick(onClick);
+      webApp.MainButton.show();
+    }
+  },
+
+  hideMainButton() {
+    const webApp = getTelegramWebApp();
+    if (webApp) {
+      webApp.MainButton.hide();
+    }
+  },
+
+  setBackButton(onClick: () => void) {
+    const webApp = getTelegramWebApp();
+    if (webApp) {
+      webApp.BackButton.onClick(onClick);
+      webApp.BackButton.show();
+    }
+  },
+
+  hideBackButton() {
+    const webApp = getTelegramWebApp();
+    if (webApp) {
+      webApp.BackButton.hide();
+    }
+  },
+
+  hapticFeedback(type: 'impact' | 'notification' | 'selection', style?: string) {
+    const webApp = getTelegramWebApp();
+    if (webApp) {
+      if (type === 'impact') {
+        webApp.HapticFeedback.impactOccurred(style as any || 'light');
+      } else if (type === 'notification') {
+        webApp.HapticFeedback.notificationOccurred(style as any || 'success');
+      } else if (type === 'selection') {
+        webApp.HapticFeedback.selectionChanged();
+      }
+    }
+  },
+
+  showAlert(message: string) {
+    alert(message);
+  },
+
+  showConfirm(message: string): boolean {
+    return confirm(message);
+  },
+
+  expand() {
+    const webApp = getTelegramWebApp();
+    if (webApp) {
+      webApp.expand();
+    }
+  },
+
+  close() {
+    const webApp = getTelegramWebApp();
+    if (webApp) {
+      webApp.close();
+    }
+  },
+
+  getViewportHeight(): number {
+    const webApp = getTelegramWebApp();
+    return webApp?.viewportHeight || window.innerHeight;
+  }
+};
