@@ -1,28 +1,6 @@
 
-// Frappe API client with error handling and TypeScript support
-import { toast } from '@/components/ui/sonner';
+// Frappe API Client для оптики LOOV
 
-// Types for Frappe API
-export interface FrappeResponse<T = any> {
-  message: T;
-  data?: T;
-  exc_type?: string;
-  exc?: string;
-}
-
-export interface FrappeListResponse<T = any> {
-  data: T[];
-  message?: string;
-}
-
-export interface FrappeError {
-  message: string;
-  exc_type?: string;
-  exc?: string;
-  statusCode: number;
-}
-
-// Custom error class for Frappe API
 export class FrappeAPIError extends Error {
   constructor(
     public statusCode: number,
@@ -34,239 +12,218 @@ export class FrappeAPIError extends Error {
   }
 }
 
-// Configuration interface
-interface FrappeConfig {
-  baseUrl: string;
-  apiKey: string;
-  apiSecret: string;
-}
+export class FrappeAPIClient {
+  private baseURL: string;
+  private apiKey: string;
+  private apiSecret: string;
 
-export class FrappeAPI {
-  private config: FrappeConfig;
-
-  constructor(config: FrappeConfig) {
-    this.config = config;
+  constructor(baseURL: string, apiKey: string, apiSecret: string) {
+    this.baseURL = baseURL.replace(/\/$/, ''); // Remove trailing slash
+    this.apiKey = apiKey;
+    this.apiSecret = apiSecret;
   }
 
   private getHeaders(): Record<string, string> {
     return {
-      'Authorization': `token ${this.config.apiKey}:${this.config.apiSecret}`,
+      'Authorization': `token ${this.apiKey}:${this.apiSecret}`,
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     };
   }
 
-  private async handleResponse<T>(response: Response): Promise<T> {
-    const contentType = response.headers.get('content-type');
-    
-    if (!contentType?.includes('application/json')) {
-      throw new FrappeAPIError(
-        response.status,
-        null,
-        'Invalid response format - expected JSON'
-      );
-    }
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      const errorMessage = data.message || data.exc || 'Unknown error occurred';
-      throw new FrappeAPIError(response.status, data, errorMessage);
-    }
-
-    return data;
-  }
-
-  private async makeRequest<T>(
+  private async makeRequest(
     endpoint: string,
     options: RequestInit = {}
-  ): Promise<T> {
-    const url = `${this.config.baseUrl}${endpoint}`;
+  ): Promise<any> {
+    const url = `${this.baseURL}${endpoint}`;
     
-    try {
-      const response = await fetch(url, {
-        ...options,
-        headers: {
-          ...this.getHeaders(),
-          ...options.headers,
-        },
-      });
+    const config: RequestInit = {
+      ...options,
+      headers: {
+        ...this.getHeaders(),
+        ...options.headers,
+      },
+    };
 
-      return await this.handleResponse<T>(response);
-    } catch (error) {
-      if (error instanceof FrappeAPIError) {
-        // Log specific Frappe errors
-        console.error('Frappe API Error:', {
-          statusCode: error.statusCode,
-          message: error.message,
-          response: error.response
-        });
-        
-        // Show user-friendly error messages
-        switch (error.statusCode) {
-          case 401:
-            toast.error('Ошибка авторизации. Проверьте API ключи.');
-            break;
-          case 403:
-            toast.error('Доступ запрещен. Недостаточно прав.');
-            break;
-          case 404:
-            toast.error('Ресурс не найден.');
-            break;
-          case 422:
-            toast.error(`Ошибка валидации: ${error.message}`);
-            break;
-          case 500:
-            toast.error('Внутренняя ошибка сервера. Попробуйте позже.');
-            break;
-          default:
-            toast.error(`Ошибка API: ${error.message}`);
+    try {
+      const response = await fetch(url, config);
+      
+      if (!response.ok) {
+        let errorData;
+        try {
+          errorData = await response.json();
+        } catch {
+          errorData = { message: response.statusText };
         }
         
+        throw new FrappeAPIError(
+          response.status,
+          errorData,
+          errorData.message || `HTTP ${response.status}: ${response.statusText}`
+        );
+      }
+
+      return await response.json();
+    } catch (error) {
+      if (error instanceof FrappeAPIError) {
         throw error;
       }
-      
-      // Network or other errors
-      console.error('Network or other error:', error);
-      toast.error('Ошибка сети. Проверьте подключение к интернету.');
-      throw new FrappeAPIError(0, null, 'Network error');
+      throw new FrappeAPIError(0, null, `Network error: ${error.message}`);
     }
   }
 
-  // Generic CRUD operations
-  async get<T>(doctype: string, options: {
-    filters?: Array<[string, string, any]>;
-    fields?: string[];
-    orderBy?: string;
-    limit?: number;
-    offset?: number;
-  } = {}): Promise<FrappeListResponse<T>> {
-    const params = new URLSearchParams();
+  // Customers API
+  async getCustomers(search?: string): Promise<any> {
+    let endpoint = '/api/resource/Customer?fields=["name","customer_name","customer_type","territory","mobile_no","email_id"]';
     
-    if (options.filters?.length) {
-      params.append('filters', JSON.stringify(options.filters));
+    if (search) {
+      const filters = JSON.stringify([["customer_name", "like", `%${search}%`]]);
+      endpoint += `&filters=${encodeURIComponent(filters)}`;
     }
     
-    if (options.fields?.length) {
-      params.append('fields', JSON.stringify(options.fields));
-    }
-    
-    if (options.orderBy) {
-      params.append('order_by', options.orderBy);
-    }
-    
-    if (options.limit) {
-      params.append('limit_page_length', options.limit.toString());
-    }
-    
-    if (options.offset) {
-      params.append('limit_start', options.offset.toString());
-    }
-
-    const queryString = params.toString();
-    const endpoint = `/api/resource/${doctype}${queryString ? `?${queryString}` : ''}`;
-    
-    return this.makeRequest<FrappeListResponse<T>>(endpoint);
+    return this.makeRequest(endpoint);
   }
 
-  async getById<T>(doctype: string, id: string): Promise<FrappeResponse<T>> {
-    return this.makeRequest<FrappeResponse<T>>(`/api/resource/${doctype}/${id}`);
-  }
-
-  async create<T>(doctype: string, data: any): Promise<FrappeResponse<T>> {
-    return this.makeRequest<FrappeResponse<T>>(`/api/resource/${doctype}`, {
+  async createCustomer(customerData: any): Promise<any> {
+    return this.makeRequest('/api/resource/Customer', {
       method: 'POST',
-      body: JSON.stringify(data),
+      body: JSON.stringify(customerData),
     });
   }
 
-  async update<T>(doctype: string, id: string, data: any): Promise<FrappeResponse<T>> {
-    return this.makeRequest<FrappeResponse<T>>(`/api/resource/${doctype}/${id}`, {
+  async getCustomer(customerId: string): Promise<any> {
+    return this.makeRequest(`/api/resource/Customer/${customerId}`);
+  }
+
+  async updateCustomer(customerId: string, customerData: any): Promise<any> {
+    return this.makeRequest(`/api/resource/Customer/${customerId}`, {
       method: 'PUT',
-      body: JSON.stringify(data),
+      body: JSON.stringify(customerData),
     });
   }
 
-  async delete(doctype: string, id: string): Promise<FrappeResponse> {
-    return this.makeRequest<FrappeResponse>(`/api/resource/${doctype}/${id}`, {
-      method: 'DELETE',
-    });
+  // Products API
+  async searchProducts(search: string): Promise<any> {
+    const filters = JSON.stringify([["item_name", "like", `%${search}%`]]);
+    const endpoint = `/api/resource/Item?filters=${encodeURIComponent(filters)}&fields=["name","item_name","item_code","standard_rate","stock_qty","item_group"]`;
+    
+    return this.makeRequest(endpoint);
   }
 
-  async callMethod<T>(method: string, args: any = {}): Promise<FrappeResponse<T>> {
-    return this.makeRequest<FrappeResponse<T>>(`/api/method/${method}`, {
+  async getProducts(): Promise<any> {
+    return this.makeRequest('/api/resource/Item?fields=["name","item_name","item_code","standard_rate","stock_qty","item_group"]');
+  }
+
+  async getProduct(itemCode: string): Promise<any> {
+    return this.makeRequest(`/api/resource/Item/${itemCode}`);
+  }
+
+  // Orders API
+  async getOrders(customerId?: string): Promise<any> {
+    let endpoint = '/api/resource/Sales Order?fields=["name","customer","status","grand_total","transaction_date","delivery_date"]';
+    
+    if (customerId) {
+      const filters = JSON.stringify([["customer", "=", customerId]]);
+      endpoint += `&filters=${encodeURIComponent(filters)}`;
+    }
+    
+    return this.makeRequest(endpoint);
+  }
+
+  async createOrder(orderData: any): Promise<any> {
+    return this.makeRequest('/api/resource/Sales Order', {
       method: 'POST',
-      body: JSON.stringify(args),
+      body: JSON.stringify(orderData),
     });
   }
 
-  // Specific methods for the optical store
-  async searchProducts(query: string) {
-    return this.get('Item', {
-      filters: [['item_name', 'like', `%${query}%`]],
-      fields: ['name', 'item_name', 'item_code', 'standard_rate', 'custom_brand', 'custom_model']
+  async getOrder(orderId: string): Promise<any> {
+    return this.makeRequest(`/api/resource/Sales Order/${orderId}`);
+  }
+
+  async updateOrder(orderId: string, orderData: any): Promise<any> {
+    return this.makeRequest(`/api/resource/Sales Order/${orderId}`, {
+      method: 'PUT',
+      body: JSON.stringify(orderData),
     });
   }
 
-  async getCustomers(search?: string) {
-    const filters = search 
-      ? [['customer_name', 'like', `%${search}%`] as [string, string, string]]
-      : undefined;
+  // Vision Tests API
+  async getVisionTests(customerId: string): Promise<any> {
+    const filters = JSON.stringify([["customer", "=", customerId]]);
+    const endpoint = `/api/resource/Vision Test?filters=${encodeURIComponent(filters)}&fields=["name","customer","test_date","optometrist","vision_left_sphere","vision_left_cylinder","vision_left_axis","vision_right_sphere","vision_right_cylinder","vision_right_axis","notes"]&order_by="test_date desc"`;
     
-    return this.get('Customer', {
-      filters,
-      fields: ['name', 'customer_name', 'custom_phone', 'custom_email', 'custom_last_visit']
+    return this.makeRequest(endpoint);
+  }
+
+  async createVisionTest(testData: any): Promise<any> {
+    return this.makeRequest('/api/resource/Vision Test', {
+      method: 'POST',
+      body: JSON.stringify(testData),
     });
   }
 
-  async createCustomer(customerData: any) {
-    return this.create('Customer', customerData);
+  async getVisionTest(testId: string): Promise<any> {
+    return this.makeRequest(`/api/resource/Vision Test/${testId}`);
   }
 
-  async getOrders(customerId?: string) {
-    const filters = customerId 
-      ? [['customer', '=', customerId] as [string, string, string]]
-      : undefined;
+  // Inventory API
+  async getStockBalance(itemCode: string, warehouse?: string): Promise<any> {
+    let endpoint = `/api/method/erpnext.stock.utils.get_stock_balance?item_code=${itemCode}`;
+    if (warehouse) {
+      endpoint += `&warehouse=${warehouse}`;
+    }
+    return this.makeRequest(endpoint);
+  }
+
+  // Generic API methods
+  async callMethod(method: string, args?: any): Promise<any> {
+    const endpoint = `/api/method/${method}`;
     
-    return this.get('Sales Order', {
-      filters,
-      fields: ['name', 'customer', 'status', 'grand_total', 'transaction_date'],
-      orderBy: 'transaction_date desc'
-    });
+    if (args) {
+      return this.makeRequest(endpoint, {
+        method: 'POST',
+        body: JSON.stringify(args),
+      });
+    }
+    
+    return this.makeRequest(endpoint);
   }
 
-  async createOrder(orderData: any) {
-    return this.create('Sales Order', orderData);
-  }
-
-  async getVisionTests(customerId: string) {
-    return this.get('Vision Test', {
-      filters: [['customer', '=', customerId]],
-      orderBy: 'test_date desc'
-    });
-  }
-
-  async createVisionTest(testData: any) {
-    return this.create('Vision Test', testData);
+  async getResource(doctype: string, filters?: any, fields?: string[]): Promise<any> {
+    let endpoint = `/api/resource/${doctype}`;
+    
+    const params = new URLSearchParams();
+    if (filters) {
+      params.append('filters', JSON.stringify(filters));
+    }
+    if (fields) {
+      params.append('fields', JSON.stringify(fields));
+    }
+    
+    if (params.toString()) {
+      endpoint += `?${params.toString()}`;
+    }
+    
+    return this.makeRequest(endpoint);
   }
 }
 
-// Create default instance
-const createFrappeAPI = () => {
-  const baseUrl = import.meta.env.VITE_FRAPPE_URL;
-  const apiKey = import.meta.env.VITE_FRAPPE_API_KEY;
-  const apiSecret = import.meta.env.VITE_FRAPPE_API_SECRET;
+// Create global instance (will be null if env vars are not set)
+let frappeAPI: FrappeAPIClient | null = null;
 
-  if (!baseUrl || !apiKey || !apiSecret) {
-    console.warn('Frappe API credentials not configured');
-    return null;
-  }
+// Initialize API client if environment variables are available
+const frappeUrl = import.meta.env.VITE_FRAPPE_URL;
+const frappeApiKey = import.meta.env.VITE_FRAPPE_API_KEY;
+const frappeApiSecret = import.meta.env.VITE_FRAPPE_API_SECRET;
 
-  return new FrappeAPI({
-    baseUrl,
-    apiKey,
-    apiSecret
-  });
-};
+if (frappeUrl && frappeApiKey && frappeApiSecret) {
+  frappeAPI = new FrappeAPIClient(frappeUrl, frappeApiKey, frappeApiSecret);
+  console.log('Frappe API client initialized');
+} else {
+  console.warn('Frappe API credentials not found in environment variables');
+  console.warn('Required: VITE_FRAPPE_URL, VITE_FRAPPE_API_KEY, VITE_FRAPPE_API_SECRET');
+}
 
-export const frappeAPI = createFrappeAPI();
+export { frappeAPI };
+export default FrappeAPIClient;
