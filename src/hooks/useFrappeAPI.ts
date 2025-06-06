@@ -1,4 +1,3 @@
-
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { frappeAPI, FrappeAPIError } from '@/lib/frappe-api';
 import { toast } from '@/components/ui/sonner';
@@ -44,7 +43,7 @@ function handleAPIError(error: any): APIError {
       message: error.message || 'Произошла ошибка API',
       statusCode: error.statusCode,
       type,
-      details: error.details
+      details: error.response
     };
   }
 
