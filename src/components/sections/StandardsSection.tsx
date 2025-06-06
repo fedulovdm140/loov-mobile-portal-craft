@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Progress } from "@/components/ui/progress";
+import { BookOpen, User, ExternalLink, Play, CheckCircle } from "lucide-react";
 import { useState } from "react";
 
 export const StandardsSection = () => {
@@ -32,10 +33,21 @@ export const StandardsSection = () => {
         "NPS ≥ 85%, жалоб ≤ 2 в месяц",
         "Конверсия Входящий→Оформленные заказы ≥ 70%"
       ],
-      standards: [
-        "Конверсия Входящий→Продажи ≥ 70%, ≥ 5 персонализированных предложений в смену"
+      articles: [
+        { title: "Базовый подход заботы в LOOV", type: "guide" },
+        { title: "Работа с CJM", type: "methodology" },
+        { title: "Стандарты обслуживания клиентов", type: "standard" }
       ],
-      links: ["Базовый подход заботы в LOOV", "Работа с CJM"]
+      courses: {
+        assigned: [
+          { title: "Основы клиентского сервиса", progress: 60, deadline: "15.12.2024", lmsUrl: "#" },
+          { title: "Работа с возражениями", progress: 30, deadline: "20.12.2024", lmsUrl: "#" }
+        ],
+        completed: [
+          { title: "Введение в LOOV", completedDate: "10.11.2024", score: 95, lmsUrl: "#" },
+          { title: "Корпоративная культура", completedDate: "05.11.2024", score: 88, lmsUrl: "#" }
+        ]
+      }
     },
     {
       id: "sales",
@@ -50,11 +62,19 @@ export const StandardsSection = () => {
         "План продаж ≥ 100%, допродажи в ≥ 50% заказов",
         "Средний чек с ценовой значимостью"
       ],
-      standards: [
-        "Тест по продуктам >90%",
-        "Выполненные целевые планы продаж"
+      articles: [
+        { title: "Структура Рудников в Клубах и Клиниках", type: "guide" },
+        { title: "Техники продаж LOOV", type: "methodology" }
       ],
-      links: ["Структура Рудников в Клубах и Клиниках"]
+      courses: {
+        assigned: [
+          { title: "Продажи очков и линз", progress: 85, deadline: "18.12.2024", lmsUrl: "#" }
+        ],
+        completed: [
+          { title: "Знание продуктовой линейки", completedDate: "12.11.2024", score: 92, lmsUrl: "#" },
+          { title: "Работа с планом продаж", completedDate: "08.11.2024", score: 90, lmsUrl: "#" }
+        ]
+      }
     },
     {
       id: "development",
@@ -68,8 +88,18 @@ export const StandardsSection = () => {
       metrics: [
         "Пройденные тесты >80%, Грейды??"
       ],
-      standards: [],
-      links: []
+      articles: [
+        { title: "План профессионального развития", type: "guide" },
+        { title: "Система грейдов LOOV", type: "standard" }
+      ],
+      courses: {
+        assigned: [],
+        completed: [
+          { title: "Личная эффективность", completedDate: "20.11.2024", score: 95, lmsUrl: "#" },
+          { title: "Основы лидерства", completedDate: "15.11.2024", score: 87, lmsUrl: "#" },
+          { title: "Управление временем", completedDate: "10.11.2024", score: 93, lmsUrl: "#" }
+        ]
+      }
     },
     {
       id: "crm",
@@ -84,10 +114,18 @@ export const StandardsSection = () => {
         "100% заказов и клиентов заведены без ошибок",
         "Ввод данных ≤ 5 минут после заказа"
       ],
-      standards: [
-        "0 замечаний по выкладке при еженедельных проверках, онлайн и офлайн ТП"
+      articles: [
+        { title: "Заказы. Общая информация", type: "guide" },
+        { title: "Работа с CRM системой", type: "methodology" }
       ],
-      links: ["Заказы. Общая информация", "Основные принципы выкладки оправ"]
+      courses: {
+        assigned: [
+          { title: "Работа с CRM", progress: 45, deadline: "25.12.2024", lmsUrl: "#" }
+        ],
+        completed: [
+          { title: "Основы CRM", completedDate: "18.11.2024", score: 88, lmsUrl: "#" }
+        ]
+      }
     },
     {
       id: "inventory",
@@ -101,8 +139,19 @@ export const StandardsSection = () => {
       metrics: [
         "Расхождение <1%, 100% участие в инвентаризациях"
       ],
-      standards: [],
-      links: ["Мерчендайзинг с учетом приоритета LOOV", "Идеальная инвентаризация"]
+      articles: [
+        { title: "Мерчендайзинг с учетом приоритета LOOV", type: "guide" },
+        { title: "Идеальная инвентаризация", type: "methodology" },
+        { title: "Основные принципы выкладки оправ", type: "standard" }
+      ],
+      courses: {
+        assigned: [
+          { title: "Инвентаризация товаров", progress: 70, deadline: "22.12.2024", lmsUrl: "#" }
+        ],
+        completed: [
+          { title: "Основы мерчендайзинга", completedDate: "16.11.2024", score: 91, lmsUrl: "#" }
+        ]
+      }
     },
     {
       id: "atmosphere",
@@ -116,8 +165,19 @@ export const StandardsSection = () => {
       metrics: [
         "0 замечаний по форме и музыке при еженедельных проверках ТП"
       ],
-      standards: [],
-      links: ["Стандарт внешнего вида в клубах и клиниках LOOV", "Музыка в LOOV", "Микроклимат в LOOV"]
+      articles: [
+        { title: "Стандарт внешнего вида в клубах и клиниках LOOV", type: "standard" },
+        { title: "Музыка в LOOV", type: "guide" },
+        { title: "Микроклимат в LOOV", type: "guide" }
+      ],
+      courses: {
+        assigned: [
+          { title: "Стандарты оформления торгового зала", progress: 40, deadline: "30.12.2024", lmsUrl: "#" }
+        ],
+        completed: [
+          { title: "Дресс-код LOOV", completedDate: "14.11.2024", score: 96, lmsUrl: "#" }
+        ]
+      }
     },
     {
       id: "cashier",
@@ -131,8 +191,17 @@ export const StandardsSection = () => {
       metrics: [
         "0 ошибок в кассовых операциях, время на кассе ≤ 3 минуты"
       ],
-      standards: [],
-      links: ["Кассовые операции"]
+      articles: [
+        { title: "Кассовые операции", type: "guide" },
+        { title: "Работа с платежными системами", type: "methodology" }
+      ],
+      courses: {
+        assigned: [],
+        completed: [
+          { title: "Кассовая дисциплина", completedDate: "22.11.2024", score: 98, lmsUrl: "#" },
+          { title: "Работа с эквайрингом", completedDate: "19.11.2024", score: 94, lmsUrl: "#" }
+        ]
+      }
     },
     {
       id: "craftsmen",
@@ -146,10 +215,18 @@ export const StandardsSection = () => {
       metrics: [
         "100% заказов переданы с корректными параметрами, ошибки ≤ 1%"
       ],
-      standards: [
-        "Контролируем сроки заказов"
+      articles: [
+        { title: "Как принимать и отдавать заказы на ремонт и изготовление", type: "guide" },
+        { title: "Контроль качества изготовления", type: "methodology" }
       ],
-      links: ["Как принимать и отдавать заказы на ремонт и изготовление"]
+      courses: {
+        assigned: [
+          { title: "Работа с производством", progress: 80, deadline: "28.12.2024", lmsUrl: "#" }
+        ],
+        completed: [
+          { title: "Технические параметры заказов", completedDate: "25.11.2024", score: 89, lmsUrl: "#" }
+        ]
+      }
     },
     {
       id: "optometrists",
@@ -164,8 +241,18 @@ export const StandardsSection = () => {
         "≥ 95% заказов выполнены в срок, 100% клиентов уведомлены",
         "Конверсия Входящий→Проверка зрения ≥ 80%, время ожидания ≤ 15 минут"
       ],
-      standards: [],
-      links: []
+      articles: [
+        { title: "Организация проверки зрения", type: "guide" },
+        { title: "Взаимодействие с врачами", type: "methodology" }
+      ],
+      courses: {
+        assigned: [
+          { title: "Основы оптометрии", progress: 55, deadline: "02.01.2025", lmsUrl: "#" }
+        ],
+        completed: [
+          { title: "Расписание врачей", completedDate: "28.11.2024", score: 85, lmsUrl: "#" }
+        ]
+      }
     }
   ];
 
@@ -186,6 +273,24 @@ export const StandardsSection = () => {
       case "active": return "Активен";
       case "assigned": return "Назначен";
       default: return "Не назначен";
+    }
+  };
+
+  const getArticleTypeIcon = (type: string) => {
+    switch (type) {
+      case "guide": return <BookOpen className="h-4 w-4" />;
+      case "methodology": return <BookOpen className="h-4 w-4" />;
+      case "standard": return <BookOpen className="h-4 w-4" />;
+      default: return <BookOpen className="h-4 w-4" />;
+    }
+  };
+
+  const getArticleTypeBadge = (type: string) => {
+    switch (type) {
+      case "guide": return "Руководство";
+      case "methodology": return "Методология";
+      case "standard": return "Стандарт";
+      default: return "Документ";
     }
   };
 
@@ -233,67 +338,116 @@ export const StandardsSection = () => {
               
               <CollapsibleContent>
                 <CardContent className="border-t">
-                  <div className="grid md:grid-cols-2 gap-6 pt-4">
-                    {/* Информация о зоне ответственности */}
-                    <div>
-                      <h4 className="font-medium mb-3">Информация о стандарте</h4>
-                      <div className="space-y-3">
-                        <div className="p-3 border rounded-lg">
-                          <div className="text-xs text-muted-foreground mb-1">Ответственный</div>
-                          <div className="text-sm font-medium">{standard.responsible}</div>
-                        </div>
-                        <div className="p-3 border rounded-lg">
-                          <div className="text-xs text-muted-foreground mb-1">Владелец процесса</div>
-                          <div className="text-sm font-medium">{standard.owner}</div>
-                        </div>
-                        {standard.metrics.length > 0 && (
-                          <div className="p-3 border rounded-lg">
-                            <div className="text-xs text-muted-foreground mb-2">Метрики</div>
-                            <ul className="space-y-1">
-                              {standard.metrics.map((metric, index) => (
-                                <li key={index} className="text-sm">• {metric}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex gap-2 mt-4">
-                        <Button size="sm">Изучить стандарт</Button>
-                        <Button size="sm" variant="outline">Скачать чек-лист</Button>
+                  <div className="space-y-6 pt-4">
+                    {/* Ответственный */}
+                    <div className="flex items-center gap-3 p-4 border rounded-lg bg-accent/30">
+                      <User className="h-5 w-5 text-primary" />
+                      <div>
+                        <div className="text-sm text-muted-foreground">Ответственный</div>
+                        <div className="font-medium">{standard.responsible}</div>
+                        <div className="text-sm text-muted-foreground">Владелец процесса: {standard.owner}</div>
                       </div>
                     </div>
 
-                    {/* Стандарты и статьи */}
-                    <div>
-                      <h4 className="font-medium mb-3">Стандарты и материалы</h4>
-                      <div className="space-y-3">
-                        {standard.standards.length > 0 && (
-                          <div className="p-3 border rounded-lg">
-                            <div className="text-xs text-muted-foreground mb-2">Стандарты</div>
-                            <ul className="space-y-1">
-                              {standard.standards.map((item, index) => (
-                                <li key={index} className="text-sm">• {item}</li>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      {/* Статьи */}
+                      <div>
+                        <h4 className="font-medium mb-3 flex items-center gap-2">
+                          <BookOpen className="h-4 w-4" />
+                          Статьи и материалы
+                        </h4>
+                        <div className="space-y-2">
+                          {standard.articles.map((article, index) => (
+                            <div key={index} className="p-3 border rounded-lg hover:bg-accent/50 cursor-pointer transition-colors">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-2">
+                                  {getArticleTypeIcon(article.type)}
+                                  <span className="text-sm font-medium">{article.title}</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <Badge variant="outline" className="text-xs">
+                                    {getArticleTypeBadge(article.type)}
+                                  </Badge>
+                                  <ExternalLink className="h-3 w-3" />
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Курсы */}
+                      <div>
+                        <h4 className="font-medium mb-3">Курсы обучения</h4>
+                        
+                        {/* Назначенные курсы */}
+                        {standard.courses.assigned.length > 0 && (
+                          <div className="mb-4">
+                            <h5 className="text-sm font-medium text-muted-foreground mb-2 flex items-center gap-2">
+                              <Play className="h-3 w-3" />
+                              Назначенные курсы
+                            </h5>
+                            <div className="space-y-2">
+                              {standard.courses.assigned.map((course, index) => (
+                                <div key={index} className="p-3 border rounded-lg hover:bg-accent/50 cursor-pointer transition-colors">
+                                  <div className="flex items-center justify-between mb-2">
+                                    <span className="text-sm font-medium">{course.title}</span>
+                                    <Button size="sm" variant="outline" className="h-6 px-2 text-xs">
+                                      Открыть в LMS
+                                      <ExternalLink className="h-3 w-3 ml-1" />
+                                    </Button>
+                                  </div>
+                                  <div className="flex items-center justify-between text-xs text-muted-foreground">
+                                    <span>Прогресс: {course.progress}%</span>
+                                    <span>До: {course.deadline}</span>
+                                  </div>
+                                  <Progress value={course.progress} className="mt-2 h-1" />
+                                </div>
                               ))}
-                            </ul>
+                            </div>
                           </div>
                         )}
-                        {standard.links.length > 0 && (
-                          <div className="p-3 border rounded-lg">
-                            <div className="text-xs text-muted-foreground mb-2">Полезные статьи</div>
-                            <ul className="space-y-1">
-                              {standard.links.map((link, index) => (
-                                <li key={index} className="text-sm text-blue-600 hover:underline cursor-pointer">
-                                  • {link}
-                                </li>
+
+                        {/* Завершенные курсы */}
+                        {standard.courses.completed.length > 0 && (
+                          <div>
+                            <h5 className="text-sm font-medium text-muted-foreground mb-2 flex items-center gap-2">
+                              <CheckCircle className="h-3 w-3" />
+                              Завершенные курсы
+                            </h5>
+                            <div className="space-y-2">
+                              {standard.courses.completed.map((course, index) => (
+                                <div key={index} className="p-3 border rounded-lg hover:bg-accent/50 cursor-pointer transition-colors">
+                                  <div className="flex items-center justify-between mb-2">
+                                    <span className="text-sm font-medium">{course.title}</span>
+                                    <Button size="sm" variant="outline" className="h-6 px-2 text-xs">
+                                      Сертификат
+                                      <ExternalLink className="h-3 w-3 ml-1" />
+                                    </Button>
+                                  </div>
+                                  <div className="flex items-center justify-between text-xs text-muted-foreground">
+                                    <span>Оценка: {course.score}%</span>
+                                    <span>Завершен: {course.completedDate}</span>
+                                  </div>
+                                </div>
                               ))}
-                            </ul>
+                            </div>
                           </div>
                         )}
-                        <Button size="sm" variant="outline" className="w-full">
-                          Открыть полную документацию
-                        </Button>
                       </div>
                     </div>
+
+                    {/* Метрики */}
+                    {standard.metrics.length > 0 && (
+                      <div className="p-4 border rounded-lg bg-muted/30">
+                        <h5 className="text-sm font-medium mb-2">Ключевые метрики</h5>
+                        <ul className="space-y-1">
+                          {standard.metrics.map((metric, index) => (
+                            <li key={index} className="text-sm">• {metric}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </CollapsibleContent>
