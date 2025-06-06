@@ -1,7 +1,6 @@
+# LoovIS - Информационная система управления салоном оптики
 
-# LOOV Оптика - Система управления салоном оптики
-
-Современная web-система для управления салоном оптики с интеграцией Frappe/ERPNext.
+Современная web-система для управления салоном оптики с интеграцией Frappe/ERPNext и поддержкой Telegram Mini App.
 
 ## 🚀 Быстрый старт
 
@@ -9,13 +8,14 @@
 - Node.js 18+ 
 - npm или bun
 - Frappe/ERPNext сервер
+- Telegram Bot (для Mini App)
 
 ### Установка фронтенда
 
 1. **Клонируйте репозиторий:**
    ```bash
    git clone <YOUR_GIT_URL>
-   cd <YOUR_PROJECT_NAME>
+   cd loovis
    ```
 
 2. **Установите зависимости:**
@@ -34,237 +34,96 @@
 
 Приложение будет доступно по адресу `http://localhost:8080`
 
+## 📱 Telegram Mini App
+
+LoovIS поддерживает работу в качестве Telegram Mini App, что позволяет пользователям получать доступ к системе прямо из Telegram.
+
+### Быстрое развертывание в Telegram
+
+1. **Создайте бота через @BotFather:**
+   ```
+   /newbot
+   Имя: LoovIS Bot
+   Username: loovis_bot
+   ```
+
+2. **Настройте Menu Button:**
+   ```
+   /setmenubutton
+   URL: https://your-domain.com
+   ```
+
+3. **Опубликуйте приложение** через Lovable или на своем хостинге
+
+**📚 Подробная документация по развертыванию в Telegram:** [docs/telegram-deployment.md](./docs/telegram-deployment.md)
+
 ## 🔧 Настройка интеграции с Frappe/ERPNext
 
-### 1. Подготовка Frappe сервера
+### 1. Установка Frappe Framework
 
-#### Установка ERPNext (если еще не установлен)
+Установите Frappe и ERPNext на свой сервер:
+
 ```bash
+# Установка Frappe Bench
+sudo pip3 install frappe-bench
+
 # Создание нового сайта
-bench new-site your-optik-site.com
+bench new-site your-site.com
 
 # Установка ERPNext
-bench --site your-optik-site.com install-app erpnext
-
-# Создание пользователя
-bench --site your-optik-site.com add-user optik-user optik@example.com
+bench --site your-site.com install-app erpnext
 ```
-
-#### Настройка API доступа
-
-1. **Создайте API ключи:**
-   - Войдите в ERPNext как администратор
-   - Перейдите в "User" > найдите пользователя для API
-   - В разделе "API Access" нажмите "Generate Keys"
-   - Сохраните `API Key` и `API Secret`
-
-2. **Настройте CORS (если требуется):**
-   ```python
-   # В site_config.json
-   {
-     "allow_cors": "*",
-     "cors_allowed_origins": [
-       "http://localhost:8080",
-       "https://your-frontend-domain.com"
-     ]
-   }
-   ```
 
 ### 2. Создание кастомных полей
 
-Выполните в Frappe консоли (`bench --site your-site.com console`):
+Добавьте кастомные поля в DocType Customer:
 
-```python
-# Кастомные поля для Customer (Клиент)
-from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
-
-customer_fields = {
-    "Customer": [
-        {
-            "fieldname": "custom_phone",
-            "label": "Телефон",
-            "fieldtype": "Data",
-            "insert_after": "email_id"
-        },
-        {
-            "fieldname": "custom_birth_date",
-            "label": "Дата рождения",
-            "fieldtype": "Date",
-            "insert_after": "custom_phone"
-        },
-        {
-            "fieldname": "custom_vision_left",
-            "label": "Зрение левый глаз",
-            "fieldtype": "Data",
-            "insert_after": "custom_birth_date"
-        },
-        {
-            "fieldname": "custom_vision_right",
-            "label": "Зрение правый глаз",
-            "fieldtype": "Data",
-            "insert_after": "custom_vision_left"
-        },
-        {
-            "fieldname": "custom_notes",
-            "label": "Заметки",
-            "fieldtype": "Text",
-            "insert_after": "custom_vision_right"
-        }
-    ]
-}
-
-create_custom_fields(customer_fields)
-
-# Кастомные поля для Item (Товар)
-item_fields = {
-    "Item": [
-        {
-            "fieldname": "custom_brand",
-            "label": "Бренд",
-            "fieldtype": "Data",
-            "insert_after": "item_group"
-        },
-        {
-            "fieldname": "custom_model",
-            "label": "Модель",
-            "fieldtype": "Data",
-            "insert_after": "custom_brand"
-        },
-        {
-            "fieldname": "custom_color",
-            "label": "Цвет",
-            "fieldtype": "Data",
-            "insert_after": "custom_model"
-        },
-        {
-            "fieldname": "custom_size",
-            "label": "Размер",
-            "fieldtype": "Data",
-            "insert_after": "custom_color"
-        }
-    ]
-}
-
-create_custom_fields(item_fields)
-```
+- `custom_phone` (Phone)
+- `custom_email` (Email)
+- `custom_birth_date` (Date)
+- `custom_vision_left` (Small Text)
+- `custom_vision_right` (Small Text)
+- `custom_notes` (Text)
 
 ### 3. Создание DocType для проверки зрения
 
-```python
-# Создание кастомного DocType "Vision Test"
-vision_test_doctype = {
-    "doctype": "DocType",
-    "name": "Vision Test",
-    "module": "Custom",
-    "autoname": "naming_series:",
-    "naming_series_options": "VT-.YYYY.-",
-    "fields": [
-        {
-            "fieldname": "customer",
-            "label": "Клиент",
-            "fieldtype": "Link",
-            "options": "Customer",
-            "reqd": 1
-        },
-        {
-            "fieldname": "test_date",
-            "label": "Дата проверки",
-            "fieldtype": "Date",
-            "reqd": 1
-        },
-        {
-            "fieldname": "optometrist",
-            "label": "Оптометрист",
-            "fieldtype": "Data"
-        },
-        {
-            "fieldname": "vision_left_sphere",
-            "label": "Левый глаз - Сфера",
-            "fieldtype": "Float"
-        },
-        {
-            "fieldname": "vision_left_cylinder",
-            "label": "Левый глаз - Цилиндр",
-            "fieldtype": "Float"
-        },
-        {
-            "fieldname": "vision_left_axis",
-            "label": "Левый глаз - Ось",
-            "fieldtype": "Int"
-        },
-        {
-            "fieldname": "vision_right_sphere",
-            "label": "Правый глаз - Сфера",
-            "fieldtype": "Float"
-        },
-        {
-            "fieldname": "vision_right_cylinder",
-            "label": "Правый глаз - Цилиндр",
-            "fieldtype": "Float"
-        },
-        {
-            "fieldname": "vision_right_axis",
-            "label": "Правый глаз - Ось",
-            "fieldtype": "Int"
-        },
-        {
-            "fieldname": "notes",
-            "label": "Заметки",
-            "fieldtype": "Text"
-        },
-        {
-            "fieldname": "next_checkup",
-            "label": "Следующий осмотр",
-            "fieldtype": "Date"
-        }
-    ]
-}
+Создайте новый DocType `Vision Test` со следующими полями:
 
-frappe.get_doc(vision_test_doctype).insert()
-```
+- `customer` (Link to Customer)
+- `test_date` (Date)
+- `optometrist` (Data)
+- `vision_left_sphere` (Float)
+- `vision_left_cylinder` (Float)
+- `vision_left_axis` (Int)
+- `vision_right_sphere` (Float)
+- `vision_right_cylinder` (Float)
+- `vision_right_axis` (Int)
+- `notes` (Text)
+- `next_checkup` (Date)
 
 ### 4. Настройка переменных окружения
 
 Создайте файл `.env.local` в корне проекта:
 
 ```env
+# Frappe/ERPNext
 VITE_FRAPPE_URL=https://your-frappe-site.com
 VITE_FRAPPE_API_KEY=your-api-key
 VITE_FRAPPE_API_SECRET=your-api-secret
+
+# Telegram Mini App (опционально)
+VITE_TELEGRAM_BOT_TOKEN=your-bot-token
+VITE_IS_TELEGRAM_MINI_APP=true
 ```
 
-### 5. Настройка API клиента
+### 5. Настройка CORS
 
-Создайте файл конфигурации API:
+Настройте CORS в Frappe для разрешения запросов с вашего фронтенда:
 
-```typescript
-// src/lib/frappe-api.ts
-export const frappeConfig = {
-  baseURL: import.meta.env.VITE_FRAPPE_URL || 'http://localhost:8000',
-  apiKey: import.meta.env.VITE_FRAPPE_API_KEY,
-  apiSecret: import.meta.env.VITE_FRAPPE_API_SECRET,
-};
-
-export class FrappeAPI {
-  private baseURL: string;
-  private apiKey: string;
-  private apiSecret: string;
-
-  constructor() {
-    this.baseURL = frappeConfig.baseURL;
-    this.apiKey = frappeConfig.apiKey;
-    this.apiSecret = frappeConfig.apiSecret;
-  }
-
-  private getHeaders() {
-    return {
-      'Authorization': `token ${this.apiKey}:${this.apiSecret}`,
-      'Content-Type': 'application/json',
-    };
-  }
-
-  // Методы для работы с API...
-}
+```python
+# site_config.json
+"allow_cors": "*",
+"allow_cors_origin": "*"
 ```
 
 ## 📋 Функциональность
@@ -275,6 +134,8 @@ export class FrappeAPI {
 - ✅ Календарь задач
 - ✅ Адаптивный дизайн
 - ✅ Система аутентификации
+- ✅ Поддержка Telegram Mini App
+- ✅ Интеграция с Telegram WebApp API
 
 ### Планируемые интеграции с Frappe
 - 🔄 Управление клиентами
@@ -293,11 +154,15 @@ src/
 │   ├── auth/          # Компоненты аутентификации
 │   ├── navigation/    # Навигация
 │   ├── sections/      # Основные разделы
-│   └── ui/           # UI компоненты (shadcn/ui)
+│   ├── ui/           # UI компоненты (shadcn/ui)
+│   └── TelegramAdapter.tsx # Адаптер для Telegram
 ├── lib/
 │   ├── frappe-api.ts  # API клиент для Frappe
+│   ├── telegram.ts    # Telegram WebApp API
 │   └── utils.ts      # Утилиты
-├── hooks/            # React хуки
+├── hooks/
+│   ├── useTelegram.tsx # Хук для работы с Telegram
+│   └── ...           # Другие хуки
 └── pages/           # Страницы приложения
 ```
 
@@ -314,8 +179,9 @@ src/
 ## 🚀 Развертывание
 
 ### Фронтенд (Lovable)
-1. Нажмите кнопку "Publish" в Lovable
-2. Настройте кастомный домен (опционально)
+1. Настройте переменные окружения
+2. Нажмите кнопку "Publish" в Lovable
+3. Настройте кастомный домен (опционально)
 
 ### Фронтенд (самостоятельно)
 ```bash
@@ -326,43 +192,46 @@ npm run build
 # Статические файлы будут в папке dist/
 ```
 
+### Telegram Mini App
+Следуйте инструкциям в [docs/telegram-deployment.md](./docs/telegram-deployment.md)
+
 ### Frappe/ERPNext
 Следуйте [официальной документации Frappe](https://frappeframework.com/docs/user/en/installation) для production развертывания.
 
+## 🔒 Безопасность
+
+### 1. Валидация данных Telegram
+
+В production обязательно проверяйте подпись `initData` на бэкенде для защиты от подделки данных.
+
+### 2. Защита API ключей
+
+Храните API ключи Frappe в безопасном месте и не коммитьте их в репозиторий. Используйте переменные окружения.
+
+### 3. Rate Limiting
+
+Внедрите rate limiting для защиты от злоупотреблений API.
+
 ## 🔧 Настройка Frappe для оптики
 
-### Дополнительные настройки
+### 1. Кастомизация DocTypes
 
-1. **Создание групп товаров:**
-   ```
-   - Frames (Оправы)
-     - Designer Frames
-     - Budget Frames
-   - Lenses (Линзы)
-     - Single Vision
-     - Bifocal
-     - Progressive
-   - Accessories (Аксессуары)
-   ```
+Настройте DocTypes Customer, Item, Sales Order и Vision Test для соответствия потребностям салона оптики.
 
-2. **Настройка складов:**
-   ```
-   - Display Room (Выставочный зал)
-   - Storage (Склад)
-   - Repair Shop (Мастерская)
-   ```
+### 2. Создание отчетов
 
-3. **Пользовательские роли:**
-   ```
-   - Optician (Оптик)
-   - Manager (Менеджер)
-   - Optometrist (Оптометрист)
-   ```
+Создайте кастомные отчеты для анализа продаж, инвентаризации и клиентской базы.
+
+### 3. Настройка разрешений
+
+Настройте права доступа для различных ролей пользователей (администратор, оптометрист, продавец).
 
 ## 🤝 Поддержка
 
 - Документация Frappe: https://frappeframework.com/docs
 - Документация ERPNext: https://docs.erpnext.com
+- Telegram Bot API: https://core.telegram.org/bots/api
+- Telegram Mini Apps: https://core.telegram.org/bots/webapps
 - Сообщество: https://discuss.frappe.io
 
 ## 📄 Лицензия
