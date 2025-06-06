@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -18,116 +17,116 @@ export const StandardsSection = () => {
 
   const standardsData = [
     {
-      id: "organization",
-      title: "Организация работы",
-      description: "Правила и процедуры ведения рабочего процесса в салоне оптики",
+      id: "customer-consultation",
+      title: "Консультирование клиентов",
+      description: "Правила и процедуры консультирования клиентов по выбору оптических изделий",
       status: "completed",
       progress: 100,
       subsections: [
-        { title: "Правила хранения", progress: 100 },
-        { title: "Прием и расстановка теста", progress: 100 },
-        { title: "Прием ингредиентов и товаров", progress: 100 }
+        { title: "Определение потребностей клиента", progress: 100 },
+        { title: "Подбор оправы по типу лица", progress: 100 },
+        { title: "Консультирование по линзам", progress: 100 }
       ],
       courses: [
-        { title: "Основы организации рабочего места оптика", duration: "1.5 часа", progress: 100 },
-        { title: "Правила хранения оптических изделий", duration: "45 мин", progress: 100 }
+        { title: "Основы консультирования в оптике", duration: "2 часа", progress: 100 },
+        { title: "Психология продаж оптических изделий", duration: "1.5 часа", progress: 100 }
       ]
     },
     {
-      id: "cleaning",
-      title: "Уборка в пиццерии",
-      description: "Стандарты чистоты и санитарии в салоне оптики",
+      id: "vision-testing",
+      title: "Проверка зрения",
+      description: "Стандарты проведения диагностики и проверки остроты зрения",
       status: "in-progress",
       progress: 75,
       subsections: [
-        { title: "Ежедневная уборка", progress: 100 },
-        { title: "Дезинфекция оборудования", progress: 75 },
-        { title: "Уборка витрин и оправ", progress: 50 }
+        { title: "Визометрия", progress: 100 },
+        { title: "Рефрактометрия", progress: 75 },
+        { title: "Авторефрактометрия", progress: 50 }
       ],
       courses: [
-        { title: "Санитарные нормы в оптике", duration: "1 час", progress: 100 },
-        { title: "Уход за оптическим оборудованием", duration: "2 часа", progress: 25 }
+        { title: "Методы исследования зрения", duration: "3 часа", progress: 100 },
+        { title: "Работа с диагностическим оборудованием", duration: "2 часа", progress: 25 }
       ]
     },
     {
-      id: "storage",
-      title: "Прием и хранение продуктов",
-      description: "Правила приема, проверки и хранения оптических товаров",
+      id: "lens-selection",
+      title: "Подбор линз",
+      description: "Правила подбора очковых и контактных линз по рецепту врача",
       status: "active",
       progress: 60,
       subsections: [
-        { title: "Правила хранения", progress: 80 },
-        { title: "Прием и расстановка теста", progress: 60 },
-        { title: "Прием ингредиентов и товаров", progress: 40 }
+        { title: "Интерпретация рецепта", progress: 80 },
+        { title: "Типы линз и покрытий", progress: 60 },
+        { title: "Центрирование линз", progress: 40 }
       ],
       courses: [
-        { title: "Приемка товара в оптике", duration: "1 час", progress: 80 },
-        { title: "Контроль качества оптических изделий", duration: "1.5 часа", progress: 0 }
+        { title: "Оптические свойства линз", duration: "2.5 часа", progress: 80 },
+        { title: "Современные покрытия линз", duration: "1.5 часа", progress: 0 }
       ]
     },
     {
-      id: "cold-shop",
-      title: "Холодный цех",
-      description: "Работа с контактными линзами и растворами",
+      id: "contact-lenses",
+      title: "Контактные линзы",
+      description: "Работа с контактными линзами и обучение пациентов",
       status: "assigned",
       progress: 0,
       subsections: [
-        { title: "Правила работы с контактными линзами", progress: 0 },
-        { title: "Хранение растворов", progress: 0 },
-        { title: "Консультирование по уходу", progress: 0 }
+        { title: "Подбор контактных линз", progress: 0 },
+        { title: "Обучение пациентов", progress: 0 },
+        { title: "Уход за контактными линзами", progress: 0 }
       ],
       courses: [
-        { title: "Основы контактной коррекции", duration: "3 часа", progress: 0 },
-        { title: "Подбор и уход за контактными линзами", duration: "2 часа", progress: 0 }
+        { title: "Контактная коррекция зрения", duration: "4 часа", progress: 0 },
+        { title: "Осложнения при ношении КЛ", duration: "2 часа", progress: 0 }
       ]
     },
     {
-      id: "hot-shop",
-      title: "Горячий цех",
-      description: "Работа с оборудованием для изготовления очков",
+      id: "frame-adjustment",
+      title: "Подгонка оправ",
+      description: "Техники правильной подгонки и ремонта очковых оправ",
       status: "assigned",
       progress: 0,
       subsections: [
-        { title: "Безопасность при работе с оборудованием", progress: 0 },
-        { title: "Обработка линз", progress: 0 },
-        { title: "Сборка очков", progress: 0 }
+        { title: "Анатомия лица и посадка оправы", progress: 0 },
+        { title: "Регулировка заушников", progress: 0 },
+        { title: "Ремонт оправ", progress: 0 }
       ],
       courses: [
-        { title: "Технология изготовления очков", duration: "4 часа", progress: 0 },
-        { title: "Безопасность в оптической мастерской", duration: "1 час", progress: 0 }
+        { title: "Техники подгонки оправ", duration: "3 часа", progress: 0 },
+        { title: "Ремонт и обслуживание очков", duration: "2 часа", progress: 0 }
       ]
     },
     {
-      id: "dough-shop",
-      title: "Тестомесильный цех",
-      description: "Работа с диоптрийными очками и сложными случаями",
+      id: "lens-processing",
+      title: "Обработка линз",
+      description: "Технология изготовления и обработки очковых линз",
       status: "assigned", 
       progress: 0,
       subsections: [
-        { title: "Сложные рецепты", progress: 0 },
-        { title: "Прогрессивные линзы", progress: 0 },
-        { title: "Специальные покрытия", progress: 0 }
+        { title: "Разметка и центрирование", progress: 0 },
+        { title: "Обработка на станке", progress: 0 },
+        { title: "Контроль качества", progress: 0 }
       ],
       courses: [
-        { title: "Прогрессивные и офисные линзы", duration: "2.5 часа", progress: 0 },
-        { title: "Специальные покрытия линз", duration: "1.5 часа", progress: 0 }
+        { title: "Технология изготовления очков", duration: "4 часа", progress: 0 },
+        { title: "Работа на обрабатывающем оборудовании", duration: "3 часа", progress: 0 }
       ]
     },
     {
-      id: "cashier",
-      title: "Касса",
-      description: "Работа с кассовым оборудованием и оформление продаж",
+      id: "sales-process",
+      title: "Процесс продажи",
+      description: "Стандарты ведения продаж и обслуживания клиентов",
       status: "active",
       progress: 45,
       subsections: [
-        { title: "Пять принципов удивительного сервиса", progress: 60 },
-        { title: "Работа на станции гости", progress: 30 },
-        { title: "Как решать проблемы гостей", progress: 45 }
+        { title: "Встреча и приветствие клиента", progress: 60 },
+        { title: "Презентация товара", progress: 30 },
+        { title: "Закрытие сделки", progress: 45 }
       ],
       courses: [
-        { title: "Кассовые операции в оптике", duration: "2 часа", progress: 60 },
-        { title: "Работа с программой автоматизации", duration: "1.5 часа", progress: 30 },
-        { title: "Гарантийное обслуживание", duration: "1 час", progress: 0 }
+        { title: "Техники продаж в оптике", duration: "2.5 часа", progress: 60 },
+        { title: "Работа с возражениями", duration: "1.5 часа", progress: 30 },
+        { title: "Послепродажное обслуживание", duration: "1 час", progress: 0 }
       ]
     }
   ];

@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { CalendarSection } from "./CalendarSection";
 
 export const ProfileSection = () => {
   const userEmail = localStorage.getItem("userEmail") || "user@loov.com";
@@ -25,11 +26,11 @@ export const ProfileSection = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-4">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <h1 className="text-2xl font-bold">Мой профиль</h1>
-        <Button variant="outline" onClick={handleLogout}>
+        <Button variant="outline" onClick={handleLogout} className="w-full sm:w-auto">
           Выйти
         </Button>
       </div>
@@ -37,7 +38,7 @@ export const ProfileSection = () => {
       {/* Profile Header Card */}
       <Card>
         <CardContent className="pt-6">
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+          <div className="flex flex-col items-center gap-6">
             <div className="flex flex-col items-center">
               <Avatar className="h-24 w-24 md:h-32 md:w-32">
                 <AvatarImage src="" />
@@ -48,12 +49,12 @@ export const ProfileSection = () => {
               </Button>
             </div>
             
-            <div className="flex-1 text-center md:text-left">
+            <div className="flex-1 text-center w-full">
               <h2 className="text-2xl font-bold">{userName}</h2>
               <p className="text-lg text-muted-foreground mb-2">{userPosition}</p>
               <p className="text-sm text-muted-foreground mb-4">Салон оптики "Четкое зрение", Москва</p>
               
-              <div className="flex flex-wrap gap-2 justify-center md:justify-start mb-4">
+              <div className="flex flex-wrap gap-2 justify-center mb-4">
                 {achievements.map((achievement, index) => (
                   <Badge key={index} variant="secondary" className="text-xs">
                     {achievement}
@@ -61,7 +62,7 @@ export const ProfileSection = () => {
                 ))}
               </div>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {stats.map((stat, index) => (
                   <div key={index} className="text-center">
                     <div className="text-lg font-bold">{stat.value}</div>
@@ -75,29 +76,29 @@ export const ProfileSection = () => {
       </Card>
 
       {/* Personal Info */}
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
             <CardTitle className="text-lg">Личная информация</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-3">
-              <div className="flex justify-between">
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
                 <span className="text-sm text-muted-foreground">ФИО:</span>
                 <span className="text-sm font-medium">{userName}</span>
               </div>
               <Separator />
-              <div className="flex justify-between">
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
                 <span className="text-sm text-muted-foreground">Email:</span>
-                <span className="text-sm font-medium">{userEmail}</span>
+                <span className="text-sm font-medium break-all">{userEmail}</span>
               </div>
               <Separator />
-              <div className="flex justify-between">
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
                 <span className="text-sm text-muted-foreground">Телефон:</span>
                 <span className="text-sm font-medium">+7 (999) 123-45-67</span>
               </div>
               <Separator />
-              <div className="flex justify-between">
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
                 <span className="text-sm text-muted-foreground">Дата рождения:</span>
                 <span className="text-sm font-medium">15 марта 1992</span>
               </div>
@@ -111,22 +112,22 @@ export const ProfileSection = () => {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-3">
-              <div className="flex justify-between">
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
                 <span className="text-sm text-muted-foreground">Должность:</span>
                 <span className="text-sm font-medium">{userPosition}</span>
               </div>
               <Separator />
-              <div className="flex justify-between">
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
                 <span className="text-sm text-muted-foreground">Стаж работы:</span>
                 <span className="text-sm font-medium">3 года 2 месяца</span>
               </div>
               <Separator />
-              <div className="flex justify-between">
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
                 <span className="text-sm text-muted-foreground">Отпуск доступен:</span>
                 <span className="text-sm font-medium">28 дней</span>
               </div>
               <Separator />
-              <div className="flex justify-between">
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
                 <span className="text-sm text-muted-foreground">Руководитель:</span>
                 <span className="text-sm font-medium">Сергей Иванов</span>
               </div>
@@ -142,24 +143,33 @@ export const ProfileSection = () => {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            <div className="flex items-center gap-3 p-2 rounded border">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span className="text-sm">Пройден курс "Консультирование по прогрессивным линзам"</span>
-              <span className="text-xs text-muted-foreground ml-auto">2 дня назад</span>
+            <div className="flex items-start gap-3 p-2 rounded border">
+              <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+              <div className="flex-1">
+                <span className="text-sm">Пройден курс "Консультирование по прогрессивным линзам"</span>
+                <span className="text-xs text-muted-foreground block sm:inline sm:ml-auto mt-1 sm:mt-0">2 дня назад</span>
+              </div>
             </div>
-            <div className="flex items-center gap-3 p-2 rounded border">
-              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-              <span className="text-sm">Обновлен профиль: добавлен сертификат</span>
-              <span className="text-xs text-muted-foreground ml-auto">5 дней назад</span>
+            <div className="flex items-start gap-3 p-2 rounded border">
+              <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+              <div className="flex-1">
+                <span className="text-sm">Обновлен профиль: добавлен сертификат</span>
+                <span className="text-xs text-muted-foreground block sm:inline sm:ml-auto mt-1 sm:mt-0">5 дней назад</span>
+              </div>
             </div>
-            <div className="flex items-center gap-3 p-2 rounded border">
-              <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-              <span className="text-sm">Достигнут план продаж на 150%</span>
-              <span className="text-xs text-muted-foreground ml-auto">1 неделя назад</span>
+            <div className="flex items-start gap-3 p-2 rounded border">
+              <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+              <div className="flex-1">
+                <span className="text-sm">Достигнут план продаж на 150%</span>
+                <span className="text-xs text-muted-foreground block sm:inline sm:ml-auto mt-1 sm:mt-0">1 неделя назад</span>
+              </div>
             </div>
           </div>
         </CardContent>
       </Card>
+
+      {/* Calendar Section */}
+      <CalendarSection />
     </div>
   );
 };
