@@ -64,7 +64,7 @@ export const CollapsedSidebarTrigger = () => {
   }
 
   return (
-    <div className="absolute top-6 left-6 z-50">
+    <div className="fixed top-4 left-4 z-50">
       <SidebarTrigger />
     </div>
   );

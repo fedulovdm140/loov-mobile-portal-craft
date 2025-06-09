@@ -1,204 +1,178 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { CalendarSection } from "./CalendarSection";
 
 export const ProfileSection = () => {
-  const userProfile = {
-    name: "Анна Сергеевна Иванова",
-    position: "Оптик-консультант",
-    store: "Оптика Loov - ТЦ Галерея",
-    experience: "2 года 8 месяцев",
-    avatar: "/placeholder.svg",
-    salary: "₽ 85,000",
-    vacationDays: 12,
-    usedVacationDays: 5,
-    nextVacation: "15 июля",
-    workSchedule: "5/2, 10:00-19:00",
-    achievements: [
-      { title: "Лучший продавец месяца", date: "Февраль 2024", type: "gold" },
-      { title: "Высокий NPS", date: "Январь 2024", type: "silver" },
-      { title: "Превышение плана", date: "Декабрь 2023", type: "bronze" }
-    ],
-    stats: {
-      salesThisMonth: "₽ 127,500",
-      customersServed: 45,
-      averageCheck: "₽ 8,500",
-      npsScore: 4.9
-    },
-    skills: [
-      { name: "Подбор оправ", level: 95 },
-      { name: "Консультация по линзам", level: 88 },
-      { name: "Работа с детьми", level: 92 },
-      { name: "Продажи", level: 85 }
-    ]
-  };
+  const userEmail = localStorage.getItem("userEmail") || "user@loov.com";
+  const userName = "Анна Петрова";
+  const userPosition = "Оптик-консультант";
 
-  const getBadgeVariant = (type: string) => {
-    switch (type) {
-      case "gold": return "default";
-      case "silver": return "secondary";
-      case "bronze": return "outline";
-      default: return "default";
-    }
+  const achievements = ["Лучший продавец месяца", "Эксперт по контактным линзам", "Сертификат по детской оптике"];
+  const stats = [
+    { label: "Продаж в месяце", value: "127" },
+    { label: "Средний чек", value: "₽ 8,500" },
+    { label: "Рейтинг клиентов", value: "4.9/5" },
+    { label: "Конверсия", value: "68%" }
+  ];
+
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("userEmail");
+    window.location.reload();
   };
 
   return (
-    <div className="space-y-4 md:space-y-6">
-      <div className="flex items-center justify-between ml-0 sm:ml-14">
-        <h1 className="text-xl md:text-2xl font-bold">Мой профиль</h1>
+    <div className="space-y-6 pb-4">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <h1 className="text-2xl font-bold">Мой профиль</h1>
       </div>
 
-      {/* Profile Header */}
+      {/* Profile Header Card */}
       <Card>
-        <CardContent className="p-4 md:p-6">
-          <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 md:gap-6">
-            <Avatar className="w-20 h-20 md:w-24 md:h-24 mx-auto lg:mx-0">
-              <AvatarImage src={userProfile.avatar} alt={userProfile.name} />
-              <AvatarFallback className="text-lg md:text-2xl">АИ</AvatarFallback>
-            </Avatar>
-            
-            <div className="flex-1 space-y-2 text-center lg:text-left">
-              <h2 className="text-lg md:text-2xl font-bold">{userProfile.name}</h2>
-              <p className="text-base md:text-lg text-muted-foreground">{userProfile.position}</p>
-              <p className="text-sm md:text-base text-muted-foreground">{userProfile.store}</p>
-              <p className="text-sm md:text-base">Опыт работы: {userProfile.experience}</p>
+        <CardContent className="pt-6">
+          <div className="flex flex-col items-center gap-6">
+            <div className="flex flex-col items-center">
+              <Avatar className="h-24 w-24 md:h-32 md:w-32">
+                <AvatarImage src="" />
+                <AvatarFallback className="text-2xl bg-primary text-primary-foreground">АП</AvatarFallback>
+              </Avatar>
+              <Button variant="outline" size="sm" className="mt-2">
+                Изменить фото
+              </Button>
             </div>
-
-            <div className="flex flex-col gap-2 w-full lg:w-auto">
-              <Button variant="outline" size="sm" className="text-xs md:text-sm">Редактировать профиль</Button>
-              <Button variant="outline" size="sm" className="text-xs md:text-sm">Настройки</Button>
+            
+            <div className="flex-1 text-center w-full">
+              <h2 className="text-2xl font-bold">{userName}</h2>
+              <p className="text-lg text-muted-foreground mb-2">{userPosition}</p>
+              <p className="text-sm text-muted-foreground mb-4">Салон оптики "Четкое зрение", Москва</p>
+              
+              <div className="flex flex-wrap gap-2 justify-center mb-4">
+                {achievements.map((achievement, index) => (
+                  <Badge key={index} variant="secondary" className="text-xs">
+                    {achievement}
+                  </Badge>
+                ))}
+              </div>
+              
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                {stats.map((stat, index) => (
+                  <div key={index} className="text-center">
+                    <div className="text-lg font-bold">{stat.value}</div>
+                    <div className="text-xs text-muted-foreground">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Work Info */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm md:text-base font-medium">Зарплата</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-lg md:text-2xl font-bold">{userProfile.salary}</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm md:text-base font-medium">Отпуск</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-lg md:text-2xl font-bold">{userProfile.usedVacationDays}/{userProfile.vacationDays}</p>
-            <p className="text-xs md:text-sm text-muted-foreground">дней использовано</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm md:text-base font-medium">Следующий отпуск</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-lg md:text-2xl font-bold">{userProfile.nextVacation}</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm md:text-base font-medium">График работы</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm md:text-base font-bold">{userProfile.workSchedule}</p>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Stats Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs md:text-sm font-medium">Продажи за месяц</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-lg md:text-2xl font-bold">{userProfile.stats.salesThisMonth}</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs md:text-sm font-medium">Клиентов обслужено</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-lg md:text-2xl font-bold">{userProfile.stats.customersServed}</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs md:text-sm font-medium">Средний чек</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-lg md:text-2xl font-bold">{userProfile.stats.averageCheck}</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs md:text-sm font-medium">NPS Score</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-lg md:text-2xl font-bold">{userProfile.stats.npsScore}/5</p>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Achievements and Skills */}
-      <div className="grid lg:grid-cols-2 gap-4 md:gap-6">
+      {/* Personal Info */}
+      <div className="grid lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle className="text-base md:text-lg">Достижения</CardTitle>
+            <CardTitle className="text-lg">Личная информация</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-3 md:space-y-4">
-              {userProfile.achievements.map((achievement, index) => (
-                <div key={index} className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium text-sm md:text-base">{achievement.title}</p>
-                    <p className="text-xs md:text-sm text-muted-foreground">{achievement.date}</p>
-                  </div>
-                  <Badge variant={getBadgeVariant(achievement.type)} className="text-xs">
-                    {achievement.type === "gold" ? "🥇" : achievement.type === "silver" ? "🥈" : "🥉"}
-                  </Badge>
-                </div>
-              ))}
+          <CardContent className="space-y-4">
+            <div className="space-y-3">
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
+                <span className="text-sm text-muted-foreground">ФИО:</span>
+                <span className="text-sm font-medium">{userName}</span>
+              </div>
+              <Separator />
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
+                <span className="text-sm text-muted-foreground">Email:</span>
+                <span className="text-sm font-medium break-all">{userEmail}</span>
+              </div>
+              <Separator />
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
+                <span className="text-sm text-muted-foreground">Телефон:</span>
+                <span className="text-sm font-medium">+7 (999) 123-45-67</span>
+              </div>
+              <Separator />
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
+                <span className="text-sm text-muted-foreground">Дата рождения:</span>
+                <span className="text-sm font-medium">15 марта 1992</span>
+              </div>
             </div>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-base md:text-lg">Навыки</CardTitle>
+            <CardTitle className="text-lg">Рабочая информация</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-3 md:space-y-4">
-              {userProfile.skills.map((skill, index) => (
-                <div key={index} className="space-y-2">
-                  <div className="flex justify-between">
-                    <span className="text-sm md:text-base font-medium">{skill.name}</span>
-                    <span className="text-sm md:text-base text-muted-foreground">{skill.level}%</span>
-                  </div>
-                  <div className="w-full bg-secondary rounded-full h-1.5 md:h-2">
-                    <div 
-                      className="bg-primary h-1.5 md:h-2 rounded-full transition-all duration-300" 
-                      style={{ width: `${skill.level}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
+          <CardContent className="space-y-4">
+            <div className="space-y-3">
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
+                <span className="text-sm text-muted-foreground">Должность:</span>
+                <span className="text-sm font-medium">{userPosition}</span>
+              </div>
+              <Separator />
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
+                <span className="text-sm text-muted-foreground">Стаж работы:</span>
+                <span className="text-sm font-medium">3 года 2 месяца</span>
+              </div>
+              <Separator />
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
+                <span className="text-sm text-muted-foreground">Отпуск доступен:</span>
+                <span className="text-sm font-medium">28 дней</span>
+              </div>
+              <Separator />
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
+                <span className="text-sm text-muted-foreground">Руководитель:</span>
+                <span className="text-sm font-medium">Сергей Иванов</span>
+              </div>
             </div>
           </CardContent>
         </Card>
+      </div>
+
+      {/* Recent Activity */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Последняя активность</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3">
+            <div className="flex items-start gap-3 p-2 rounded border">
+              <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+              <div className="flex-1">
+                <span className="text-sm">Пройден курс "Консультирование по прогрессивным линзам"</span>
+                <span className="text-xs text-muted-foreground block sm:inline sm:ml-auto mt-1 sm:mt-0">2 дня назад</span>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 p-2 rounded border">
+              <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+              <div className="flex-1">
+                <span className="text-sm">Обновлен профиль: добавлен сертификат</span>
+                <span className="text-xs text-muted-foreground block sm:inline sm:ml-auto mt-1 sm:mt-0">5 дней назад</span>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 p-2 rounded border">
+              <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+              <div className="flex-1">
+                <span className="text-sm">Достигнут план продаж на 150%</span>
+                <span className="text-xs text-muted-foreground block sm:inline sm:ml-auto mt-1 sm:mt-0">1 неделя назад</span>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Calendar Section */}
+      <CalendarSection />
+
+      {/* Logout Button at the bottom */}
+      <div className="flex justify-center pt-6">
+        <Button variant="outline" onClick={handleLogout} className="w-full sm:w-auto">
+          Выйти
+        </Button>
       </div>
     </div>
   );

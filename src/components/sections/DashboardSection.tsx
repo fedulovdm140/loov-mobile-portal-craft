@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const DashboardSection = () => {
@@ -123,7 +124,7 @@ export const DashboardSection = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between ml-14">
+      <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Дашборд оптика</h1>
         <span className="text-sm text-muted-foreground">
           Обновлено: {new Date().toLocaleDateString('ru-RU')} в {new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
