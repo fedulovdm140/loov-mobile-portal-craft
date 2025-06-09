@@ -1,31 +1,26 @@
-
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarTrigger,
-  useSidebar,
-} from "@/components/ui/sidebar";
-
+import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 interface DesktopNavigationProps {
   activeSection: string;
   setActiveSection: (section: string) => void;
 }
-
-export const DesktopNavigation = ({ activeSection, setActiveSection }: DesktopNavigationProps) => {
-  const navItems = [
-    { id: "profile", label: "Мой профиль", icon: "👤" },
-    { id: "dashboard", label: "Дашборд", icon: "📊" },
-    { id: "standards", label: "Стандарты", icon: "📋" },
-  ];
-
-  return (
-    <Sidebar>
+export const DesktopNavigation = ({
+  activeSection,
+  setActiveSection
+}: DesktopNavigationProps) => {
+  const navItems = [{
+    id: "profile",
+    label: "Мой профиль",
+    icon: "👤"
+  }, {
+    id: "dashboard",
+    label: "Дашборд",
+    icon: "📊"
+  }, {
+    id: "standards",
+    label: "Стандарты",
+    icon: "📋"
+  }];
+  return <Sidebar>
       <SidebarHeader className="p-4">
         <div className="flex items-center gap-2">
           <SidebarTrigger />
@@ -36,36 +31,28 @@ export const DesktopNavigation = ({ activeSection, setActiveSection }: DesktopNa
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {navItems.map((item) => (
-                <SidebarMenuItem key={item.id}>
-                  <SidebarMenuButton
-                    isActive={activeSection === item.id}
-                    onClick={() => setActiveSection(item.id)}
-                  >
+              {navItems.map(item => <SidebarMenuItem key={item.id}>
+                  <SidebarMenuButton isActive={activeSection === item.id} onClick={() => setActiveSection(item.id)}>
                     <span className="mr-2">{item.icon}</span>
                     <span>{item.label}</span>
                   </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+                </SidebarMenuItem>)}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-    </Sidebar>
-  );
+    </Sidebar>;
 };
 
 // Компонент для отображения кнопки возврата меню в основной области
 export const CollapsedSidebarTrigger = () => {
-  const { state } = useSidebar();
-  
+  const {
+    state
+  } = useSidebar();
   if (state !== "collapsed") {
     return null;
   }
-
-  return (
-    <div className="fixed top-4 left-4 z-50">
-      <SidebarTrigger />
-    </div>
-  );
+  return <div className="fixed top-4 left-4 z-50">
+      <SidebarTrigger className="my-[10px]" />
+    </div>;
 };
