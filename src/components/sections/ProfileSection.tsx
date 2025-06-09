@@ -1,35 +1,36 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { CalendarSection } from "./CalendarSection";
-
 export const ProfileSection = () => {
   const userEmail = localStorage.getItem("userEmail") || "user@loov.com";
   const userName = "Анна Петрова";
   const userPosition = "Оптик-консультант";
-
   const achievements = ["Лучший продавец месяца", "Эксперт по контактным линзам", "Сертификат по детской оптике"];
-  const stats = [
-    { label: "Продаж в месяце", value: "127" },
-    { label: "Средний чек", value: "₽ 8,500" },
-    { label: "Рейтинг клиентов", value: "4.9/5" },
-    { label: "Конверсия", value: "68%" }
-  ];
-
+  const stats = [{
+    label: "Продаж в месяце",
+    value: "127"
+  }, {
+    label: "Средний чек",
+    value: "₽ 8,500"
+  }, {
+    label: "Рейтинг клиентов",
+    value: "4.9/5"
+  }, {
+    label: "Конверсия",
+    value: "68%"
+  }];
   const handleLogout = () => {
     localStorage.removeItem("isAuthenticated");
     localStorage.removeItem("userEmail");
     window.location.reload();
   };
-
-  return (
-    <div className="space-y-6 pb-4">
+  return <div className="space-y-6 pb-4">
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <h1 className="text-2xl font-bold">Мой профиль</h1>
+        <h1 className="text-2xl font-bold mx-[30px]">Мой профиль</h1>
       </div>
 
       {/* Profile Header Card */}
@@ -52,20 +53,16 @@ export const ProfileSection = () => {
               <p className="text-sm text-muted-foreground mb-4">Салон оптики "Четкое зрение", Москва</p>
               
               <div className="flex flex-wrap gap-2 justify-center mb-4">
-                {achievements.map((achievement, index) => (
-                  <Badge key={index} variant="secondary" className="text-xs">
+                {achievements.map((achievement, index) => <Badge key={index} variant="secondary" className="text-xs">
                     {achievement}
-                  </Badge>
-                ))}
+                  </Badge>)}
               </div>
               
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                {stats.map((stat, index) => (
-                  <div key={index} className="text-center">
+                {stats.map((stat, index) => <div key={index} className="text-center">
                     <div className="text-lg font-bold">{stat.value}</div>
                     <div className="text-xs text-muted-foreground">{stat.label}</div>
-                  </div>
-                ))}
+                  </div>)}
               </div>
             </div>
           </div>
@@ -174,6 +171,5 @@ export const ProfileSection = () => {
           Выйти
         </Button>
       </div>
-    </div>
-  );
+    </div>;
 };
