@@ -53,6 +53,6 @@ export const CollapsedSidebarTrigger = () => {
     return null;
   }
   return <div className="fixed top-4 left-4 z-50">
-      <SidebarTrigger className="my-[10px]" />
+      <SidebarTrigger className="my-[7px]" />
     </div>;
 };
