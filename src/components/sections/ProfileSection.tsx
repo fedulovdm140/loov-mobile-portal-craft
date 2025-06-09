@@ -11,6 +11,11 @@ export const ProfileSection = () => {
     store: "Оптика Loov - ТЦ Галерея",
     experience: "2 года 8 месяцев",
     avatar: "/placeholder.svg",
+    salary: "₽ 85,000",
+    vacationDays: 12,
+    usedVacationDays: 5,
+    nextVacation: "15 июля",
+    workSchedule: "5/2, 10:00-19:00",
     achievements: [
       { title: "Лучший продавец месяца", date: "Февраль 2024", type: "gold" },
       { title: "Высокий NPS", date: "Январь 2024", type: "silver" },
@@ -40,89 +45,129 @@ export const ProfileSection = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between ml-14">
-        <h1 className="text-2xl font-bold">Мой профиль</h1>
+    <div className="space-y-4 md:space-y-6">
+      <div className="flex items-center justify-between ml-0 sm:ml-14">
+        <h1 className="text-xl md:text-2xl font-bold">Мой профиль</h1>
       </div>
 
       {/* Profile Header */}
       <Card>
-        <CardContent className="p-6">
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
-            <Avatar className="w-24 h-24">
+        <CardContent className="p-4 md:p-6">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 md:gap-6">
+            <Avatar className="w-20 h-20 md:w-24 md:h-24 mx-auto lg:mx-0">
               <AvatarImage src={userProfile.avatar} alt={userProfile.name} />
-              <AvatarFallback className="text-2xl">АИ</AvatarFallback>
+              <AvatarFallback className="text-lg md:text-2xl">АИ</AvatarFallback>
             </Avatar>
             
-            <div className="flex-1 space-y-2">
-              <h2 className="text-2xl font-bold">{userProfile.name}</h2>
-              <p className="text-lg text-muted-foreground">{userProfile.position}</p>
-              <p className="text-sm text-muted-foreground">{userProfile.store}</p>
-              <p className="text-sm">Опыт работы: {userProfile.experience}</p>
+            <div className="flex-1 space-y-2 text-center lg:text-left">
+              <h2 className="text-lg md:text-2xl font-bold">{userProfile.name}</h2>
+              <p className="text-base md:text-lg text-muted-foreground">{userProfile.position}</p>
+              <p className="text-sm md:text-base text-muted-foreground">{userProfile.store}</p>
+              <p className="text-sm md:text-base">Опыт работы: {userProfile.experience}</p>
             </div>
 
-            <div className="flex flex-col gap-2">
-              <Button variant="outline">Редактировать профиль</Button>
-              <Button variant="outline">Настройки</Button>
+            <div className="flex flex-col gap-2 w-full lg:w-auto">
+              <Button variant="outline" size="sm" className="text-xs md:text-sm">Редактировать профиль</Button>
+              <Button variant="outline" size="sm" className="text-xs md:text-sm">Настройки</Button>
             </div>
           </div>
         </CardContent>
       </Card>
 
+      {/* Work Info */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm md:text-base font-medium">Зарплата</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-lg md:text-2xl font-bold">{userProfile.salary}</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm md:text-base font-medium">Отпуск</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-lg md:text-2xl font-bold">{userProfile.usedVacationDays}/{userProfile.vacationDays}</p>
+            <p className="text-xs md:text-sm text-muted-foreground">дней использовано</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm md:text-base font-medium">Следующий отпуск</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-lg md:text-2xl font-bold">{userProfile.nextVacation}</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm md:text-base font-medium">График работы</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm md:text-base font-bold">{userProfile.workSchedule}</p>
+          </CardContent>
+        </Card>
+      </div>
+
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Продажи за месяц</CardTitle>
+            <CardTitle className="text-xs md:text-sm font-medium">Продажи за месяц</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">{userProfile.stats.salesThisMonth}</p>
+            <p className="text-lg md:text-2xl font-bold">{userProfile.stats.salesThisMonth}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Клиентов обслужено</CardTitle>
+            <CardTitle className="text-xs md:text-sm font-medium">Клиентов обслужено</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">{userProfile.stats.customersServed}</p>
+            <p className="text-lg md:text-2xl font-bold">{userProfile.stats.customersServed}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Средний чек</CardTitle>
+            <CardTitle className="text-xs md:text-sm font-medium">Средний чек</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">{userProfile.stats.averageCheck}</p>
+            <p className="text-lg md:text-2xl font-bold">{userProfile.stats.averageCheck}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">NPS Score</CardTitle>
+            <CardTitle className="text-xs md:text-sm font-medium">NPS Score</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">{userProfile.stats.npsScore}/5</p>
+            <p className="text-lg md:text-2xl font-bold">{userProfile.stats.npsScore}/5</p>
           </CardContent>
         </Card>
       </div>
 
       {/* Achievements and Skills */}
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid lg:grid-cols-2 gap-4 md:gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Достижения</CardTitle>
+            <CardTitle className="text-base md:text-lg">Достижения</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               {userProfile.achievements.map((achievement, index) => (
                 <div key={index} className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium">{achievement.title}</p>
-                    <p className="text-sm text-muted-foreground">{achievement.date}</p>
+                    <p className="font-medium text-sm md:text-base">{achievement.title}</p>
+                    <p className="text-xs md:text-sm text-muted-foreground">{achievement.date}</p>
                   </div>
-                  <Badge variant={getBadgeVariant(achievement.type)}>
+                  <Badge variant={getBadgeVariant(achievement.type)} className="text-xs">
                     {achievement.type === "gold" ? "🥇" : achievement.type === "silver" ? "🥈" : "🥉"}
                   </Badge>
                 </div>
@@ -133,19 +178,19 @@ export const ProfileSection = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle>Навыки</CardTitle>
+            <CardTitle className="text-base md:text-lg">Навыки</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               {userProfile.skills.map((skill, index) => (
                 <div key={index} className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-sm font-medium">{skill.name}</span>
-                    <span className="text-sm text-muted-foreground">{skill.level}%</span>
+                    <span className="text-sm md:text-base font-medium">{skill.name}</span>
+                    <span className="text-sm md:text-base text-muted-foreground">{skill.level}%</span>
                   </div>
-                  <div className="w-full bg-secondary rounded-full h-2">
+                  <div className="w-full bg-secondary rounded-full h-1.5 md:h-2">
                     <div 
-                      className="bg-primary h-2 rounded-full transition-all duration-300" 
+                      className="bg-primary h-1.5 md:h-2 rounded-full transition-all duration-300" 
                       style={{ width: `${skill.level}%` }}
                     />
                   </div>

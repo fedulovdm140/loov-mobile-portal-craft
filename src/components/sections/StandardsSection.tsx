@@ -3,8 +3,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { ChevronDown } from "lucide-react";
+import { useState } from "react";
 
 export const StandardsSection = () => {
+  const [openCategories, setOpenCategories] = useState<{ [key: string]: boolean }>({});
+
+  const toggleCategory = (categoryIndex: number) => {
+    setOpenCategories(prev => ({
+      ...prev,
+      [categoryIndex]: !prev[categoryIndex]
+    }));
+  };
+
   const standards = [
     {
       category: "Обслуживание клиентов",
@@ -105,21 +117,12 @@ export const StandardsSection = () => {
     }
   ];
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "good": return "bg-green-500";
-      case "warning": return "bg-orange-500";
-      case "critical": return "bg-red-500";
-      default: return "bg-gray-500";
-    }
-  };
-
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case "good": return <Badge className="bg-green-100 text-green-800">Соответствует</Badge>;
-      case "warning": return <Badge className="bg-orange-100 text-orange-800">Требует внимания</Badge>;
-      case "critical": return <Badge className="bg-red-100 text-red-800">Критично</Badge>;
-      default: return <Badge variant="secondary">Неизвестно</Badge>;
+      case "good": return <Badge className="bg-green-100 text-green-800 text-xs">Соответствует</Badge>;
+      case "warning": return <Badge className="bg-orange-100 text-orange-800 text-xs">Требует внимания</Badge>;
+      case "critical": return <Badge className="bg-red-100 text-red-800 text-xs">Критично</Badge>;
+      default: return <Badge variant="secondary" className="text-xs">Неизвестно</Badge>;
     }
   };
 
@@ -127,104 +130,121 @@ export const StandardsSection = () => {
     if (isPercentage) {
       return parseInt(current.replace('%', ''));
     }
-    return 75; // Default progress for non-percentage values
+    return 75;
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between ml-14">
-        <h1 className="text-2xl font-bold">Стандарты работы</h1>
-        <Button variant="outline">Скачать руководство</Button>
+    <div className="space-y-4 md:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between ml-0 sm:ml-14 gap-2 sm:gap-0">
+        <h1 className="text-xl md:text-2xl font-bold">Стандарты работы</h1>
+        <Button variant="outline" size="sm" className="text-xs md:text-sm">Скачать руководство</Button>
       </div>
 
       {/* Overview Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
         <Card>
-          <CardContent className="p-4">
+          <CardContent className="p-3 md:p-4">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-green-500" />
+              <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-green-500" />
               <div>
-                <p className="text-sm text-muted-foreground">Соответствует стандартам</p>
-                <p className="text-2xl font-bold">8</p>
+                <p className="text-xs md:text-sm text-muted-foreground">Соответствует стандартам</p>
+                <p className="text-lg md:text-2xl font-bold">8</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
         <Card>
-          <CardContent className="p-4">
+          <CardContent className="p-3 md:p-4">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-orange-500" />
+              <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-orange-500" />
               <div>
-                <p className="text-sm text-muted-foreground">Требует внимания</p>
-                <p className="text-2xl font-bold">4</p>
+                <p className="text-xs md:text-sm text-muted-foreground">Требует внимания</p>
+                <p className="text-lg md:text-2xl font-bold">4</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="p-4">
+        <Card className="sm:col-span-2 lg:col-span-1">
+          <CardContent className="p-3 md:p-4">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-500" />
+              <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-red-500" />
               <div>
-                <p className="text-sm text-muted-foreground">Критичные отклонения</p>
-                <p className="text-2xl font-bold">0</p>
+                <p className="text-xs md:text-sm text-muted-foreground">Критичные отклонения</p>
+                <p className="text-lg md:text-2xl font-bold">0</p>
               </div>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Standards by Category */}
-      <div className="space-y-6">
+      {/* Standards by Category - Collapsible */}
+      <div className="space-y-4 md:space-y-6">
         {standards.map((category, categoryIndex) => (
           <Card key={categoryIndex}>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <span>{category.category}</span>
-                <Badge variant="outline">{category.items.length} показателей</Badge>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {category.items.map((item, itemIndex) => (
-                  <div key={itemIndex} className="border rounded-lg p-4 space-y-3">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h4 className="font-medium">{item.title}</h4>
-                        <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
-                      </div>
-                      {getStatusBadge(item.status)}
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <p className="text-sm text-muted-foreground">Стандарт</p>
-                        <p className="font-medium">{item.standard}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm text-muted-foreground">Текущий показатель</p>
-                        <p className="font-medium">{item.current}</p>
-                      </div>
-                    </div>
-
-                    {item.current.includes('%') && (
-                      <div className="space-y-1">
-                        <div className="flex justify-between text-sm">
-                          <span>Выполнение</span>
-                          <span>{item.current}</span>
-                        </div>
-                        <Progress 
-                          value={calculateProgress(item.current, true)} 
-                          className="h-2"
-                        />
-                      </div>
-                    )}
+            <Collapsible
+              open={openCategories[categoryIndex]}
+              onOpenChange={() => toggleCategory(categoryIndex)}
+            >
+              <CardHeader className="pb-2 md:pb-4">
+                <CollapsibleTrigger asChild>
+                  <div className="flex items-center justify-between cursor-pointer">
+                    <CardTitle className="flex items-center gap-2 text-base md:text-lg">
+                      <span>{category.category}</span>
+                      <Badge variant="outline" className="text-xs">{category.items.length} показателей</Badge>
+                    </CardTitle>
+                    <ChevronDown 
+                      className={`h-4 w-4 transition-transform duration-200 ${
+                        openCategories[categoryIndex] ? 'rotate-180' : ''
+                      }`} 
+                    />
                   </div>
-                ))}
-              </div>
-            </CardContent>
+                </CollapsibleTrigger>
+              </CardHeader>
+              
+              <CollapsibleContent>
+                <CardContent className="pt-0">
+                  <div className="space-y-3 md:space-y-4">
+                    {category.items.map((item, itemIndex) => (
+                      <div key={itemIndex} className="border rounded-lg p-3 md:p-4 space-y-2 md:space-y-3">
+                        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+                          <div className="flex-1">
+                            <h4 className="font-medium text-sm md:text-base">{item.title}</h4>
+                            <p className="text-xs md:text-sm text-muted-foreground mt-1">{item.description}</p>
+                          </div>
+                          {getStatusBadge(item.status)}
+                        </div>
+                        
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+                          <div>
+                            <p className="text-xs md:text-sm text-muted-foreground">Стандарт</p>
+                            <p className="font-medium text-sm md:text-base">{item.standard}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs md:text-sm text-muted-foreground">Текущий показатель</p>
+                            <p className="font-medium text-sm md:text-base">{item.current}</p>
+                          </div>
+                        </div>
+
+                        {item.current.includes('%') && (
+                          <div className="space-y-1">
+                            <div className="flex justify-between text-xs md:text-sm">
+                              <span>Выполнение</span>
+                              <span>{item.current}</span>
+                            </div>
+                            <Progress 
+                              value={calculateProgress(item.current, true)} 
+                              className="h-1.5 md:h-2"
+                            />
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </CollapsibleContent>
+            </Collapsible>
           </Card>
         ))}
       </div>
@@ -232,35 +252,35 @@ export const StandardsSection = () => {
       {/* Action Items */}
       <Card>
         <CardHeader>
-          <CardTitle>Рекомендации по улучшению</CardTitle>
+          <CardTitle className="text-base md:text-lg">Рекомендации по улучшению</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
             <div className="flex items-start gap-3 p-3 border rounded-lg border-orange-200 bg-orange-50">
-              <div className="w-3 h-3 rounded-full bg-orange-500 mt-1" />
+              <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-orange-500 mt-1" />
               <div>
-                <p className="font-medium">Увеличить презентацию оправ</p>
-                <p className="text-sm text-muted-foreground">
+                <p className="font-medium text-sm md:text-base">Увеличить презентацию оправ</p>
+                <p className="text-xs md:text-sm text-muted-foreground">
                   Текущий показатель 87%, цель 100%. Показывайте минимум 3 варианта каждому клиенту.
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-3 p-3 border rounded-lg border-orange-200 bg-orange-50">
-              <div className="w-3 h-3 rounded-full bg-orange-500 mt-1" />
+              <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-orange-500 mt-1" />
               <div>
-                <p className="font-medium">Улучшить предложение доп. услуг</p>
-                <p className="text-sm text-muted-foreground">
+                <p className="font-medium text-sm md:text-base">Улучшить предложение доп. услуг</p>
+                <p className="text-xs md:text-sm text-muted-foreground">
                   Текущий показатель 75%, цель 90%. Предлагайте покрытия, футляры, средства ухода.
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-3 p-3 border rounded-lg border-orange-200 bg-orange-50">
-              <div className="w-3 h-3 rounded-full bg-orange-500 mt-1" />
+              <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-orange-500 mt-1" />
               <div>
-                <p className="font-medium">Контроль качества готовых очков</p>
-                <p className="text-sm text-muted-foreground">
+                <p className="font-medium text-sm md:text-base">Контроль качества готовых очков</p>
+                <p className="text-xs md:text-sm text-muted-foreground">
                   Текущий показатель 98%, цель 100%. Усилить финальную проверку перед выдачей.
                 </p>
               </div>
