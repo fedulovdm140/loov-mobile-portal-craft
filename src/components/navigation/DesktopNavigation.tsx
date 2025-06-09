@@ -9,6 +9,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarTrigger,
+  useSidebar,
 } from "@/components/ui/sidebar";
 
 interface DesktopNavigationProps {
@@ -51,5 +52,20 @@ export const DesktopNavigation = ({ activeSection, setActiveSection }: DesktopNa
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>
+  );
+};
+
+// Компонент для отображения кнопки возврата меню в основной области
+export const CollapsedSidebarTrigger = () => {
+  const { state } = useSidebar();
+  
+  if (state !== "collapsed") {
+    return null;
+  }
+
+  return (
+    <div className="fixed top-4 left-4 z-50">
+      <SidebarTrigger />
+    </div>
   );
 };

@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { MobileNavigation } from "@/components/navigation/MobileNavigation";
-import { DesktopNavigation } from "@/components/navigation/DesktopNavigation";
+import { DesktopNavigation, CollapsedSidebarTrigger } from "@/components/navigation/DesktopNavigation";
 import { ProfileSection } from "@/components/sections/ProfileSection";
 import { DashboardSection } from "@/components/sections/DashboardSection";
 import { StandardsSection } from "@/components/sections/StandardsSection";
@@ -37,7 +37,8 @@ const Index = () => {
             />
           )}
           
-          <main className="flex-1 flex flex-col">
+          <main className="flex-1 flex flex-col relative">
+            {!isMobile && <CollapsedSidebarTrigger />}
             <div className="flex-1 p-4 pb-20 md:pb-4">
               {renderSection()}
             </div>
