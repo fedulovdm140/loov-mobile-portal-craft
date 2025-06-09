@@ -1,9 +1,11 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { CalendarSection } from "./CalendarSection";
+
 export const ProfileSection = () => {
   const userEmail = localStorage.getItem("userEmail") || "user@loov.com";
   const userName = "Анна Петрова";
@@ -22,11 +24,13 @@ export const ProfileSection = () => {
     label: "Конверсия",
     value: "68%"
   }];
+
   const handleLogout = () => {
     localStorage.removeItem("isAuthenticated");
     localStorage.removeItem("userEmail");
     window.location.reload();
   };
+
   return <div className="space-y-6 pb-4">
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -109,6 +113,16 @@ export const ProfileSection = () => {
               <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
                 <span className="text-sm text-muted-foreground">Должность:</span>
                 <span className="text-sm font-medium">{userPosition}</span>
+              </div>
+              <Separator />
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
+                <span className="text-sm text-muted-foreground">Оклад:</span>
+                <span className="text-sm font-medium">₽ 65,000</span>
+              </div>
+              <Separator />
+              <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
+                <span className="text-sm text-muted-foreground">Бонусы за месяц:</span>
+                <span className="text-sm font-medium">₽ 18,500</span>
               </div>
               <Separator />
               <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
