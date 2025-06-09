@@ -3,20 +3,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export const StandardsSection = () => {
-  const [openCategories, setOpenCategories] = useState<{ [key: string]: boolean }>({});
-
-  const toggleCategory = (categoryIndex: number) => {
-    setOpenCategories(prev => ({
-      ...prev,
-      [categoryIndex]: !prev[categoryIndex]
-    }));
-  };
-
   const standards = [
     {
       category: "Обслуживание клиентов",
@@ -179,31 +168,21 @@ export const StandardsSection = () => {
         </Card>
       </div>
 
-      {/* Standards by Category - Collapsible */}
-      <div className="space-y-4 md:space-y-6">
+      {/* Standards by Category - Accordion */}
+      <Accordion type="multiple" className="space-y-4">
         {standards.map((category, categoryIndex) => (
-          <Card key={categoryIndex}>
-            <Collapsible
-              open={openCategories[categoryIndex]}
-              onOpenChange={() => toggleCategory(categoryIndex)}
-            >
+          <AccordionItem key={categoryIndex} value={`category-${categoryIndex}`} className="border-0">
+            <Card>
               <CardHeader className="pb-2 md:pb-4">
-                <CollapsibleTrigger asChild>
-                  <div className="flex items-center justify-between cursor-pointer">
-                    <CardTitle className="flex items-center gap-2 text-base md:text-lg">
-                      <span>{category.category}</span>
-                      <Badge variant="outline" className="text-xs">{category.items.length} показателей</Badge>
-                    </CardTitle>
-                    <ChevronDown 
-                      className={`h-4 w-4 transition-transform duration-200 ${
-                        openCategories[categoryIndex] ? 'rotate-180' : ''
-                      }`} 
-                    />
-                  </div>
-                </CollapsibleTrigger>
+                <AccordionTrigger className="hover:no-underline">
+                  <CardTitle className="flex items-center gap-2 text-base md:text-lg">
+                    <span>{category.category}</span>
+                    <Badge variant="outline" className="text-xs">{category.items.length} показателей</Badge>
+                  </CardTitle>
+                </AccordionTrigger>
               </CardHeader>
               
-              <CollapsibleContent>
+              <AccordionContent>
                 <CardContent className="pt-0">
                   <div className="space-y-3 md:space-y-4">
                     {category.items.map((item, itemIndex) => (
@@ -243,11 +222,11 @@ export const StandardsSection = () => {
                     ))}
                   </div>
                 </CardContent>
-              </CollapsibleContent>
-            </Collapsible>
-          </Card>
+              </AccordionContent>
+            </Card>
+          </AccordionItem>
         ))}
-      </div>
+      </Accordion>
 
       {/* Action Items */}
       <Card>
