@@ -3,123 +3,72 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export const StandardsSection = () => {
   const standards = [
     {
-      category: "Обслуживание клиентов",
-      items: [
-        { 
-          title: "Время ожидания клиента", 
-          standard: "не более 3 минут", 
-          current: "2.5 мин", 
-          status: "good",
-          description: "Среднее время от входа клиента до начала консультации"
-        },
-        { 
-          title: "Проведение диагностики зрения", 
-          standard: "обязательно для всех", 
-          current: "95%", 
-          status: "good",
-          description: "Процент клиентов, прошедших проверку зрения"
-        },
-        { 
-          title: "Презентация не менее 3 оправ", 
-          standard: "100%", 
-          current: "87%", 
-          status: "warning",
-          description: "Показ минимум 3 вариантов оправ каждому клиенту"
-        }
-      ]
+      category: "Сервис",
+      title: "Дарим вау-опыт",
+      description: "Создаем идеальный сервис и консультируем с заботой",
+      progress: 80,
+      status: "В процессе",
+      statusColor: "bg-blue-100 text-blue-800"
     },
     {
-      category: "Качество продукции",
-      items: [
-        { 
-          title: "Проверка готовых очков", 
-          standard: "100% заказов", 
-          current: "98%", 
-          status: "warning",
-          description: "Контроль качества перед выдачей заказа"
-        },
-        { 
-          title: "Время изготовления стандартных линз", 
-          standard: "1-2 дня", 
-          current: "1.5 дня", 
-          status: "good",
-          description: "Среднее время изготовления простых линз"
-        },
-        { 
-          title: "Возвраты по браку", 
-          standard: "менее 2%", 
-          current: "1.2%", 
-          status: "good",
-          description: "Процент возвратов из-за дефектов продукции"
-        }
-      ]
+      category: "Продажи", 
+      title: "Помогаем выбрать лучшее",
+      description: "Достигаем плана продаж и знаем наши продукты",
+      progress: 95,
+      status: "Активен",
+      statusColor: "bg-orange-100 text-orange-800"
     },
     {
-      category: "Продажи и консультации",
-      items: [
-        { 
-          title: "Конверсия консультаций в продажи", 
-          standard: "не менее 60%", 
-          current: "68%", 
-          status: "good",
-          description: "Процент успешных продаж от общего числа консультаций"
-        },
-        { 
-          title: "Средний чек", 
-          standard: "от ₽8,000", 
-          current: "₽8,500", 
-          status: "good",
-          description: "Средняя сумма покупки на одного клиента"
-        },
-        { 
-          title: "Предложение дополнительных услуг", 
-          standard: "90%", 
-          current: "75%", 
-          status: "warning",
-          description: "Процент предложений дополнительных покрытий, футляров и т.д."
-        }
-      ]
+      category: "Саморазвитие",
+      title: "Растем с LOOV",
+      description: "Учимся и растем, проходим обучающие программы",
+      progress: 100,
+      status: "Завершен",
+      statusColor: "bg-green-100 text-green-800"
     },
     {
-      category: "Документооборот",
-      items: [
-        { 
-          title: "Оформление заказа в системе", 
-          standard: "в день обращения", 
-          current: "100%", 
-          status: "good",
-          description: "Своевременное внесение данных в CRM систему"
-        },
-        { 
-          title: "Ведение карточки клиента", 
-          standard: "обязательно", 
-          current: "92%", 
-          status: "warning",
-          description: "Заполнение всех необходимых полей в карточке"
-        }
-      ]
+      category: "CRM",
+      title: "Строим отношения",
+      description: "Ведем данные в CRM и поддерживаем порядок",
+      progress: 75,
+      status: "Активен",
+      statusColor: "bg-orange-100 text-orange-800"
+    },
+    {
+      category: "Инвентаризация",
+      title: "Помогаем с инвентаризацией",
+      description: "Поддерживаем порядок и выкладку товаров",
+      progress: 85,
+      status: "Активен",
+      statusColor: "bg-orange-100 text-orange-800"
     }
   ];
 
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "good": return <Badge className="bg-green-100 text-green-800 text-xs">Соответствует</Badge>;
-      case "warning": return <Badge className="bg-orange-100 text-orange-800 text-xs">Требует внимания</Badge>;
-      case "critical": return <Badge className="bg-red-100 text-red-800 text-xs">Критично</Badge>;
-      default: return <Badge variant="secondary" className="text-xs">Неизвестно</Badge>;
-    }
-  };
-
-  const calculateProgress = (current: string, isPercentage: boolean = false) => {
-    if (isPercentage) {
-      return parseInt(current.replace('%', ''));
-    }
-    return 75;
+  const expandedStandard = {
+    responsible: "Менеджер заботы",
+    owner: "Владелец процеса: Владимир Амосов",
+    materials: [
+      { title: "Базовый подход заботы в LOOV", type: "Руководство" },
+      { title: "Работа с CJM", type: "Методология" },
+      { title: "Стандарты обслуживания клиентов", type: "Стандарт" }
+    ],
+    courses: [
+      { title: "Основы клиентского сервиса", progress: 60, deadline: "До: 15.12.2024" },
+      { title: "Работа с возражениями", progress: 30, deadline: "До: 20.12.2024" }
+    ],
+    completedCourses: [
+      { title: "Введение в LOOV", score: "95%", completed: "Завершен: 10.11.2024" },
+      { title: "Корпоративная культура", score: "88%", completed: "Завершен: 05.11.2024" }
+    ],
+    keyMetrics: [
+      "Чек-лист торговой точки пройден на ≥ 80%",
+      "NPS ≥ 85%, жалоб ≤ 2 в месяц",
+      "Конверсия Входящий→Оформленные заказы ≥ 70%"
+    ]
   };
 
   return (
@@ -129,141 +78,140 @@ export const StandardsSection = () => {
         <Button variant="outline" size="sm" className="text-xs md:text-sm">Скачать руководство</Button>
       </div>
 
-      {/* Overview Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-        <Card>
-          <CardContent className="p-3 md:p-4">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-green-500" />
-              <div>
-                <p className="text-xs md:text-sm text-muted-foreground">Соответствует стандартам</p>
-                <p className="text-lg md:text-2xl font-bold">8</p>
+      {/* Standards Cards */}
+      <div className="space-y-4">
+        {standards.map((standard, index) => (
+          <Card key={index} className="overflow-hidden">
+            <CardContent className="p-4 md:p-6">
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-sm text-muted-foreground">{standard.category}</span>
+                  </div>
+                  <h3 className="text-lg md:text-xl font-semibold mb-2">{standard.title}</h3>
+                  <p className="text-sm md:text-base text-muted-foreground">{standard.description}</p>
+                </div>
+                <div className="flex flex-col items-end gap-2">
+                  <Badge className={`text-xs ${standard.statusColor}`}>
+                    {standard.status}
+                  </Badge>
+                  <span className="text-lg md:text-xl font-bold">{standard.progress}%</span>
+                </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-3 md:p-4">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-orange-500" />
-              <div>
-                <p className="text-xs md:text-sm text-muted-foreground">Требует внимания</p>
-                <p className="text-lg md:text-2xl font-bold">4</p>
+              
+              <div className="w-full bg-secondary rounded-full h-2 md:h-3">
+                <div 
+                  className="bg-primary h-2 md:h-3 rounded-full transition-all duration-300" 
+                  style={{ width: `${standard.progress}%` }}
+                />
               </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="sm:col-span-2 lg:col-span-1">
-          <CardContent className="p-3 md:p-4">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-red-500" />
-              <div>
-                <p className="text-xs md:text-sm text-muted-foreground">Критичные отклонения</p>
-                <p className="text-lg md:text-2xl font-bold">0</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
-      {/* Standards by Category - Accordion */}
-      <Accordion type="multiple" className="space-y-4">
-        {standards.map((category, categoryIndex) => (
-          <AccordionItem key={categoryIndex} value={`category-${categoryIndex}`} className="border-0">
-            <Card>
-              <CardHeader className="pb-2 md:pb-4">
-                <AccordionTrigger className="hover:no-underline">
-                  <CardTitle className="flex items-center gap-2 text-base md:text-lg">
-                    <span>{category.category}</span>
-                    <Badge variant="outline" className="text-xs">{category.items.length} показателей</Badge>
-                  </CardTitle>
-                </AccordionTrigger>
-              </CardHeader>
-              
-              <AccordionContent>
-                <CardContent className="pt-0">
-                  <div className="space-y-3 md:space-y-4">
-                    {category.items.map((item, itemIndex) => (
-                      <div key={itemIndex} className="border rounded-lg p-3 md:p-4 space-y-2 md:space-y-3">
-                        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
-                          <div className="flex-1">
-                            <h4 className="font-medium text-sm md:text-base">{item.title}</h4>
-                            <p className="text-xs md:text-sm text-muted-foreground mt-1">{item.description}</p>
-                          </div>
-                          {getStatusBadge(item.status)}
-                        </div>
-                        
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-                          <div>
-                            <p className="text-xs md:text-sm text-muted-foreground">Стандарт</p>
-                            <p className="font-medium text-sm md:text-base">{item.standard}</p>
-                          </div>
-                          <div>
-                            <p className="text-xs md:text-sm text-muted-foreground">Текущий показатель</p>
-                            <p className="font-medium text-sm md:text-base">{item.current}</p>
-                          </div>
-                        </div>
-
-                        {item.current.includes('%') && (
-                          <div className="space-y-1">
-                            <div className="flex justify-between text-xs md:text-sm">
-                              <span>Выполнение</span>
-                              <span>{item.current}</span>
-                            </div>
-                            <Progress 
-                              value={calculateProgress(item.current, true)} 
-                              className="h-1.5 md:h-2"
-                            />
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </AccordionContent>
-            </Card>
-          </AccordionItem>
-        ))}
-      </Accordion>
-
-      {/* Action Items */}
+      {/* Expanded Standard Details */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base md:text-lg">Рекомендации по улучшению</CardTitle>
+          <div className="flex items-start justify-between">
+            <div>
+              <CardTitle className="text-lg md:text-xl mb-2">Дарим вау-опыт</CardTitle>
+              <p className="text-sm text-muted-foreground">Создаем идеальный сервис и консультируем с заботой</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <Badge className="bg-blue-100 text-blue-800 text-xs">В процессе</Badge>
+              <span className="text-xl font-bold">80%</span>
+            </div>
+          </div>
+          <div className="w-full bg-secondary rounded-full h-3 mt-4">
+            <div className="bg-primary h-3 rounded-full" style={{ width: '80%' }} />
+          </div>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            <div className="flex items-start gap-3 p-3 border rounded-lg border-orange-200 bg-orange-50">
-              <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-orange-500 mt-1" />
-              <div>
-                <p className="font-medium text-sm md:text-base">Увеличить презентацию оправ</p>
-                <p className="text-xs md:text-sm text-muted-foreground">
-                  Текущий показатель 87%, цель 100%. Показывайте минимум 3 варианта каждому клиенту.
-                </p>
+        
+        <CardContent className="space-y-6">
+          {/* Responsible Person */}
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+              <span className="text-sm">👤</span>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Ответственный</p>
+              <p className="font-medium">{expandedStandard.responsible}</p>
+              <p className="text-sm text-muted-foreground">{expandedStandard.owner}</p>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-6">
+            {/* Materials */}
+            <div>
+              <h4 className="text-base font-semibold mb-3 flex items-center gap-2">
+                📋 Статьи и материалы
+              </h4>
+              <div className="space-y-2">
+                {expandedStandard.materials.map((material, index) => (
+                  <div key={index} className="flex items-center justify-between p-2 rounded border">
+                    <span className="text-sm">{material.title}</span>
+                    <Badge variant="outline" className="text-xs">{material.type}</Badge>
+                  </div>
+                ))}
               </div>
             </div>
 
-            <div className="flex items-start gap-3 p-3 border rounded-lg border-orange-200 bg-orange-50">
-              <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-orange-500 mt-1" />
-              <div>
-                <p className="font-medium text-sm md:text-base">Улучшить предложение доп. услуг</p>
-                <p className="text-xs md:text-sm text-muted-foreground">
-                  Текущий показатель 75%, цель 90%. Предлагайте покрытия, футляры, средства ухода.
-                </p>
+            {/* Courses */}
+            <div>
+              <h4 className="text-base font-semibold mb-3">🎓 Курсы обучения</h4>
+              
+              <div className="mb-4">
+                <p className="text-sm text-muted-foreground mb-2">▷ Назначенные курсы</p>
+                <div className="space-y-3">
+                  {expandedStandard.courses.map((course, index) => (
+                    <div key={index}>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span>{course.title}</span>
+                        <span className="text-muted-foreground">{course.deadline}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs">Прогресс: {course.progress}%</span>
+                        <div className="flex-1 bg-secondary rounded-full h-1.5">
+                          <div 
+                            className="bg-primary h-1.5 rounded-full" 
+                            style={{ width: `${course.progress}%` }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            <div className="flex items-start gap-3 p-3 border rounded-lg border-orange-200 bg-orange-50">
-              <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-orange-500 mt-1" />
               <div>
-                <p className="font-medium text-sm md:text-base">Контроль качества готовых очков</p>
-                <p className="text-xs md:text-sm text-muted-foreground">
-                  Текущий показатель 98%, цель 100%. Усилить финальную проверку перед выдачей.
-                </p>
+                <p className="text-sm text-muted-foreground mb-2">✓ Завершенные курсы</p>
+                <div className="space-y-2">
+                  {expandedStandard.completedCourses.map((course, index) => (
+                    <div key={index} className="flex justify-between text-sm">
+                      <span>{course.title}</span>
+                      <div className="text-right">
+                        <p className="text-muted-foreground">Оценка: {course.score}</p>
+                        <p className="text-xs text-muted-foreground">{course.completed}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
+          </div>
+
+          {/* Key Metrics */}
+          <div>
+            <h4 className="text-base font-semibold mb-3">Ключевые метрики</h4>
+            <ul className="space-y-2">
+              {expandedStandard.keyMetrics.map((metric, index) => (
+                <li key={index} className="text-sm flex items-start gap-2">
+                  <span>•</span>
+                  <span>{metric}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </CardContent>
       </Card>
