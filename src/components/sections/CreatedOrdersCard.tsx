@@ -37,28 +37,28 @@ export const CreatedOrdersCard = () => {
     label: string;
     color: string;
   }) => {
-    const circumference = 2 * Math.PI * 10; // уменьшенный радиус = 10
+    const circumference = 2 * Math.PI * 14; // увеличенный радиус = 14
     const strokeDasharray = circumference;
     const strokeDashoffset = circumference - (rate / 100) * circumference;
 
     return (
       <div className="text-center">
-        <div className="relative w-7 h-7 mx-auto mb-0.5">
-          <svg className="w-7 h-7 transform -rotate-90" viewBox="0 0 28 28">
+        <div className="relative w-10 h-10 mx-auto mb-0.5">
+          <svg className="w-10 h-10 transform -rotate-90" viewBox="0 0 36 36">
             <circle
-              cx="14"
-              cy="14"
-              r="10"
+              cx="18"
+              cy="18"
+              r="14"
               stroke="rgba(156, 163, 175, 0.2)"
-              strokeWidth="1.5"
+              strokeWidth="2"
               fill="none"
             />
             <circle
-              cx="14"
-              cy="14"
-              r="10"
+              cx="18"
+              cy="18"
+              r="14"
               stroke={color}
-              strokeWidth="1.5"
+              strokeWidth="2"
               fill="none"
               strokeDasharray={strokeDasharray}
               strokeDashoffset={strokeDashoffset}
