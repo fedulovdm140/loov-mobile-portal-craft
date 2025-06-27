@@ -16,16 +16,16 @@ export const DashboardSection = () => {
         <p className="text-gray-600 text-xs">Добро пожаловать, {userName}!</p>
       </div>
 
-      {/* Main Dashboard - 2 columns on large screens, single column on mobile */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-1.5">
+      {/* Main Dashboard - 3 columns: Конверсии, Созданные заказы, Закрытые сделки */}
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-1.5">
+        <ConversionsCard />
         <CreatedOrdersCard />
         <ForecastCard />
       </div>
 
-      {/* Secondary sections - 3 columns with conversions card */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-1.5">
+      {/* Secondary sections */}
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-1.5">
         <SalaryCard />
-        <ConversionsCard />
         <TasksSection />
       </div>
     </div>
