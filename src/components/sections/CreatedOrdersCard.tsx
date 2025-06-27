@@ -1,6 +1,5 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { TrendingUp, AlertTriangle, DollarSign, Eye } from "lucide-react";
+import { TrendingUp, AlertTriangle, DollarSign, Eye, Percent } from "lucide-react";
 
 export const CreatedOrdersCard = () => {
   // Mock data - these would come from API in real app
@@ -136,7 +135,7 @@ export const CreatedOrdersCard = () => {
           <div className="bg-gradient-to-br from-orange-50 to-amber-50/50 rounded-lg p-2 border border-orange-200/50 shadow-sm">
             <div className="flex items-center gap-1.5 mb-1.5">
               <div className="w-3.5 h-3.5 bg-orange-500 rounded flex items-center justify-center">
-                <TrendingUp className="w-2 h-2 text-white" />
+                <Percent className="w-2 h-2 text-white" />
               </div>
               <span className="text-[10px] font-bold text-orange-800">Конверсии</span>
             </div>
@@ -173,11 +172,11 @@ export const CreatedOrdersCard = () => {
                 </div>
               ))}
               <div className="flex justify-between items-center pt-0.5 border-t border-blue-200/50">
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 flex-shrink-0">
                   <span className="text-[9px] font-bold text-blue-800 w-2.5 text-center bg-blue-200 rounded px-0.5">{opticsData.reduce((sum, item) => sum + item.quantity, 0)}</span>
                   <span className="text-[8px] font-bold text-blue-800">Всего</span>
                 </div>
-                <span className="text-[9px] font-bold text-blue-900">{opticsData.reduce((sum, item) => sum + item.amount, 0).toLocaleString('ru-RU')} ₽</span>
+                <span className="text-[8px] font-bold text-blue-900 ml-1 flex-shrink-0">{opticsData.reduce((sum, item) => sum + item.amount, 0).toLocaleString('ru-RU')} ₽</span>
               </div>
             </div>
           </div>
