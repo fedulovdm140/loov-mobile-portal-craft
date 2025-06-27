@@ -32,7 +32,7 @@ export const SalaryCard = () => {
             <span className="text-sm font-bold text-purple-700">{currentSalary.toLocaleString('ru-RU')} ₽</span>
           </div>
           <div className="text-xs text-purple-600 text-center">
-            Оклад {baseSalary.toLocaleString('ru-RU')} + бонус {bonusAmount.toLocaleString('ru-RU')}
+            Оклад {baseSalary.toLocaleString('ru-RU')} ₽ + бонус {bonusAmount.toLocaleString('ru-RU')} ₽
           </div>
         </div>
 
@@ -48,7 +48,7 @@ export const SalaryCard = () => {
           
           <div className="space-y-1">
             <div className="flex justify-between text-xs text-indigo-600">
-              <span>{currentSalary.toLocaleString('ru-RU')}</span>
+              <span>{currentSalary.toLocaleString('ru-RU')} ₽</span>
               <span>{salaryProgress}%</span>
             </div>
             <div className="h-1.5 bg-indigo-100 rounded-full overflow-hidden">
