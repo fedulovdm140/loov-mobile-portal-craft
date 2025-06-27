@@ -74,29 +74,25 @@ export const CreatedOrdersCard = () => {
           </div>
         </div>
 
-        {/* Bottom Row - Optics Sales - Компактный дизайн */}
+        {/* Bottom Row - Optics Sales - Минималистичный дизайн */}
         <div className="bg-blue-50 rounded-lg p-1.5 border border-blue-100">
           <div className="flex items-center gap-1 mb-1">
             <Eye className="w-3 h-3 text-blue-600 flex-shrink-0" />
             <span className="text-xs font-semibold text-blue-700">Продажи сегодня</span>
           </div>
-          <div className="space-y-1">
+          <div className="space-y-0.5">
             {opticsData.map((item, index) => (
-              <div key={index} className="flex justify-between items-center bg-white/60 rounded px-1.5 py-0.5">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center">
-                    <span className="text-xs font-bold text-blue-700">{item.quantity}</span>
-                  </div>
-                  <span className="text-xs font-medium text-blue-700">{item.category}</span>
+              <div key={index} className="flex justify-between items-center">
+                <div className="flex items-center gap-1">
+                  <span className="text-xs font-bold text-blue-700 w-3 text-center">{item.quantity}</span>
+                  <span className="text-xs text-blue-600">{item.category}</span>
                 </div>
-                <span className="text-xs font-semibold text-blue-800">{item.amount.toLocaleString('ru-RU')} ₽</span>
+                <span className="text-xs font-medium text-blue-700">{item.amount.toLocaleString('ru-RU')} ₽</span>
               </div>
             ))}
-            <div className="flex justify-between items-center bg-blue-200/70 rounded px-1.5 py-0.5 border-t border-blue-200">
-              <div className="flex items-center gap-1.5">
-                <div className="w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center">
-                  <span className="text-xs font-bold text-white">{opticsData.reduce((sum, item) => sum + item.quantity, 0)}</span>
-                </div>
+            <div className="flex justify-between items-center pt-0.5 border-t border-blue-200">
+              <div className="flex items-center gap-1">
+                <span className="text-xs font-bold text-blue-800 w-3 text-center">{opticsData.reduce((sum, item) => sum + item.quantity, 0)}</span>
                 <span className="text-xs font-bold text-blue-800">Всего</span>
               </div>
               <span className="text-xs font-bold text-blue-900">{opticsData.reduce((sum, item) => sum + item.amount, 0).toLocaleString('ru-RU')} ₽</span>
