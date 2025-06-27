@@ -38,30 +38,30 @@ export const TasksSection = () => {
   };
 
   return (
-    <Card className="bg-white shadow-sm border border-gray-200">
-      <CardHeader className="pb-2">
-        <CardTitle className="text-base font-bold text-gray-800 flex items-center gap-2">
-          <div className="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center">
-            <List className="w-3 h-3 text-orange-600" />
+    <Card className="bg-white shadow-sm border border-gray-200 h-fit">
+      <CardHeader className="pb-3">
+        <CardTitle className="text-lg font-bold text-gray-800 flex items-center gap-2">
+          <div className="w-7 h-7 bg-orange-100 rounded-lg flex items-center justify-center">
+            <List className="w-4 h-4 text-orange-600" />
           </div>
           Задачи на сегодня
-          <button className="ml-auto p-1 hover:bg-gray-50 rounded transition-colors">
-            <RefreshCw className="w-3 h-3 text-gray-600" />
+          <button className="ml-auto p-1.5 hover:bg-gray-50 rounded-lg transition-colors">
+            <RefreshCw className="w-4 h-4 text-gray-600" />
           </button>
         </CardTitle>
       </CardHeader>
       <CardContent className="pt-0">
-        <div className="space-y-2">
+        <div className="space-y-3">
           {tasks.map((item, index) => (
             <div 
               key={index} 
-              className="flex items-start gap-2 p-2 rounded-lg border border-gray-100 hover:bg-gray-50 cursor-pointer transition-colors"
+              className="flex items-start gap-3 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 cursor-pointer transition-colors hover:shadow-sm"
               onClick={() => handleTaskClick(item.trackerUrl)}
             >
-              <div className={`w-2 h-2 rounded-full ${getPriorityColor(item.priority)} mt-1.5 flex-shrink-0`} />
+              <div className={`w-3 h-3 rounded-full ${getPriorityColor(item.priority)} mt-1 flex-shrink-0`} />
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-medium leading-tight text-gray-900 line-clamp-2">{item.task}</p>
-                <p className="text-xs text-gray-500">{item.dueTime}</p>
+                <p className="text-sm font-medium leading-tight text-gray-900 mb-1">{item.task}</p>
+                <p className="text-xs text-gray-500 font-medium">{item.dueTime}</p>
               </div>
             </div>
           ))}
