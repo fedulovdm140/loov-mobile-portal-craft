@@ -3,6 +3,7 @@ import { CreatedOrdersCard } from "./CreatedOrdersCard";
 import { ForecastCard } from "./ForecastCard";
 import { SalaryCard } from "./SalaryCard";
 import { TasksSection } from "./TasksSection";
+import { ConversionsCard } from "./ConversionsCard";
 
 export const DashboardSection = () => {
   const userName = "Дмитрий";
@@ -21,9 +22,10 @@ export const DashboardSection = () => {
         <ForecastCard />
       </div>
 
-      {/* Secondary sections - stacked below */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-1.5">
+      {/* Secondary sections - 3 columns with conversions card */}
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-1.5">
         <SalaryCard />
+        <ConversionsCard />
         <TasksSection />
       </div>
     </div>
