@@ -17,7 +17,7 @@ export const ForecastCard = () => {
 
   return (
     <Card className="bg-white shadow-sm border border-gray-200">
-      <CardHeader className="pb-1 px-3">
+      <CardHeader className="pb-1 px-2.5">
         <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
           <div className="w-4 h-4 bg-purple-100 rounded flex items-center justify-center flex-shrink-0">
             <BarChart3 className="w-2.5 h-2.5 text-purple-600" />
@@ -25,9 +25,9 @@ export const ForecastCard = () => {
           <span className="truncate">Закрытые сделки</span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2 px-3 pt-0 pb-3">
+      <CardContent className="space-y-1.5 px-2.5 pt-0 pb-2.5">
         {/* Top Row - Прогноз выполнения плана */}
-        <div className="bg-purple-50 rounded-lg p-2 border border-purple-100">
+        <div className="bg-purple-50 rounded-lg p-1.5 border border-purple-100">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1">
               <Target className="w-3 h-3 text-purple-600 flex-shrink-0" />
@@ -41,9 +41,9 @@ export const ForecastCard = () => {
         </div>
 
         {/* Bottom Row - День и Месяц (swapped positions) */}
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-1.5">
           {/* Daily Progress - now on the left */}
-          <div className="bg-blue-50 rounded-lg p-2 border border-blue-100">
+          <div className="bg-blue-50 rounded-lg p-1.5 border border-blue-100">
             <div className="flex items-center gap-1 mb-1">
               <Calendar className="w-3 h-3 text-blue-600 flex-shrink-0" />
               <span className="text-xs font-medium text-blue-700">День</span>
@@ -51,7 +51,7 @@ export const ForecastCard = () => {
             <div className="text-center mb-1">
               <span className="text-sm font-semibold text-blue-700">{dailyProgress}%</span>
             </div>
-            <div className="space-y-1">
+            <div className="space-y-0.5">
               <div className="flex justify-between text-xs text-blue-600">
                 <span>{closedRevenueToday.toLocaleString('ru-RU')} ₽</span>
                 <span>{dailyTarget.toLocaleString('ru-RU')} ₽</span>
@@ -66,7 +66,7 @@ export const ForecastCard = () => {
           </div>
 
           {/* Monthly Progress - now on the right */}
-          <div className="bg-indigo-50 rounded-lg p-2 border border-indigo-100">
+          <div className="bg-indigo-50 rounded-lg p-1.5 border border-indigo-100">
             <div className="flex items-center gap-1 mb-1">
               <TrendingUp className="w-3 h-3 text-indigo-600 flex-shrink-0" />
               <span className="text-xs font-medium text-indigo-700">Месяц</span>
@@ -74,7 +74,7 @@ export const ForecastCard = () => {
             <div className="text-center mb-1">
               <span className="text-sm font-semibold text-indigo-700">{monthlyProgress}%</span>
             </div>
-            <div className="space-y-1">
+            <div className="space-y-0.5">
               <div className="flex justify-between text-xs text-indigo-600">
                 <span>{closedRevenueMonth.toLocaleString('ru-RU')} ₽</span>
                 <span>{monthlyTarget.toLocaleString('ru-RU')} ₽</span>
