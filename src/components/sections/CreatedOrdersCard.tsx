@@ -24,11 +24,60 @@ export const CreatedOrdersCard = () => {
     amount: 2500
   }];
 
+  // Conversions data
+  const conversionsData = {
+    repairToCheck: { rate: 71, label: "Ремонт → Проверка" },
+    repairToSale: { rate: 38, label: "Ремонт → Продажа" }
+  };
+
   const dailyProgress = Math.round(dailyRevenue / dailyTarget * 100);
+
+  const CircularProgress = ({ rate, label, color }: {
+    rate: number;
+    label: string;
+    color: string;
+  }) => {
+    const circumference = 2 * Math.PI * 12; // radius = 12
+    const strokeDasharray = circumference;
+    const strokeDashoffset = circumference - (rate / 100) * circumference;
+
+    return (
+      <div className="text-center">
+        <div className="relative w-8 h-8 mx-auto mb-0.5">
+          <svg className="w-8 h-8 transform -rotate-90" viewBox="0 0 32 32">
+            <circle
+              cx="16"
+              cy="16"
+              r="12"
+              stroke="rgba(156, 163, 175, 0.2)"
+              strokeWidth="2"
+              fill="none"
+            />
+            <circle
+              cx="16"
+              cy="16"
+              r="12"
+              stroke={color}
+              strokeWidth="2"
+              fill="none"
+              strokeDasharray={strokeDasharray}
+              strokeDashoffset={strokeDashoffset}
+              strokeLinecap="round"
+              className="transition-all duration-500"
+            />
+          </svg>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-xs font-bold text-gray-700">{rate}%</span>
+          </div>
+        </div>
+        <p className="text-xs text-gray-600 leading-tight">{label}</p>
+      </div>
+    );
+  };
 
   return (
     <Card className="bg-white shadow-sm border border-gray-200">
-      <CardHeader className="pb-1 px-2.5">
+      <CardHeader className="pb-0.5 px-2">
         <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
           <div className="w-4 h-4 bg-blue-100 rounded flex items-center justify-center flex-shrink-0">
             <TrendingUp className="w-2.5 h-2.5 text-blue-600" />
@@ -36,24 +85,24 @@ export const CreatedOrdersCard = () => {
           <span className="truncate">Созданные заказы</span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-1.5 px-2.5 pt-0 pb-2.5">
+      <CardContent className="space-y-1 px-2 pt-0 pb-2">
         {/* Top Row - Не закрытые сделки */}
-        <div className="bg-red-50 rounded-lg p-1.5 border border-red-100">
+        <div className="bg-red-50 rounded-lg p-1 border border-red-100">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1">
               <AlertTriangle className="w-3 h-3 text-red-600 flex-shrink-0" />
               <span className="text-xs font-medium text-red-800">НЕ ЗАКРЫТЫЕ СДЕЛКИ</span>
             </div>
             <div className="text-right">
-              <div className="text-lg font-bold text-red-600">{openDealsCount}</div>
+              <div className="text-sm font-bold text-red-600">{openDealsCount}</div>
               <div className="text-xs text-red-600">{openDealsSum.toLocaleString('ru-RU')} ₽</div>
             </div>
           </div>
         </div>
 
         {/* Second Row - Daily Revenue */}
-        <div className="bg-green-50 rounded-lg p-1.5 border border-green-100">
-          <div className="flex items-center justify-between mb-1">
+        <div className="bg-green-50 rounded-lg p-1 border border-green-100">
+          <div className="flex items-center justify-between mb-0.5">
             <div className="flex items-center gap-1">
               <DollarSign className="w-3 h-3 text-green-600 flex-shrink-0" />
               <span className="text-xs font-medium text-green-700">Созданные заказы</span>
@@ -74,9 +123,9 @@ export const CreatedOrdersCard = () => {
           </div>
         </div>
 
-        {/* Bottom Row - Optics Sales - Минималистичный дизайн */}
-        <div className="bg-blue-50 rounded-lg p-1.5 border border-blue-100">
-          <div className="flex items-center gap-1 mb-1">
+        {/* Third Row - Optics Sales */}
+        <div className="bg-blue-50 rounded-lg p-1 border border-blue-100">
+          <div className="flex items-center gap-1 mb-0.5">
             <Eye className="w-3 h-3 text-blue-600 flex-shrink-0" />
             <span className="text-xs font-semibold text-blue-700">Продажи сегодня</span>
           </div>
@@ -97,6 +146,26 @@ export const CreatedOrdersCard = () => {
               </div>
               <span className="text-xs font-bold text-blue-900">{opticsData.reduce((sum, item) => sum + item.amount, 0).toLocaleString('ru-RU')} ₽</span>
             </div>
+          </div>
+        </div>
+
+        {/* Fourth Row - Conversions */}
+        <div className="bg-orange-50 rounded-lg p-1 border border-orange-100">
+          <div className="flex items-center gap-1 mb-0.5">
+            <TrendingUp className="w-3 h-3 text-orange-600 flex-shrink-0" />
+            <span className="text-xs font-semibold text-orange-700">Конверсии</span>
+          </div>
+          <div className="grid grid-cols-2 gap-1">
+            <CircularProgress
+              rate={conversionsData.repairToCheck.rate}
+              label={conversionsData.repairToCheck.label}
+              color="#10b981"
+            />
+            <CircularProgress
+              rate={conversionsData.repairToSale.rate}
+              label={conversionsData.repairToSale.label}
+              color="#3b82f6"
+            />
           </div>
         </div>
       </CardContent>
