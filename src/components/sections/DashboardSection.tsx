@@ -1,6 +1,7 @@
 
 import { CreatedOrdersCard } from "./CreatedOrdersCard";
 import { ForecastCard } from "./ForecastCard";
+import { SalaryCard } from "./SalaryCard";
 import { TasksSection } from "./TasksSection";
 
 export const DashboardSection = () => {
@@ -18,6 +19,11 @@ export const DashboardSection = () => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
         <CreatedOrdersCard />
         <ForecastCard />
+      </div>
+
+      {/* Salary Card */}
+      <div className="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
+        <SalaryCard />
       </div>
 
       {/* Tasks Section */}
