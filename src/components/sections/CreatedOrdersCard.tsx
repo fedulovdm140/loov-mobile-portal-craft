@@ -37,44 +37,41 @@ export const CreatedOrdersCard = () => {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3 px-3 pt-0 pb-3">
-        {/* Top Row - Key Metrics */}
-        <div className="grid grid-cols-2 gap-2">
-          {/* Daily Revenue */}
-          <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-2 border border-green-100">
-            <div className="flex items-center justify-between mb-1">
-              <div className="flex items-center gap-1">
-                <DollarSign className="w-3 h-3 text-green-600 flex-shrink-0" />
-                <span className="text-xs font-semibold text-green-800">Выручка</span>
-              </div>
-              <span className="text-sm font-bold text-green-700">{dailyRevenue.toLocaleString('ru-RU')}</span>
+        {/* Top Row - Не закрытые сделки с акцентом */}
+        <div className="bg-gradient-to-br from-red-50 to-pink-50 rounded-lg p-3 border-2 border-red-200 shadow-md">
+          <div className="text-center mb-2">
+            <div className="flex items-center justify-center gap-2 mb-1">
+              <AlertTriangle className="w-4 h-4 text-red-600 flex-shrink-0" />
+              <span className="text-sm font-bold text-red-800">НЕ ЗАКРЫТЫЕ СДЕЛКИ</span>
             </div>
-            <div className="space-y-1">
-              <div className="flex justify-between text-xs text-green-600">
-                <span>{dailyProgress}%</span>
-                <span>{dailyTarget.toLocaleString('ru-RU')}</span>
-              </div>
-              <div className="h-1.5 bg-green-100 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-gradient-to-r from-green-400 to-green-600 rounded-full transition-all duration-500"
-                  style={{ width: `${Math.min(dailyProgress, 100)}%` }}
-                />
-              </div>
+            <div className="text-2xl font-bold text-red-600">{openDealsCount}</div>
+          </div>
+          <div className="text-center">
+            <div className="text-sm font-semibold text-red-700">
+              {openDealsSum.toLocaleString('ru-RU')} ₽
             </div>
           </div>
+        </div>
 
-          {/* Open Deals - Count at top */}
-          <div className="bg-gradient-to-br from-red-50 to-pink-50 rounded-lg p-2 border border-red-100">
-            <div className="text-center mb-1">
-              <div className="flex items-center justify-center gap-1">
-                <AlertTriangle className="w-3 h-3 text-red-600 flex-shrink-0" />
-                <span className="text-lg font-bold text-red-600">{openDealsCount}</span>
-              </div>
+        {/* Second Row - Daily Revenue */}
+        <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-2 border border-green-100">
+          <div className="flex items-center justify-between mb-1">
+            <div className="flex items-center gap-1">
+              <DollarSign className="w-3 h-3 text-green-600 flex-shrink-0" />
+              <span className="text-xs font-semibold text-green-800">Выручка</span>
             </div>
-            <div className="text-center">
-              <div className="text-xs font-semibold text-red-800 mb-1">Открытые</div>
-              <div className="text-xs font-medium text-red-600">
-                {openDealsSum.toLocaleString('ru-RU')} ₽
-              </div>
+            <span className="text-sm font-bold text-green-700">{dailyRevenue.toLocaleString('ru-RU')}</span>
+          </div>
+          <div className="space-y-1">
+            <div className="flex justify-between text-xs text-green-600">
+              <span>{dailyProgress}%</span>
+              <span>{dailyTarget.toLocaleString('ru-RU')}</span>
+            </div>
+            <div className="h-1.5 bg-green-100 rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-green-400 to-green-600 rounded-full transition-all duration-500"
+                style={{ width: `${Math.min(dailyProgress, 100)}%` }}
+              />
             </div>
           </div>
         </div>
