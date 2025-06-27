@@ -1,6 +1,6 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Eye, RefreshCw, List } from "lucide-react";
+import { List, RefreshCw } from "lucide-react";
 
 export const TasksSection = () => {
   const tasks = [
@@ -21,25 +21,15 @@ export const TasksSection = () => {
       priority: "low",
       dueTime: "завтра",
       trackerUrl: "https://tracker.yandex.ru/OPTIC-125"
-    },
-    {
-      task: "Проверить поступление товара",
-      priority: "medium", 
-      dueTime: "до 16:00",
-      trackerUrl: "https://tracker.yandex.ru/OPTIC-126"
     }
   ];
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "high":
-        return "bg-red-500";
-      case "medium":
-        return "bg-orange-500";
-      case "low":
-        return "bg-emerald-500";
-      default:
-        return "bg-gray-500";
+      case "high": return "bg-red-500";
+      case "medium": return "bg-orange-500";
+      case "low": return "bg-emerald-500";
+      default: return "bg-gray-500";
     }
   };
 
@@ -48,43 +38,35 @@ export const TasksSection = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <Card className="bg-white shadow-sm border border-gray-100">
-        <CardHeader className="flex flex-row items-center gap-2">
-          <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
-            <List className="w-4 h-4 text-white" />
+    <Card className="bg-white shadow-sm border border-gray-200">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-base font-bold text-gray-800 flex items-center gap-2">
+          <div className="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center">
+            <List className="w-3 h-3 text-orange-600" />
           </div>
-          <CardTitle className="text-xl font-semibold text-gray-900">Задачи на сегодня</CardTitle>
-          <div className="ml-auto flex gap-2">
-            <button className="p-2 hover:bg-gray-50 rounded-lg transition-colors">
-              <List className="w-4 h-4 text-gray-600" />
-            </button>
-            <button className="p-2 hover:bg-gray-50 rounded-lg transition-colors">
-              <Eye className="w-4 h-4 text-gray-600" />
-            </button>
-            <button className="p-2 hover:bg-gray-50 rounded-lg transition-colors">
-              <RefreshCw className="w-4 h-4 text-gray-600" />
-            </button>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            {tasks.map((item, index) => (
-              <div 
-                key={index} 
-                className="flex items-start gap-3 p-4 rounded-lg border border-gray-100 hover:bg-gray-50 cursor-pointer transition-colors"
-                onClick={() => handleTaskClick(item.trackerUrl)}
-              >
-                <div className={`w-3 h-3 rounded-full ${getPriorityColor(item.priority)} mt-1 flex-shrink-0`} />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium leading-tight text-gray-900">{item.task}</p>
-                  <p className="text-xs text-gray-500 mt-1">{item.dueTime}</p>
-                </div>
+          Задачи на сегодня
+          <button className="ml-auto p-1 hover:bg-gray-50 rounded transition-colors">
+            <RefreshCw className="w-3 h-3 text-gray-600" />
+          </button>
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="pt-0">
+        <div className="space-y-2">
+          {tasks.map((item, index) => (
+            <div 
+              key={index} 
+              className="flex items-start gap-2 p-2 rounded-lg border border-gray-100 hover:bg-gray-50 cursor-pointer transition-colors"
+              onClick={() => handleTaskClick(item.trackerUrl)}
+            >
+              <div className={`w-2 h-2 rounded-full ${getPriorityColor(item.priority)} mt-1.5 flex-shrink-0`} />
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-medium leading-tight text-gray-900 line-clamp-2">{item.task}</p>
+                <p className="text-xs text-gray-500">{item.dueTime}</p>
               </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
   );
 };
