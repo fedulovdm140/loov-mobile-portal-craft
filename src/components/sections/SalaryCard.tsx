@@ -1,7 +1,5 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign, TrendingUp, User } from "lucide-react";
-
 export const SalaryCard = () => {
   // Mock data - эти данные будут поступать из API в реальном приложении
   const currentSalary = 45000;
@@ -9,11 +7,8 @@ export const SalaryCard = () => {
   const baseSalary = 35000;
   const bonusAmount = currentSalary - baseSalary;
   const forecastBonus = monthlyForecast - baseSalary;
-  
-  const salaryProgress = Math.round((currentSalary / monthlyForecast) * 100);
-
-  return (
-    <Card className="bg-white shadow-lg border-0 hover:shadow-xl transition-all duration-300">
+  const salaryProgress = Math.round(currentSalary / monthlyForecast * 100);
+  return <Card className="bg-white shadow-lg border-0 hover:shadow-xl transition-all duration-300">
       <CardHeader className="pb-3">
         <CardTitle className="text-lg font-bold text-gray-800 flex items-center gap-3">
           <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
@@ -34,7 +29,7 @@ export const SalaryCard = () => {
               <p className="text-xs text-purple-600">Оклад + бонус</p>
             </div>
           </div>
-          <span className="text-xl font-bold text-purple-600">{currentSalary.toLocaleString()} ₽</span>
+          <span className="font-bold text-purple-600 text-base">{currentSalary.toLocaleString()} ₽</span>
         </div>
 
         {/* Salary Breakdown */}
@@ -65,10 +60,9 @@ export const SalaryCard = () => {
               <span>Прогноз: {monthlyForecast.toLocaleString()} ₽</span>
             </div>
             <div className="relative h-2 bg-gray-100 rounded-full overflow-hidden">
-              <div 
-                className="absolute top-0 left-0 h-full bg-gradient-to-r from-purple-400 to-indigo-600 rounded-full transition-all duration-500" 
-                style={{ width: `${Math.min(salaryProgress, 100)}%` }} 
-              />
+              <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-purple-400 to-indigo-600 rounded-full transition-all duration-500" style={{
+              width: `${Math.min(salaryProgress, 100)}%`
+            }} />
             </div>
             <div className="text-center">
               <span className={`text-xs font-bold ${salaryProgress >= 100 ? 'text-indigo-600' : salaryProgress >= 80 ? 'text-purple-600' : 'text-orange-600'}`}>
@@ -89,6 +83,5 @@ export const SalaryCard = () => {
           </p>
         </div>
       </CardContent>
-    </Card>
-  );
+    </Card>;
 };
