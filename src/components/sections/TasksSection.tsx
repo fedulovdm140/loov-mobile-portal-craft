@@ -37,7 +37,7 @@ export const TasksSection = () => {
       case "medium":
         return "bg-orange-500";
       case "low":
-        return "bg-green-500";
+        return "bg-emerald-500";
       default:
         return "bg-gray-500";
     }
@@ -49,21 +49,21 @@ export const TasksSection = () => {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <Card>
+      <Card className="bg-white shadow-sm border border-gray-100">
         <CardHeader className="flex flex-row items-center gap-2">
           <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
             <List className="w-4 h-4 text-white" />
           </div>
-          <CardTitle className="text-xl">Задачи на сегодня</CardTitle>
+          <CardTitle className="text-xl font-semibold text-gray-900">Задачи на сегодня</CardTitle>
           <div className="ml-auto flex gap-2">
-            <button className="p-2 hover:bg-gray-100 rounded">
-              <List className="w-4 h-4" />
+            <button className="p-2 hover:bg-gray-50 rounded-lg transition-colors">
+              <List className="w-4 h-4 text-gray-600" />
             </button>
-            <button className="p-2 hover:bg-gray-100 rounded">
-              <Eye className="w-4 h-4" />
+            <button className="p-2 hover:bg-gray-50 rounded-lg transition-colors">
+              <Eye className="w-4 h-4 text-gray-600" />
             </button>
-            <button className="p-2 hover:bg-gray-100 rounded">
-              <RefreshCw className="w-4 h-4" />
+            <button className="p-2 hover:bg-gray-50 rounded-lg transition-colors">
+              <RefreshCw className="w-4 h-4 text-gray-600" />
             </button>
           </div>
         </CardHeader>
@@ -72,13 +72,13 @@ export const TasksSection = () => {
             {tasks.map((item, index) => (
               <div 
                 key={index} 
-                className="flex items-start gap-3 p-3 rounded-lg border hover:bg-gray-50 cursor-pointer transition-colors"
+                className="flex items-start gap-3 p-4 rounded-lg border border-gray-100 hover:bg-gray-50 cursor-pointer transition-colors"
                 onClick={() => handleTaskClick(item.trackerUrl)}
               >
                 <div className={`w-3 h-3 rounded-full ${getPriorityColor(item.priority)} mt-1 flex-shrink-0`} />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium leading-tight">{item.task}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{item.dueTime}</p>
+                  <p className="text-sm font-medium leading-tight text-gray-900">{item.task}</p>
+                  <p className="text-xs text-gray-500 mt-1">{item.dueTime}</p>
                 </div>
               </div>
             ))}
