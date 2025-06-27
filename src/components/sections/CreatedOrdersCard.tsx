@@ -37,28 +37,28 @@ export const CreatedOrdersCard = () => {
     label: string;
     color: string;
   }) => {
-    const circumference = 2 * Math.PI * 12; // radius = 12
+    const circumference = 2 * Math.PI * 10; // уменьшенный радиус = 10
     const strokeDasharray = circumference;
     const strokeDashoffset = circumference - (rate / 100) * circumference;
 
     return (
       <div className="text-center">
-        <div className="relative w-8 h-8 mx-auto mb-0.5">
-          <svg className="w-8 h-8 transform -rotate-90" viewBox="0 0 32 32">
+        <div className="relative w-7 h-7 mx-auto mb-0.5">
+          <svg className="w-7 h-7 transform -rotate-90" viewBox="0 0 28 28">
             <circle
-              cx="16"
-              cy="16"
-              r="12"
+              cx="14"
+              cy="14"
+              r="10"
               stroke="rgba(156, 163, 175, 0.2)"
-              strokeWidth="2"
+              strokeWidth="1.5"
               fill="none"
             />
             <circle
-              cx="16"
-              cy="16"
-              r="12"
+              cx="14"
+              cy="14"
+              r="10"
               stroke={color}
-              strokeWidth="2"
+              strokeWidth="1.5"
               fill="none"
               strokeDasharray={strokeDasharray}
               strokeDashoffset={strokeDashoffset}
@@ -67,10 +67,10 @@ export const CreatedOrdersCard = () => {
             />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-xs font-bold text-gray-700">{rate}%</span>
+            <span className="text-xs font-bold text-gray-700 leading-none">{rate}%</span>
           </div>
         </div>
-        <p className="text-xs text-gray-600 leading-tight">{label}</p>
+        <p className="text-xs text-gray-600 leading-tight px-0.5">{label}</p>
       </div>
     );
   };
@@ -100,7 +100,27 @@ export const CreatedOrdersCard = () => {
           </div>
         </div>
 
-        {/* Second Row - Daily Revenue */}
+        {/* Second Row - Conversions */}
+        <div className="bg-orange-50 rounded-lg p-1 border border-orange-100">
+          <div className="flex items-center gap-1 mb-0.5">
+            <TrendingUp className="w-3 h-3 text-orange-600 flex-shrink-0" />
+            <span className="text-xs font-semibold text-orange-700">Конверсии</span>
+          </div>
+          <div className="grid grid-cols-2 gap-1">
+            <CircularProgress
+              rate={conversionsData.repairToCheck.rate}
+              label={conversionsData.repairToCheck.label}
+              color="#10b981"
+            />
+            <CircularProgress
+              rate={conversionsData.repairToSale.rate}
+              label={conversionsData.repairToSale.label}
+              color="#3b82f6"
+            />
+          </div>
+        </div>
+
+        {/* Third Row - Daily Revenue */}
         <div className="bg-green-50 rounded-lg p-1 border border-green-100">
           <div className="flex items-center justify-between mb-0.5">
             <div className="flex items-center gap-1">
@@ -123,7 +143,7 @@ export const CreatedOrdersCard = () => {
           </div>
         </div>
 
-        {/* Third Row - Optics Sales */}
+        {/* Fourth Row - Optics Sales */}
         <div className="bg-blue-50 rounded-lg p-1 border border-blue-100">
           <div className="flex items-center gap-1 mb-0.5">
             <Eye className="w-3 h-3 text-blue-600 flex-shrink-0" />
@@ -146,26 +166,6 @@ export const CreatedOrdersCard = () => {
               </div>
               <span className="text-xs font-bold text-blue-900">{opticsData.reduce((sum, item) => sum + item.amount, 0).toLocaleString('ru-RU')} ₽</span>
             </div>
-          </div>
-        </div>
-
-        {/* Fourth Row - Conversions */}
-        <div className="bg-orange-50 rounded-lg p-1 border border-orange-100">
-          <div className="flex items-center gap-1 mb-0.5">
-            <TrendingUp className="w-3 h-3 text-orange-600 flex-shrink-0" />
-            <span className="text-xs font-semibold text-orange-700">Конверсии</span>
-          </div>
-          <div className="grid grid-cols-2 gap-1">
-            <CircularProgress
-              rate={conversionsData.repairToCheck.rate}
-              label={conversionsData.repairToCheck.label}
-              color="#10b981"
-            />
-            <CircularProgress
-              rate={conversionsData.repairToSale.rate}
-              label={conversionsData.repairToSale.label}
-              color="#3b82f6"
-            />
           </div>
         </div>
       </CardContent>
