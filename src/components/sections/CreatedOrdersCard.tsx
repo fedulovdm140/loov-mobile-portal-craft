@@ -9,7 +9,7 @@ export const CreatedOrdersCard = () => {
   const openDealsCount = 8;
   const openDealsSum = 45000;
 
-  // Optics sales data
+  // Optics sales data with repairs
   const opticsData = [{
     category: "Оправы",
     quantity: 4,
@@ -18,6 +18,10 @@ export const CreatedOrdersCard = () => {
     category: "Линзы", 
     quantity: 4,
     amount: 5000
+  }, {
+    category: "Ремонты", 
+    quantity: 3,
+    amount: 2500
   }];
 
   const dailyProgress = Math.round(dailyRevenue / dailyTarget * 100);
@@ -42,12 +46,12 @@ export const CreatedOrdersCard = () => {
                 <DollarSign className="w-3 h-3 text-green-600 flex-shrink-0" />
                 <span className="text-xs font-semibold text-green-800">Выручка</span>
               </div>
-              <span className="text-sm font-bold text-green-700">{Math.round(dailyRevenue/1000)}k</span>
+              <span className="text-sm font-bold text-green-700">{dailyRevenue.toLocaleString('ru-RU')}</span>
             </div>
             <div className="space-y-1">
               <div className="flex justify-between text-xs text-green-600">
                 <span>{dailyProgress}%</span>
-                <span>{Math.round(dailyTarget/1000)}k</span>
+                <span>{dailyTarget.toLocaleString('ru-RU')}</span>
               </div>
               <div className="h-1.5 bg-green-100 rounded-full overflow-hidden">
                 <div 
@@ -58,41 +62,41 @@ export const CreatedOrdersCard = () => {
             </div>
           </div>
 
-          {/* Open Deals */}
+          {/* Open Deals - Count at top */}
           <div className="bg-gradient-to-br from-red-50 to-pink-50 rounded-lg p-2 border border-red-100">
-            <div className="flex items-center justify-between mb-1">
-              <div className="flex items-center gap-1">
+            <div className="text-center mb-1">
+              <div className="flex items-center justify-center gap-1">
                 <AlertTriangle className="w-3 h-3 text-red-600 flex-shrink-0" />
-                <span className="text-xs font-semibold text-red-800">Открытые</span>
+                <span className="text-lg font-bold text-red-600">{openDealsCount}</span>
               </div>
-              <span className="text-lg font-bold text-red-600">{openDealsCount}</span>
             </div>
             <div className="text-center">
+              <div className="text-xs font-semibold text-red-800 mb-1">Открытые</div>
               <div className="text-xs font-medium text-red-600">
-                {Math.round(openDealsSum/1000)}k ₽
+                {openDealsSum.toLocaleString('ru-RU')} ₽
               </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom Row - Optics Sales */}
+        {/* Bottom Row - Optics Sales with 4 squares */}
         <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-2 border border-blue-100">
           <div className="flex items-center gap-1 mb-2">
             <Eye className="w-3 h-3 text-blue-600 flex-shrink-0" />
             <span className="text-xs font-semibold text-blue-800">Продажи сегодня</span>
           </div>
-          <div className="grid grid-cols-3 gap-1 text-center">
+          <div className="grid grid-cols-4 gap-1 text-center">
             {opticsData.map((item, index) => (
               <div key={index} className="bg-white/60 rounded p-1.5">
                 <div className="text-sm font-bold text-blue-700">{item.quantity}</div>
                 <div className="text-xs text-blue-600 font-medium truncate">{item.category}</div>
-                <div className="text-xs font-semibold text-blue-700">{Math.round(item.amount/1000)}k</div>
+                <div className="text-xs font-semibold text-blue-700">{item.amount.toLocaleString('ru-RU')}</div>
               </div>
             ))}
             <div className="bg-blue-100 rounded p-1.5">
               <div className="text-sm font-bold text-blue-800">{opticsData.reduce((sum, item) => sum + item.quantity, 0)}</div>
               <div className="text-xs text-blue-700 font-medium">Всего</div>
-              <div className="text-xs font-bold text-blue-800">{Math.round(opticsData.reduce((sum, item) => sum + item.amount, 0)/1000)}k</div>
+              <div className="text-xs font-bold text-blue-800">{opticsData.reduce((sum, item) => sum + item.amount, 0).toLocaleString('ru-RU')}</div>
             </div>
           </div>
         </div>

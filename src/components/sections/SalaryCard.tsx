@@ -29,10 +29,10 @@ export const SalaryCard = () => {
               <DollarSign className="w-3 h-3 text-purple-600 flex-shrink-0" />
               <span className="text-xs font-semibold text-purple-800">Текущая</span>
             </div>
-            <span className="text-sm font-bold text-purple-700">{Math.round(currentSalary/1000)}k ₽</span>
+            <span className="text-sm font-bold text-purple-700">{currentSalary.toLocaleString('ru-RU')} ₽</span>
           </div>
           <div className="text-xs text-purple-600 text-center">
-            Оклад {Math.round(baseSalary/1000)}k + бонус {Math.round(bonusAmount/1000)}k
+            Оклад {baseSalary.toLocaleString('ru-RU')} + бонус {bonusAmount.toLocaleString('ru-RU')}
           </div>
         </div>
 
@@ -43,12 +43,12 @@ export const SalaryCard = () => {
               <TrendingUp className="w-3 h-3 text-indigo-600 flex-shrink-0" />
               <span className="text-xs font-semibold text-indigo-800">Прогноз</span>
             </div>
-            <span className="text-sm font-bold text-indigo-700">{Math.round(monthlyForecast/1000)}k ₽</span>
+            <span className="text-sm font-bold text-indigo-700">{monthlyForecast.toLocaleString('ru-RU')} ₽</span>
           </div>
           
           <div className="space-y-1">
             <div className="flex justify-between text-xs text-indigo-600">
-              <span>{Math.round(currentSalary/1000)}k</span>
+              <span>{currentSalary.toLocaleString('ru-RU')}</span>
               <span>{salaryProgress}%</span>
             </div>
             <div className="h-1.5 bg-indigo-100 rounded-full overflow-hidden">
@@ -64,7 +64,7 @@ export const SalaryCard = () => {
         <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-2 border border-green-100">
           <div className="flex justify-between items-center">
             <span className="text-xs font-semibold text-green-800">Потенциал</span>
-            <span className="text-sm font-bold text-green-700">+{Math.round((forecastBonus - bonusAmount)/1000)}k ₽</span>
+            <span className="text-sm font-bold text-green-700">+{(forecastBonus - bonusAmount).toLocaleString('ru-RU')} ₽</span>
           </div>
         </div>
       </CardContent>
