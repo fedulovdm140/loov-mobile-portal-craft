@@ -1,7 +1,5 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BarChart3, TrendingUp, Calendar, Target } from "lucide-react";
-
 export const ForecastCard = () => {
   // Mock data - these would come from API in real app
   const monthlyTarget = 300000;
@@ -9,14 +7,11 @@ export const ForecastCard = () => {
   const expectedClosedRevenue = 80000;
   const dailyTarget = 25000;
   const closedRevenueToday = 15000;
-  
   const monthlyProgress = Math.round(closedRevenueMonth / monthlyTarget * 100);
   const monthlyForecast = Math.round((closedRevenueMonth + expectedClosedRevenue) / monthlyTarget * 100);
   const dailyProgress = Math.round(closedRevenueToday / dailyTarget * 100);
   const forecastTotal = closedRevenueMonth + expectedClosedRevenue;
-
-  return (
-    <Card className="bg-white shadow-sm border border-gray-200">
+  return <Card className="bg-white shadow-sm border border-gray-200">
       <CardHeader className="pb-1 px-2.5">
         <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
           <div className="w-4 h-4 bg-purple-100 rounded flex items-center justify-center flex-shrink-0">
@@ -57,16 +52,15 @@ export const ForecastCard = () => {
                 <span>{dailyTarget.toLocaleString('ru-RU')} ₽</span>
               </div>
               <div className="h-1 bg-blue-100 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-blue-500 rounded-full transition-all duration-500"
-                  style={{ width: `${Math.min(dailyProgress, 100)}%` }}
-                />
+                <div className="h-full bg-blue-500 rounded-full transition-all duration-500" style={{
+                width: `${Math.min(dailyProgress, 100)}%`
+              }} />
               </div>
             </div>
           </div>
 
           {/* Monthly Progress - now on the right */}
-          <div className="bg-indigo-50 rounded-lg p-1.5 border border-indigo-100">
+          <div className="rounded-lg p-1.5 border border-indigo-100 bg-indigo-100">
             <div className="flex items-center gap-1 mb-1">
               <TrendingUp className="w-3 h-3 text-indigo-600 flex-shrink-0" />
               <span className="text-xs font-medium text-indigo-700">Месяц</span>
@@ -80,15 +74,13 @@ export const ForecastCard = () => {
                 <span>{monthlyTarget.toLocaleString('ru-RU')} ₽</span>
               </div>
               <div className="h-1 bg-indigo-100 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-indigo-500 rounded-full transition-all duration-500"
-                  style={{ width: `${Math.min(monthlyProgress, 100)}%` }}
-                />
+                <div className="h-full bg-indigo-500 rounded-full transition-all duration-500" style={{
+                width: `${Math.min(monthlyProgress, 100)}%`
+              }} />
               </div>
             </div>
           </div>
         </div>
       </CardContent>
-    </Card>
-  );
+    </Card>;
 };
