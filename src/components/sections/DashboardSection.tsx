@@ -8,23 +8,26 @@ export const DashboardSection = () => {
   const userName = "Дмитрий";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-1 space-y-1">
-      {/* Compact Header */}
-      <div className="text-center mb-0.5">
-        <h1 className="text-base font-bold text-gray-900">Дашборд</h1>
-        <p className="text-gray-600 text-xs">Добро пожаловать, {userName}!</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-blue-50/30 p-2">
+      {/* Optimized Header */}
+      <div className="text-center mb-3">
+        <h1 className="text-lg font-bold text-gray-900 mb-1">Дашборд</h1>
+        <p className="text-gray-600 text-sm">Добро пожаловать, {userName}!</p>
       </div>
 
-      {/* Main Dashboard - 2 columns: Созданные заказы, Закрытые сделки */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-1">
-        <CreatedOrdersCard />
-        <ForecastCard />
-      </div>
+      {/* Main Dashboard Grid - Optimized for mobile */}
+      <div className="max-w-7xl mx-auto space-y-3">
+        {/* Primary Cards - Most Important */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+          <CreatedOrdersCard />
+          <ForecastCard />
+        </div>
 
-      {/* Secondary sections */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-1">
-        <SalaryCard />
-        <TasksSection />
+        {/* Secondary Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+          <SalaryCard />
+          <TasksSection />
+        </div>
       </div>
     </div>
   );
