@@ -1,25 +1,25 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { TrendingUp, Eye, DollarSign, AlertTriangle } from "lucide-react";
-
 export const CreatedOrdersCard = () => {
   // Mock data - these would come from API in real app
   const dailyRevenue = 15000;
   const dailyTarget = 25000;
   const openDealsCount = 8;
   const openDealsSum = 45000;
-  
-  // Optics sales data
-  const opticsData = [
-    { category: "Оправы", quantity: 4, amount: 10000 },
-    { category: "Линзы", quantity: 4, amount: 5000 }
-  ];
-  
-  const dailyProgress = Math.round((dailyRevenue / dailyTarget) * 100);
 
-  return (
-    <Card className="bg-white shadow-lg border-0 hover:shadow-xl transition-all duration-300">
+  // Optics sales data
+  const opticsData = [{
+    category: "Оправы",
+    quantity: 4,
+    amount: 10000
+  }, {
+    category: "Линзы",
+    quantity: 4,
+    amount: 5000
+  }];
+  const dailyProgress = Math.round(dailyRevenue / dailyTarget * 100);
+  return <Card className="bg-white shadow-lg border-0 hover:shadow-xl transition-all duration-300">
       <CardHeader className="pb-3">
         <CardTitle className="text-lg font-bold text-gray-800 flex items-center gap-3">
           <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
@@ -60,16 +60,12 @@ export const CreatedOrdersCard = () => {
               <span>План: {dailyTarget.toLocaleString()} ₽</span>
             </div>
             <div className="relative h-2 bg-gray-100 rounded-full overflow-hidden">
-              <div 
-                className="absolute top-0 left-0 h-full bg-gradient-to-r from-green-400 to-green-600 rounded-full transition-all duration-500"
-                style={{ width: `${Math.min(dailyProgress, 100)}%` }}
-              />
-              {dailyProgress > 100 && (
-                <div 
-                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"
-                  style={{ width: '100%' }}
-                />
-              )}
+              <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-green-400 to-green-600 rounded-full transition-all duration-500" style={{
+              width: `${Math.min(dailyProgress, 100)}%`
+            }} />
+              {dailyProgress > 100 && <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full" style={{
+              width: '100%'
+            }} />}
             </div>
             <div className="text-center">
               <span className={`text-xs font-bold ${dailyProgress >= 100 ? 'text-blue-600' : dailyProgress >= 80 ? 'text-green-600' : 'text-orange-600'}`}>
@@ -83,7 +79,7 @@ export const CreatedOrdersCard = () => {
         <div className="space-y-2">
           <div className="flex items-center gap-2">
             <Eye className="w-3 h-3 text-emerald-600" />
-            <span className="text-sm font-semibold text-gray-700">Оптика за день</span>
+            <span className="text-sm font-semibold text-gray-700">Созданные сделки за день</span>
           </div>
           
           <div className="bg-gradient-to-r from-emerald-50 to-green-50 rounded-lg p-3">
@@ -96,15 +92,13 @@ export const CreatedOrdersCard = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {opticsData.map((item, index) => (
-                  <TableRow key={index} className="border-emerald-100">
+                {opticsData.map((item, index) => <TableRow key={index} className="border-emerald-100">
                     <TableCell className="text-xs py-2 font-medium text-gray-700">{item.category}</TableCell>
                     <TableCell className="text-xs py-2 text-center text-gray-600">{item.quantity} шт</TableCell>
                     <TableCell className="text-xs py-2 text-right font-semibold text-emerald-600">
                       {item.amount.toLocaleString()} ₽
                     </TableCell>
-                  </TableRow>
-                ))}
+                  </TableRow>)}
                 <TableRow className="border-emerald-200 bg-emerald-100/50">
                   <TableCell className="text-xs py-2 font-bold text-gray-800">Итого</TableCell>
                   <TableCell className="text-xs py-2 text-center font-bold text-gray-800">
@@ -119,6 +113,5 @@ export const CreatedOrdersCard = () => {
           </div>
         </div>
       </CardContent>
-    </Card>
-  );
+    </Card>;
 };
