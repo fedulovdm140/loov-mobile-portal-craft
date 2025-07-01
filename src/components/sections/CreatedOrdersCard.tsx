@@ -55,25 +55,25 @@ export const CreatedOrdersCard = () => {
     change: number;
     isPositive: boolean;
   }) => {
-    const circumference = 2 * Math.PI * 10;
+    const circumference = 2 * Math.PI * 12;
     const strokeDasharray = circumference;
     const strokeDashoffset = circumference - rate / 100 * circumference;
     
     return (
-      <div className="flex items-center gap-1.5">
-        <div className="relative w-6 h-6 flex-shrink-0">
-          <svg className="w-6 h-6 transform -rotate-90" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" stroke="rgba(156, 163, 175, 0.15)" strokeWidth="2" fill="none" />
-            <circle cx="12" cy="12" r="10" stroke={color} strokeWidth="2" fill="none" strokeDasharray={strokeDasharray} strokeDashoffset={strokeDashoffset} strokeLinecap="round" className="transition-all duration-700" />
+      <div className="flex items-center gap-2">
+        <div className="relative w-8 h-8 flex-shrink-0">
+          <svg className="w-8 h-8 transform -rotate-90" viewBox="0 0 28 28">
+            <circle cx="14" cy="14" r="12" stroke="rgba(156, 163, 175, 0.15)" strokeWidth="2" fill="none" />
+            <circle cx="14" cy="14" r="12" stroke={color} strokeWidth="2" fill="none" strokeDasharray={strokeDasharray} strokeDashoffset={strokeDashoffset} strokeLinecap="round" className="transition-all duration-700" />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-[8px] font-bold text-gray-700">{rate}%</span>
+            <span className="text-[9px] font-bold text-gray-700">{rate}%</span>
           </div>
         </div>
         <div className="flex-1 min-w-0">
-          <span className="text-[9px] text-gray-600 font-medium leading-tight block">{label}</span>
+          <span className="text-[10px] text-gray-600 font-medium leading-tight block">{label}</span>
           <div className="flex items-center gap-1 mt-0.5">
-            <div className={`flex items-center gap-0.5 px-1 py-0.5 rounded text-[7px] font-bold ${
+            <div className={`flex items-center gap-0.5 px-1 py-0.5 rounded text-[8px] font-bold ${
               isPositive 
                 ? 'bg-green-100 text-green-700' 
                 : 'bg-red-100 text-red-700'
@@ -85,7 +85,7 @@ export const CreatedOrdersCard = () => {
               )}
               <span>{Math.abs(change)}%</span>
             </div>
-            <span className="text-[7px] text-gray-500">от пр. мес.</span>
+            <span className="text-[8px] text-gray-500">от пр. мес.</span>
           </div>
         </div>
       </div>
@@ -93,81 +93,81 @@ export const CreatedOrdersCard = () => {
   };
 
   return (
-    <Card className="bg-gradient-to-br from-white to-gray-50/30 shadow-lg border-0 ring-1 ring-gray-200/60">
+    <Card className="bg-white shadow-sm border border-gray-200 h-fit">
       <CardHeader className="pb-2 px-3 pt-3">
-        <CardTitle className="text-xs font-bold text-gray-800 flex items-center gap-2">
-          <div className="w-5 h-5 bg-gradient-to-br from-blue-500 to-blue-600 rounded-md flex items-center justify-center shadow-sm">
+        <CardTitle className="text-sm font-bold text-gray-800 flex items-center gap-2">
+          <div className="w-5 h-5 bg-blue-600 rounded-md flex items-center justify-center">
             <TrendingUp className="w-2.5 h-2.5 text-white" />
           </div>
           <span>Созданные заказы</span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2 px-3 pt-0 pb-3">
+      <CardContent className="space-y-3 px-3 pt-0 pb-3">
         {/* Critical Alert - Unclosed Deals */}
-        <div className="bg-gradient-to-r from-red-50 to-red-100/50 rounded-lg p-2 border border-red-200/50 shadow-sm">
+        <div className="bg-red-50 rounded-lg p-2.5 border border-red-200">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-red-500 rounded flex items-center justify-center">
                 <AlertTriangle className="w-2.5 h-2.5 text-white" />
               </div>
               <div>
-                <div className="text-[10px] font-bold text-red-800 uppercase tracking-wide">Не закрытые сделки</div>
-                <div className="text-[8px] text-red-600 mt-0.5">Требуют внимания</div>
+                <div className="text-xs font-bold text-red-800">Не закрытые сделки</div>
+                <div className="text-[10px] text-red-600 mt-0.5">Требуют внимания</div>
               </div>
             </div>
             <div className="text-right">
-              <div className="text-sm font-bold text-red-700">{openDealsCount}</div>
-              <div className="text-[9px] text-red-600 font-medium">{openDealsSum.toLocaleString('ru-RU')} ₽</div>
+              <div className="text-lg font-bold text-red-700">{openDealsCount}</div>
+              <div className="text-[10px] text-red-600 font-medium">{openDealsSum.toLocaleString('ru-RU')} ₽</div>
             </div>
           </div>
         </div>
 
         {/* Main Revenue Progress */}
-        <div className="bg-gradient-to-r from-green-50 to-emerald-50/50 rounded-lg p-2 border border-green-200/50 shadow-sm">
-          <div className="flex items-center justify-between mb-1.5">
-            <div className="flex items-center gap-1.5">
-              <div className="w-4 h-4 bg-green-500 rounded flex items-center justify-center">
+        <div className="bg-green-50 rounded-lg p-2.5 border border-green-200">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-green-600 rounded flex items-center justify-center">
                 <DollarSign className="w-2.5 h-2.5 text-white" />
               </div>
               <div>
-                <div className="text-[10px] font-bold text-green-800">Дневная выручка</div>
-                <div className="text-[8px] text-green-600 mt-0.5">{dailyProgress}% от плана</div>
+                <div className="text-xs font-bold text-green-800">Дневная выручка</div>
+                <div className="text-[10px] text-green-600 mt-0.5">{dailyProgress}% от плана</div>
               </div>
             </div>
             <div className="text-right">
-              <div className="text-sm font-bold text-green-700">{dailyRevenue.toLocaleString('ru-RU')} ₽</div>
-              <div className="text-[9px] text-green-600 font-medium">из {dailyTarget.toLocaleString('ru-RU')} ₽</div>
+              <div className="text-lg font-bold text-green-700">{dailyRevenue.toLocaleString('ru-RU')} ₽</div>
+              <div className="text-[10px] text-green-600 font-medium">из {dailyTarget.toLocaleString('ru-RU')} ₽</div>
             </div>
           </div>
-          <div className="h-1.5 bg-green-100 rounded-full overflow-hidden">
-            <div className="h-full bg-gradient-to-r from-green-400 to-green-500 rounded-full transition-all duration-700" style={{
+          <div className="h-2 bg-green-100 rounded-full overflow-hidden">
+            <div className="h-full bg-green-600 rounded-full transition-all duration-700" style={{
             width: `${Math.min(dailyProgress, 100)}%`
           }} />
           </div>
         </div>
 
         {/* Conversions & Sales Combined */}
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-3">
           {/* Conversions */}
-          <div className="bg-gradient-to-br from-orange-50 to-amber-50/50 rounded-lg p-2 border border-orange-200/50 shadow-sm">
-            <div className="flex items-center gap-1.5 mb-1.5">
-              <div className="w-3.5 h-3.5 bg-orange-500 rounded flex items-center justify-center">
-                <Percent className="w-2 h-2 text-white" />
+          <div className="bg-orange-50 rounded-lg p-2.5 border border-orange-200">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-4 h-4 bg-orange-600 rounded flex items-center justify-center">
+                <Percent className="w-2.5 h-2.5 text-white" />
               </div>
-              <span className="text-[10px] font-bold text-orange-800">Конверсии</span>
+              <span className="text-xs font-bold text-orange-800">Конверсии</span>
             </div>
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <CircularProgress 
                 rate={conversionsData.repairToCheck.rate} 
                 label={conversionsData.repairToCheck.label} 
-                color="#10b981"
+                color="#16a34a"
                 change={conversionsData.repairToCheck.change}
                 isPositive={conversionsData.repairToCheck.isPositive}
               />
               <CircularProgress 
                 rate={conversionsData.repairToSale.rate} 
                 label={conversionsData.repairToSale.label} 
-                color="#3b82f6"
+                color="#2563eb"
                 change={conversionsData.repairToSale.change}
                 isPositive={conversionsData.repairToSale.isPositive}
               />
@@ -175,29 +175,29 @@ export const CreatedOrdersCard = () => {
           </div>
 
           {/* Sales Today */}
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-50/50 rounded-lg p-2 border border-blue-200/50 shadow-sm">
-            <div className="flex items-center gap-1.5 mb-1.5">
-              <div className="w-3.5 h-3.5 bg-blue-500 rounded flex items-center justify-center">
-                <Eye className="w-2 h-2 text-white" />
+          <div className="bg-blue-50 rounded-lg p-2.5 border border-blue-200">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-4 h-4 bg-blue-600 rounded flex items-center justify-center">
+                <Eye className="w-2.5 h-2.5 text-white" />
               </div>
-              <span className="text-[10px] font-bold text-blue-800">Продажи</span>
+              <span className="text-xs font-bold text-blue-800">Продажи</span>
             </div>
-            <div className="space-y-0.5">
+            <div className="space-y-1">
               {opticsData.map((item, index) => (
                 <div key={index} className="flex justify-between items-center">
-                  <div className="flex items-center gap-1">
-                    <span className="text-[9px] font-bold text-blue-700 w-2.5 text-center bg-blue-100 rounded px-0.5">{item.quantity}</span>
-                    <span className="text-[8px] text-blue-600 font-medium">{item.category}</span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[10px] font-bold text-blue-700 w-4 text-center bg-blue-100 rounded px-1">{item.quantity}</span>
+                    <span className="text-[10px] text-blue-600 font-medium">{item.category}</span>
                   </div>
-                  <span className="text-[8px] font-bold text-blue-700">{item.amount.toLocaleString('ru-RU')} ₽</span>
+                  <span className="text-[10px] font-bold text-blue-700">{item.amount.toLocaleString('ru-RU')} ₽</span>
                 </div>
               ))}
-              <div className="flex justify-between items-center pt-0.5 border-t border-blue-200/50">
-                <div className="flex items-center gap-1 flex-shrink-0">
-                  <span className="text-[9px] font-bold text-blue-800 w-3.5 text-center bg-blue-200 rounded px-0.5">{opticsData.reduce((sum, item) => sum + item.quantity, 0)}</span>
-                  <span className="text-[8px] font-bold text-blue-800">Всего</span>
+              <div className="flex justify-between items-center pt-1 border-t border-blue-200 mt-1">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[10px] font-bold text-blue-800 w-4 text-center bg-blue-200 rounded px-1">{opticsData.reduce((sum, item) => sum + item.quantity, 0)}</span>
+                  <span className="text-[10px] font-bold text-blue-800">Всего</span>
                 </div>
-                <span className="text-[8px] font-bold text-blue-900 ml-1 flex-shrink-0">{opticsData.reduce((sum, item) => sum + item.amount, 0).toLocaleString('ru-RU')} ₽</span>
+                <span className="text-[10px] font-bold text-blue-900">{opticsData.reduce((sum, item) => sum + item.amount, 0).toLocaleString('ru-RU')} ₽</span>
               </div>
             </div>
           </div>
