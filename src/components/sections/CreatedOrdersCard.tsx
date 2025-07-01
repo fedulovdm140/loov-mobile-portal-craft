@@ -13,34 +13,44 @@ export const CreatedOrdersCard = () => {
   const openDealsCount = 8;
   const openDealsSum = 45000;
 
-  // Optics sales data with repairs
+  // Обновленные данные продаж с целями и сравнениями
   const opticsData = [{
     category: "Оправы",
     quantity: 4,
-    amount: 10000
+    amount: 10000,
+    target: 12000,
+    lastMonth: 8500
   }, {
     category: "Линзы",
     quantity: 4,
-    amount: 5000
+    amount: 5000,
+    target: 6000,
+    lastMonth: 4800
   }, {
     category: "Ремонты",
     quantity: 3,
-    amount: 2500
+    amount: 2500,
+    target: 3000,
+    lastMonth: 2200
   }];
 
-  // Conversions data with month-to-month changes
+  // Обновленные данные конверсий с целями и историей
   const conversionsData = {
     repairToCheck: {
       rate: 71,
       label: "Ремонт → Проверка",
-      change: +5, // +5% from last month
-      isPositive: true
+      change: +5,
+      isPositive: true,
+      target: 75,
+      lastMonth: 66
     },
     repairToSale: {
       rate: 38,
       label: "Ремонт → Продажа",
-      change: -2, // -2% from last month
-      isPositive: false
+      change: -2,
+      isPositive: false,
+      target: 45,
+      lastMonth: 40
     }
   };
 
@@ -53,26 +63,23 @@ export const CreatedOrdersCard = () => {
           <div className="w-5 h-5 bg-blue-600 rounded-md flex items-center justify-center">
             <TrendingUp className="w-2.5 h-2.5 text-white" />
           </div>
-          <span>Созданные заказы</span>
+          <span>Рабочие задачи</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3 px-3 pt-0 pb-3">
-        {/* Critical Alert - Unclosed Deals */}
+        {/* Критичное - Незакрытые сделки */}
         <AlertCard openDealsCount={openDealsCount} openDealsSum={openDealsSum} />
 
-        {/* Main Revenue Progress */}
+        {/* Основной показатель - Выручка дня */}
         <RevenueProgressCard 
           dailyRevenue={dailyRevenue} 
           dailyTarget={dailyTarget} 
           dailyProgress={dailyProgress} 
         />
 
-        {/* Conversions & Sales Combined */}
-        <div className="grid grid-cols-2 gap-3">
-          {/* Conversions */}
+        {/* Детализация - Конверсии и Продажи */}
+        <div className="grid grid-cols-1 gap-3">
           <ConversionsProgressCard conversionsData={conversionsData} />
-
-          {/* Sales Today */}
           <SalesTodayCard opticsData={opticsData} />
         </div>
       </CardContent>
