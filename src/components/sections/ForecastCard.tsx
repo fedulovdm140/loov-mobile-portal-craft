@@ -1,8 +1,9 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BarChart3, Calendar, Target } from "lucide-react";
+import { BarChart3, TrendingUp, Calendar, Target } from "lucide-react";
 
 export const ForecastCard = () => {
+  // Mock data - these would come from API in real app
   const monthlyTarget = 300000;
   const closedRevenueMonth = 180000;
   const expectedClosedRevenue = 80000;
@@ -15,70 +16,86 @@ export const ForecastCard = () => {
   const forecastTotal = closedRevenueMonth + expectedClosedRevenue;
 
   return (
-    <Card className="bg-white shadow-sm border border-gray-200 h-fit">
-      <CardHeader className="pb-1 px-2 pt-2">
-        <CardTitle className="text-xs font-bold text-gray-800 flex items-center gap-1.5">
-          <div className="w-4 h-4 bg-purple-600 rounded flex items-center justify-center">
-            <BarChart3 className="w-2 h-2 text-white" />
+    <Card className="bg-gradient-to-br from-white to-gray-50/30 shadow-lg border-0 ring-1 ring-gray-200/60">
+      <CardHeader className="pb-2 px-3 pt-3">
+        <CardTitle className="text-xs font-bold text-gray-800 flex items-center gap-2">
+          <div className="w-5 h-5 bg-gradient-to-br from-purple-500 to-purple-600 rounded-md flex items-center justify-center shadow-sm">
+            <BarChart3 className="w-2.5 h-2.5 text-white" />
           </div>
           <span>Закрытые сделки</span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2 px-2 pt-0 pb-2">
-        <div className="bg-purple-50 rounded-md p-2 border border-purple-200">
+      <CardContent className="space-y-2 px-3 pt-0 pb-3">
+        {/* Forecast Achievement */}
+        <div className="bg-gradient-to-r from-purple-50 to-violet-50/50 rounded-lg p-2 border border-purple-200/50 shadow-sm">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5">
-              <div className="w-4 h-4 bg-purple-600 rounded flex items-center justify-center">
+              <div className="w-4 h-4 bg-purple-500 rounded flex items-center justify-center">
                 <Target className="w-2.5 h-2.5 text-white" />
               </div>
               <div>
-                <div className="text-xs font-bold text-purple-800">Прогноз плана</div>
-                <div className="text-[10px] text-purple-600">Ожидаемое выполнение</div>
+                <div className="text-[10px] font-bold text-purple-800">Прогноз плана</div>
+                <div className="text-[8px] text-purple-600 mt-0.5">Ожидаемое выполнение</div>
               </div>
             </div>
             <div className="text-right">
-              <div className="text-lg font-bold text-purple-700">{monthlyForecast}%</div>
-              <div className="text-[10px] text-purple-600 font-medium">{forecastTotal.toLocaleString('ru-RU')} ₽</div>
+              <div className="text-sm font-bold text-purple-700">{monthlyForecast}%</div>
+              <div className="text-[9px] text-purple-600 font-medium">{forecastTotal.toLocaleString('ru-RU')} ₽</div>
             </div>
           </div>
         </div>
 
+        {/* Daily & Monthly Progress */}
         <div className="grid grid-cols-2 gap-2">
-          <div className="bg-blue-50 rounded-md p-2 border border-blue-200">
-            <div className="flex items-center gap-1.5 mb-1">
-              <div className="w-3 h-3 bg-blue-600 rounded flex items-center justify-center">
+          {/* Daily Progress */}
+          <div className="bg-gradient-to-br from-blue-50 to-cyan-50/50 rounded-lg p-2 border border-blue-200/50 shadow-sm">
+            <div className="flex items-center gap-1.5 mb-1.5">
+              <div className="w-3.5 h-3.5 bg-blue-500 rounded flex items-center justify-center">
                 <Calendar className="w-2 h-2 text-white" />
               </div>
               <span className="text-[10px] font-bold text-blue-800">Сегодня</span>
             </div>
-            <div className="text-center mb-1">
-              <div className="text-sm font-bold text-blue-700">{dailyProgress}%</div>
-              <div className="text-[9px] text-blue-600">{closedRevenueToday.toLocaleString('ru-RU')} ₽</div>
+            <div className="text-center mb-1.5">
+              <div className="text-lg font-bold text-blue-700">{dailyProgress}%</div>
+              <div className="text-[8px] text-blue-600 font-medium">от плана</div>
             </div>
-            <div className="h-1 bg-blue-100 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-blue-600 rounded-full transition-all duration-700" 
-                style={{ width: `${Math.min(dailyProgress, 100)}%` }}
-              />
+            <div className="space-y-0.5">
+              <div className="flex justify-between text-[8px] text-blue-600 font-medium">
+                <span>{closedRevenueToday.toLocaleString('ru-RU')} ₽</span>
+                <span>{dailyTarget.toLocaleString('ru-RU')} ₽</span>
+              </div>
+              <div className="h-1 bg-blue-100 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full transition-all duration-700" 
+                  style={{ width: `${Math.min(dailyProgress, 100)}%` }}
+                />
+              </div>
             </div>
           </div>
 
-          <div className="bg-indigo-50 rounded-md p-2 border border-indigo-200">
-            <div className="flex items-center gap-1.5 mb-1">
-              <div className="w-3 h-3 bg-indigo-600 rounded flex items-center justify-center">
-                <BarChart3 className="w-2 h-2 text-white" />
+          {/* Monthly Progress */}
+          <div className="bg-gradient-to-br from-indigo-50 to-purple-50/50 rounded-lg p-2 border border-indigo-200/50 shadow-sm">
+            <div className="flex items-center gap-1.5 mb-1.5">
+              <div className="w-3.5 h-3.5 bg-indigo-500 rounded flex items-center justify-center">
+                <TrendingUp className="w-2 h-2 text-white" />
               </div>
               <span className="text-[10px] font-bold text-indigo-800">Месяц</span>
             </div>
-            <div className="text-center mb-1">
-              <div className="text-sm font-bold text-indigo-700">{monthlyProgress}%</div>
-              <div className="text-[9px] text-indigo-600">{closedRevenueMonth.toLocaleString('ru-RU')} ₽</div>
+            <div className="text-center mb-1.5">
+              <div className="text-lg font-bold text-indigo-700">{monthlyProgress}%</div>
+              <div className="text-[8px] text-indigo-600 font-medium">выполнено</div>
             </div>
-            <div className="h-1 bg-indigo-100 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-indigo-600 rounded-full transition-all duration-700" 
-                style={{ width: `${Math.min(monthlyProgress, 100)}%` }}
-              />
+            <div className="space-y-0.5">
+              <div className="flex justify-between text-[8px] text-indigo-600 font-medium">
+                <span>{closedRevenueMonth.toLocaleString('ru-RU')} ₽</span>
+                <span>{monthlyTarget.toLocaleString('ru-RU')} ₽</span>
+              </div>
+              <div className="h-1 bg-indigo-100 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-indigo-400 to-indigo-500 rounded-full transition-all duration-700" 
+                  style={{ width: `${Math.min(monthlyProgress, 100)}%` }}
+                />
+              </div>
             </div>
           </div>
         </div>
