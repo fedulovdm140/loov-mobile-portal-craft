@@ -1,7 +1,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { CircularProgress } from "./CircularProgress";
+import { CircularProgressIndicator } from "./CircularProgressIndicator";
 
 export const MainStatsCard = () => {
   const mainStats = [
@@ -44,14 +44,13 @@ export const MainStatsCard = () => {
           {/* Three Circular Stats */}
           <div className="grid grid-cols-3 gap-8 mb-8">
             {mainStats.map((stat, index) => (
-              <CircularProgress
+              <CircularProgressIndicator
                 key={index}
-                title={stat.title}
-                value={stat.value}
-                subtitle={stat.subtitle}
-                progress={stat.progress}
-                color={stat.color}
-                icon={stat.icon}
+                rate={stat.progress}
+                label={stat.title}
+                color={stat.color.replace('bg-', '#')}
+                change={5}
+                isPositive={true}
               />
             ))}
           </div>
