@@ -47,15 +47,15 @@ export const CreatedOrdersCard = () => {
 
   return (
     <Card className="bg-gradient-to-br from-white to-gray-50/30 shadow-lg border-0 ring-1 ring-gray-200/60">
-      <CardHeader className="pb-3 px-4 pt-4">
-        <CardTitle className="text-base font-bold text-gray-800 flex items-center gap-3">
-          <div className="w-7 h-7 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-sm">
-            <TrendingUp className="w-4 h-4 text-white" />
+      <CardHeader className="pb-2 sm:pb-3 px-3 sm:px-4 pt-3 sm:pt-4">
+        <CardTitle className="text-sm sm:text-base font-bold text-gray-800 flex items-center gap-2 sm:gap-3">
+          <div className="w-6 h-6 sm:w-7 sm:h-7 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-sm">
+            <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
           </div>
           <span>Созданные заказы</span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3 px-4 pt-0 pb-4">
+      <CardContent className="space-y-2 sm:space-y-3 px-3 sm:px-4 pt-0 pb-3 sm:pb-4">
         {/* Critical Alert - Unclosed Deals */}
         <UnclosedDealsAlert 
           openDealsCount={openDealsCount}
@@ -70,7 +70,7 @@ export const CreatedOrdersCard = () => {
         />
 
         {/* Conversions & Sales Combined */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
           <ConversionsDisplay conversionsData={conversionsData} />
           <SalesTodayDisplay opticsData={opticsData} />
         </div>
