@@ -39,18 +39,18 @@ export const TasksSection = () => {
 
   return (
     <Card className="bg-gradient-to-br from-white to-gray-50/30 shadow-lg border-0 ring-1 ring-gray-200/60">
-      <CardHeader className="pb-3 px-4 pt-4">
-        <CardTitle className="text-base font-bold text-gray-800 flex items-center gap-3">
-          <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center shadow-sm">
-            <List className="w-4 h-4 text-white" />
+      <CardHeader className="pb-1 sm:pb-3 px-2 sm:px-4 pt-2 sm:pt-4">
+        <CardTitle className="text-xs sm:text-base font-bold text-gray-800 flex items-center gap-1.5 sm:gap-3">
+          <div className="w-5 h-5 sm:w-8 sm:h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center shadow-sm">
+            <List className="w-2.5 h-2.5 sm:w-4 sm:h-4 text-white" />
           </div>
           <span>Задачи на сегодня</span>
-          <button className="ml-auto p-2 hover:bg-gray-100 rounded-lg transition-colors">
-            <RefreshCw className="w-4 h-4 text-gray-500" />
+          <button className="ml-auto p-1 sm:p-2 hover:bg-gray-100 rounded-lg transition-colors">
+            <RefreshCw className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500" />
           </button>
         </CardTitle>
       </CardHeader>
-      <CardContent className="px-4 pt-0 pb-4">
+      <CardContent className="px-2 sm:px-4 pt-0 pb-2 sm:pb-4">
         <div className="space-y-3">
           {tasks.map((item, index) => {
             const priorityConfig = getPriorityConfig(item.priority);

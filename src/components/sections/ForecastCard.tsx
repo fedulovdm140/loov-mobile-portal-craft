@@ -17,15 +17,15 @@ export const ForecastCard = () => {
 
   return (
     <Card className="bg-gradient-to-br from-white to-gray-50/30 shadow-lg border-0 ring-1 ring-gray-200/60">
-      <CardHeader className="pb-3 px-4 pt-4">
-        <CardTitle className="text-base font-bold text-gray-800 flex items-center gap-3">
-          <div className="w-7 h-7 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center shadow-sm">
-            <BarChart3 className="w-4 h-4 text-white" />
+      <CardHeader className="pb-1 sm:pb-3 px-2 sm:px-4 pt-2 sm:pt-4">
+        <CardTitle className="text-xs sm:text-base font-bold text-gray-800 flex items-center gap-1.5 sm:gap-3">
+          <div className="w-5 h-5 sm:w-7 sm:h-7 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center shadow-sm">
+            <BarChart3 className="w-2.5 h-2.5 sm:w-4 sm:h-4 text-white" />
           </div>
           <span>Закрытые сделки</span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3 px-4 pt-0 pb-4">
+      <CardContent className="space-y-1.5 sm:space-y-3 px-2 sm:px-4 pt-0 pb-2 sm:pb-4">
         {/* Forecast Achievement */}
         <div className="bg-gradient-to-r from-purple-50 to-violet-50/50 rounded-lg p-3 border border-purple-200/50 shadow-sm">
           <div className="flex items-center justify-between">
