@@ -10,9 +10,9 @@ export const DashboardSection = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-blue-50/30 p-2">
       {/* Optimized Header */}
-      <div className="text-center mb-3">
-        <h1 className="text-lg font-bold text-gray-900 mb-1">Дашборд</h1>
-        <p className="text-gray-600 text-sm">Добро пожаловать, {userName}!</p>
+      <div className="text-center mb-4">
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">Дашборд</h1>
+        <p className="text-gray-600 text-base">Добро пожаловать, {userName}!</p>
       </div>
 
       {/* Main Dashboard Grid - Optimized for mobile */}

@@ -40,18 +40,18 @@ export const TasksSection = () => {
   return (
     <Card className="bg-gradient-to-br from-white to-gray-50/30 shadow-lg border-0 ring-1 ring-gray-200/60">
       <CardHeader className="pb-3 px-4 pt-4">
-        <CardTitle className="text-sm font-bold text-gray-800 flex items-center gap-2.5">
-          <div className="w-7 h-7 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center shadow-sm">
-            <List className="w-3.5 h-3.5 text-white" />
+        <CardTitle className="text-base font-bold text-gray-800 flex items-center gap-3">
+          <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center shadow-sm">
+            <List className="w-4 h-4 text-white" />
           </div>
           <span>Задачи на сегодня</span>
-          <button className="ml-auto p-1.5 hover:bg-gray-100 rounded-lg transition-colors">
-            <RefreshCw className="w-3.5 h-3.5 text-gray-500" />
+          <button className="ml-auto p-2 hover:bg-gray-100 rounded-lg transition-colors">
+            <RefreshCw className="w-4 h-4 text-gray-500" />
           </button>
         </CardTitle>
       </CardHeader>
       <CardContent className="px-4 pt-0 pb-4">
-        <div className="space-y-2">
+        <div className="space-y-3">
           {tasks.map((item, index) => {
             const priorityConfig = getPriorityConfig(item.priority);
             return (
@@ -65,13 +65,13 @@ export const TasksSection = () => {
                     <div className="w-2 h-2 bg-white rounded-full"></div>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-medium leading-tight text-gray-900 mb-1.5 break-words">{item.task}</p>
+                    <p className="text-sm font-medium leading-tight text-gray-900 mb-2 break-words">{item.task}</p>
                     <div className="flex items-center gap-2">
                       <div className="flex items-center gap-1">
-                        <Clock className="w-3 h-3 text-gray-500" />
-                        <span className="text-[10px] text-gray-600 font-medium">{item.dueTime}</span>
+                        <Clock className="w-4 h-4 text-gray-500" />
+                        <span className="text-xs text-gray-600 font-medium">{item.dueTime}</span>
                       </div>
-                      <div className="text-[10px] text-gray-500 bg-gray-100 rounded px-1.5 py-0.5">
+                      <div className="text-xs text-gray-500 bg-gray-100 rounded px-2 py-1">
                         {priorityConfig.label}
                       </div>
                     </div>

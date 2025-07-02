@@ -14,14 +14,14 @@ export const SalaryCard = () => {
   return (
     <Card className="bg-gradient-to-br from-white to-gray-50/30 shadow-lg border-0 ring-1 ring-gray-200/60">
       <CardHeader className="pb-3 px-4 pt-4">
-        <CardTitle className="text-sm font-bold text-gray-800 flex items-center gap-2.5">
-          <div className="w-7 h-7 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center shadow-sm">
-            <User className="w-3.5 h-3.5 text-white" />
+        <CardTitle className="text-base font-bold text-gray-800 flex items-center gap-3">
+          <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center shadow-sm">
+            <User className="w-4 h-4 text-white" />
           </div>
           <span>Зарплата</span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3 px-4 pt-0 pb-4">
+      <CardContent className="space-y-4 px-4 pt-0 pb-4">
         {/* Current Salary */}
         <div className="bg-gradient-to-r from-emerald-50 to-green-50/50 rounded-xl p-3 border border-emerald-200/50 shadow-sm">
           <div className="flex items-center justify-between mb-2">
@@ -30,14 +30,14 @@ export const SalaryCard = () => {
                 <DollarSign className="w-3.5 h-3.5 text-white" />
               </div>
               <div>
-                <div className="text-xs font-bold text-emerald-800">Текущая зарплата</div>
-                <div className="text-[10px] text-emerald-600 mt-0.5">За текущий период</div>
+                <div className="text-sm font-bold text-emerald-800">Текущая зарплата</div>
+                <div className="text-xs text-emerald-600 mt-0.5">За текущий период</div>
               </div>
             </div>
-            <div className="text-xl font-bold text-emerald-700">{currentSalary.toLocaleString('ru-RU')} ₽</div>
+            <div className="text-2xl font-bold text-emerald-700">{currentSalary.toLocaleString('ru-RU')} ₽</div>
           </div>
           <div className="text-center">
-            <div className="text-[10px] text-emerald-600 bg-emerald-100/50 rounded-lg px-2 py-1 inline-block">
+            <div className="text-xs text-emerald-600 bg-emerald-100/50 rounded-lg px-3 py-1.5 inline-block">
               Оклад {baseSalary.toLocaleString('ru-RU')} ₽ + бонус {bonusAmount.toLocaleString('ru-RU')} ₽
             </div>
           </div>
@@ -51,14 +51,14 @@ export const SalaryCard = () => {
               <div className="w-5 h-5 bg-blue-500 rounded-md flex items-center justify-center">
                 <TrendingUp className="w-2.5 h-2.5 text-white" />
               </div>
-              <span className="text-xs font-bold text-blue-800">Прогноз</span>
+              <span className="text-sm font-bold text-blue-800">Прогноз</span>
             </div>
             <div className="text-center mb-2">
-              <div className="text-lg font-bold text-blue-700">{monthlyForecast.toLocaleString('ru-RU')} ₽</div>
-              <div className="text-[10px] text-blue-600 font-medium">к концу месяца</div>
+              <div className="text-xl font-bold text-blue-700">{monthlyForecast.toLocaleString('ru-RU')} ₽</div>
+              <div className="text-xs text-blue-600 font-medium">к концу месяца</div>
             </div>
             <div className="space-y-1">
-              <div className="flex justify-between text-[10px] text-blue-600 font-medium">
+              <div className="flex justify-between text-xs text-blue-600 font-medium">
                 <span>{salaryProgress}%</span>
                 <span>выполнено</span>
               </div>
@@ -77,11 +77,11 @@ export const SalaryCard = () => {
               <div className="w-5 h-5 bg-green-500 rounded-md flex items-center justify-center">
                 <DollarSign className="w-2.5 h-2.5 text-white" />
               </div>
-              <span className="text-xs font-bold text-green-800">Потенциал</span>
+              <span className="text-sm font-bold text-green-800">Потенциал</span>
             </div>
             <div className="text-center">
-              <div className="text-lg font-bold text-green-700">+{(forecastBonus - bonusAmount).toLocaleString('ru-RU')} ₽</div>
-              <div className="text-[10px] text-green-600 font-medium">дополнительно</div>
+              <div className="text-xl font-bold text-green-700">+{(forecastBonus - bonusAmount).toLocaleString('ru-RU')} ₽</div>
+              <div className="text-xs text-green-600 font-medium">дополнительно</div>
             </div>
           </div>
         </div>
