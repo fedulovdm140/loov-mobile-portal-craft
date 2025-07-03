@@ -9,26 +9,20 @@ interface RevenueProgressProps {
 export const RevenueProgress = ({ dailyRevenue, dailyTarget, dailyProgress }: RevenueProgressProps) => {
   return (
     <div className="bg-gradient-to-r from-green-50 to-emerald-50/50 rounded-lg p-2 sm:p-3 border border-green-200/50 shadow-sm">
-      <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5 sm:gap-2">
           <div className="w-5 h-5 sm:w-6 sm:h-6 bg-green-500 rounded-lg flex items-center justify-center">
             <DollarSign className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white" />
           </div>
           <div>
             <div className="text-xs sm:text-sm font-bold text-green-800">Дневная выручка</div>
-            <div className="text-[10px] sm:text-xs text-green-600 mt-0.5">{dailyProgress}% от плана</div>
+            <div className="text-xs sm:text-sm text-green-600">{dailyTarget.toLocaleString('ru-RU')} ₽ план</div>
           </div>
         </div>
         <div className="text-right">
-          <div className="text-base sm:text-lg font-bold text-green-700">{dailyRevenue.toLocaleString('ru-RU')} ₽</div>
-          <div className="text-xs sm:text-sm text-green-600 font-medium">из {dailyTarget.toLocaleString('ru-RU')} ₽</div>
+          <div className="text-lg sm:text-xl font-bold text-green-700">{dailyProgress}%</div>
+          <div className="text-xs sm:text-sm text-green-600">{dailyRevenue.toLocaleString('ru-RU')} ₽</div>
         </div>
-      </div>
-      <div className="h-1.5 sm:h-2 bg-green-100 rounded-full overflow-hidden">
-        <div 
-          className="h-full bg-gradient-to-r from-green-400 to-green-500 rounded-full transition-all duration-700" 
-          style={{ width: `${Math.min(dailyProgress, 100)}%` }}
-        />
       </div>
     </div>
   );
