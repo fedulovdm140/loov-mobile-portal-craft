@@ -1,8 +1,7 @@
 
-import { CreatedOrdersCard } from "./CreatedOrdersCard";
-import { ForecastCard } from "./ForecastCard";
-import { SalaryCard } from "./SalaryCard";
-import { TasksSection } from "./TasksSection";
+import { UnifiedMetricsCard } from "./UnifiedMetricsCard";
+import { CompactForecastCard } from "./CompactForecastCard";
+import { CompactTasksCard } from "./CompactTasksCard";
 
 export const DashboardSection = () => {
   const userName = "Дмитрий";
@@ -15,18 +14,17 @@ export const DashboardSection = () => {
         <p className="text-gray-600 text-xs sm:text-base">Добро пожаловать, {userName}!</p>
       </div>
 
-      {/* Main Dashboard Grid - Optimized for mobile */}
-      <div className="max-w-7xl mx-auto space-y-2 sm:space-y-4">
-        {/* Primary Cards - Most Important */}
+      {/* Main Dashboard Grid - Optimized and Simplified */}
+      <div className="max-w-6xl mx-auto space-y-2 sm:space-y-4">
+        {/* Primary Cards - Key Metrics */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-4">
-          <CreatedOrdersCard />
-          <ForecastCard />
+          <UnifiedMetricsCard />
+          <CompactForecastCard />
         </div>
 
-        {/* Secondary Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-4">
-          <SalaryCard />
-          <TasksSection />
+        {/* Secondary Card - Tasks */}
+        <div className="max-w-3xl mx-auto">
+          <CompactTasksCard />
         </div>
       </div>
     </div>
