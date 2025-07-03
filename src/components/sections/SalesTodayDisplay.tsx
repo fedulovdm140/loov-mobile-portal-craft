@@ -19,6 +19,10 @@ export const SalesTodayDisplay = ({ opticsData }: SalesTodayDisplayProps) => {
         </div>
         <span className="text-xs sm:text-sm font-bold text-blue-800">Продажи</span>
       </div>
+      <div className="flex justify-between items-center mb-1 sm:mb-1.5 text-[10px] sm:text-xs text-blue-600 font-medium">
+        <span>Категория</span>
+        <span>Средняя стоимость</span>
+      </div>
       <div className="space-y-0.5 sm:space-y-1">
         {opticsData.map((item, index) => (
           <div key={index} className="flex justify-between items-center">
