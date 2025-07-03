@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TrendingUp } from "lucide-react";
 import { UnclosedDealsAlert } from "./UnclosedDealsAlert";
@@ -24,19 +23,35 @@ export const CreatedOrdersCard = () => {
     amount: 5000
   }];
 
+  // Conversions data with month-to-month changes
+  const conversionsData = {
+    repairToCheck: {
+      rate: 71,
+      label: "Ремонт → Проверка",
+      change: +5, // +5% from last month
+      isPositive: true
+    },
+    repairToSale: {
+      rate: 38,
+      label: "Ремонт → Продажа",
+      change: -2, // -2% from last month
+      isPositive: false
+    }
+  };
+
   const dailyProgress = Math.round(dailyRevenue / dailyTarget * 100);
 
   return (
-    <Card className="bg-white shadow-sm border border-gray-100">
-      <CardHeader className="pb-3 px-4 pt-4">
-        <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-3">
-          <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-            <TrendingUp className="w-4 h-4 text-white" />
+    <Card className="bg-gradient-to-br from-white to-gray-50/30 shadow-lg border-0 ring-1 ring-gray-200/60">
+      <CardHeader className="pb-1 sm:pb-3 px-2 sm:px-4 pt-2 sm:pt-4">
+        <CardTitle className="text-xs sm:text-base font-bold text-gray-800 flex items-center gap-1.5 sm:gap-3">
+          <div className="w-5 h-5 sm:w-7 sm:h-7 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-sm">
+            <TrendingUp className="w-2.5 h-2.5 sm:w-4 sm:h-4 text-white" />
           </div>
           <span>Созданные заказы</span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4 px-4 pb-4">
+      <CardContent className="space-y-1.5 sm:space-y-3 px-2 sm:px-4 pt-0 pb-2 sm:pb-4">
         {/* Critical Alert - Unclosed Deals */}
         <UnclosedDealsAlert 
           openDealsCount={openDealsCount}
