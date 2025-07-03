@@ -1,7 +1,5 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BarChart3, TrendingUp, Calendar, Target } from "lucide-react";
-
 export const ForecastCard = () => {
   // Mock data - these would come from API in real app
   const monthlyTarget = 300000;
@@ -9,14 +7,11 @@ export const ForecastCard = () => {
   const expectedClosedRevenue = 80000;
   const dailyTarget = 25000;
   const closedRevenueToday = 15000;
-
   const monthlyProgress = Math.round(closedRevenueMonth / monthlyTarget * 100);
   const monthlyForecast = Math.round((closedRevenueMonth + expectedClosedRevenue) / monthlyTarget * 100);
   const dailyProgress = Math.round(closedRevenueToday / dailyTarget * 100);
   const forecastTotal = closedRevenueMonth + expectedClosedRevenue;
-
-  return (
-    <Card className="bg-white border border-gray-200">
+  return <Card className="bg-white border border-gray-200">
       <CardHeader className="pb-1 sm:pb-3 px-2 sm:px-4 pt-2 sm:pt-4">
         <CardTitle className="text-xs sm:text-base font-bold text-gray-900 flex items-center gap-1.5 sm:gap-3">
           <div className="w-5 h-5 sm:w-7 sm:h-7 bg-blue-500 rounded-lg flex items-center justify-center">
@@ -50,7 +45,7 @@ export const ForecastCard = () => {
           {/* Daily Progress */}
           <div className="bg-white rounded-lg p-2 border border-gray-200">
             <div className="flex items-center gap-1.5 mb-1">
-              <div className="w-4 h-4 bg-orange-500 rounded flex items-center justify-center">
+              <div className="w-4 h-4 rounded flex items-center justify-center bg-sky-300">
                 <Calendar className="w-2.5 h-2.5 text-white" />
               </div>
               <span className="text-xs font-bold text-gray-900">Сегодня</span>
@@ -61,10 +56,9 @@ export const ForecastCard = () => {
                 <span>{dailyTarget.toLocaleString('ru-RU')} ₽</span>
               </div>
               <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-orange-500 rounded-full transition-all duration-700" 
-                  style={{ width: `${Math.min(dailyProgress, 100)}%` }}
-                />
+                <div style={{
+                width: `${Math.min(dailyProgress, 100)}%`
+              }} className="h-full rounded-full transition-all duration-700 bg-sky-300" />
               </div>
             </div>
           </div>
@@ -83,15 +77,13 @@ export const ForecastCard = () => {
                 <span>{monthlyTarget.toLocaleString('ru-RU')} ₽</span>
               </div>
               <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-blue-500 rounded-full transition-all duration-700" 
-                  style={{ width: `${Math.min(monthlyProgress, 100)}%` }}
-                />
+                <div className="h-full bg-blue-500 rounded-full transition-all duration-700" style={{
+                width: `${Math.min(monthlyProgress, 100)}%`
+              }} />
               </div>
             </div>
           </div>
         </div>
       </CardContent>
-    </Card>
-  );
+    </Card>;
 };
