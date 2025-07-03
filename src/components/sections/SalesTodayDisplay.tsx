@@ -32,9 +32,9 @@ export const SalesTodayDisplay = ({ opticsData }: SalesTodayDisplayProps) => {
         <div className="flex justify-between items-center pt-0.5 sm:pt-1 border-t border-blue-200/50">
           <div className="flex items-center gap-1 sm:gap-2">
             <span className="text-xs sm:text-sm font-bold text-blue-800 w-5 sm:w-6 text-center bg-blue-200 rounded px-0.5 sm:px-1">{opticsData.reduce((sum, item) => sum + item.quantity, 0)}</span>
-            <span className="text-[10px] sm:text-xs font-bold text-blue-800">Всего</span>
+            <span className="text-[10px] sm:text-xs font-bold text-blue-800">Ср. стоимость</span>
           </div>
-          <span className="text-[10px] sm:text-xs font-bold text-blue-900">{opticsData.reduce((sum, item) => sum + item.amount, 0).toLocaleString('ru-RU')} ₽</span>
+          <span className="text-[10px] sm:text-xs font-bold text-blue-900">{Math.round(opticsData.reduce((sum, item) => sum + item.amount, 0) / opticsData.reduce((sum, item) => sum + item.quantity, 0)).toLocaleString('ru-RU')} ₽</span>
         </div>
       </div>
     </div>

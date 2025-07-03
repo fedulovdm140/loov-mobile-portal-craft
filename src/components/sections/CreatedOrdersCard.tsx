@@ -12,7 +12,7 @@ export const CreatedOrdersCard = () => {
   const openDealsCount = 8;
   const openDealsSum = 45000;
 
-  // Optics sales data with repairs
+  // Optics sales data
   const opticsData = [{
     category: "Оправы",
     quantity: 4,
@@ -21,10 +21,6 @@ export const CreatedOrdersCard = () => {
     category: "Линзы",
     quantity: 4,
     amount: 5000
-  }, {
-    category: "Ремонты",
-    quantity: 3,
-    amount: 2500
   }];
 
   // Conversions data with month-to-month changes
@@ -69,11 +65,8 @@ export const CreatedOrdersCard = () => {
           dailyProgress={dailyProgress}
         />
 
-        {/* Conversions & Sales Combined */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-          <ConversionsDisplay conversionsData={conversionsData} />
-          <SalesTodayDisplay opticsData={opticsData} />
-        </div>
+        {/* Sales Display */}
+        <SalesTodayDisplay opticsData={opticsData} />
       </CardContent>
     </Card>
   );
