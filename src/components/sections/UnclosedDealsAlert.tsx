@@ -1,7 +1,7 @@
-
 import { AlertTriangle, ChevronDown } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useState } from "react";
+import { MetricHelpIcon } from "@/components/ui/MetricHelpIcon";
 
 interface Deal {
   number: string;
@@ -38,7 +38,10 @@ export const UnclosedDealsAlert = ({ openDealsCount, openDealsSum }: UnclosedDea
                 <AlertTriangle className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white" />
               </div>
               <div>
-                <div className="text-xs sm:text-sm font-bold text-red-900 uppercase tracking-wide">Не закрытые сделки</div>
+                <div className="flex items-center gap-1.5">
+                  <div className="text-xs sm:text-sm font-bold text-red-900 uppercase tracking-wide">Не закрытые сделки</div>
+                  <MetricHelpIcon helpText="Показывает количество и общую сумму сделок, которые требуют завершения. Нажмите, чтобы увидеть детальный список всех незакрытых сделок." />
+                </div>
                 <div className="text-[10px] sm:text-xs text-red-700 mt-0.5">Требуют внимания</div>
               </div>
             </div>
