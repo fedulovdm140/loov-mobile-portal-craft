@@ -2,14 +2,14 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TrendingUp } from "lucide-react";
 import { UnclosedDealsAlert } from "./UnclosedDealsAlert";
-import { RevenueProgress } from "./RevenueProgress";
-import { ConversionsDisplay } from "./ConversionsDisplay";
-import { SalesTodayDisplay } from "./SalesTodayDisplay";
+import { RevenueSalesDisplay } from "./RevenueSalesDisplay";
 
 export const CreatedOrdersCard = () => {
   // Mock data - these would come from API in real app
   const dailyRevenue = 15000;
   const dailyTarget = 25000;
+  const monthlyRevenue = 120000;
+  const monthlyTarget = 180000;
   const openDealsCount = 8;
   const openDealsSum = 45000;
 
@@ -23,24 +23,6 @@ export const CreatedOrdersCard = () => {
     quantity: 4,
     amount: 5000
   }];
-
-  // Conversions data with month-to-month changes
-  const conversionsData = {
-    repairToCheck: {
-      rate: 71,
-      label: "Ремонт → Проверка",
-      change: +5, // +5% from last month
-      isPositive: true
-    },
-    repairToSale: {
-      rate: 38,
-      label: "Ремонт → Продажа",
-      change: -2, // -2% from last month
-      isPositive: false
-    }
-  };
-
-  const dailyProgress = Math.round(dailyRevenue / dailyTarget * 100);
 
   return (
     <Card className="bg-white border border-gray-200">
@@ -59,15 +41,14 @@ export const CreatedOrdersCard = () => {
           openDealsSum={openDealsSum}
         />
 
-        {/* Main Revenue Progress */}
-        <RevenueProgress 
+        {/* Combined Revenue and Sales Display */}
+        <RevenueSalesDisplay 
           dailyRevenue={dailyRevenue}
           dailyTarget={dailyTarget}
-          dailyProgress={dailyProgress}
+          monthlyRevenue={monthlyRevenue}
+          monthlyTarget={monthlyTarget}
+          opticsData={opticsData}
         />
-
-        {/* Sales Display */}
-        <SalesTodayDisplay opticsData={opticsData} />
       </CardContent>
     </Card>
   );
