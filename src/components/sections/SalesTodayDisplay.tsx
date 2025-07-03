@@ -1,7 +1,7 @@
+
 import { Eye } from "lucide-react";
 import { useState } from "react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { MetricHelpIcon } from "@/components/ui/MetricHelpIcon";
 
 interface OpticsData {
   category: string;
@@ -32,7 +32,6 @@ export const SalesTodayDisplay = ({ opticsData }: SalesTodayDisplayProps) => {
             <Eye className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" />
           </div>
           <span className="text-xs sm:text-sm font-bold text-gray-900">Продажи</span>
-          <MetricHelpIcon helpText="Отображает количество проданных товаров по категориям и их среднюю стоимость. Можно переключаться между данными за день и месяц." />
         </div>
         
         <ToggleGroup type="single" value={timeframe} onValueChange={(value) => value && setTimeframe(value)} size="sm">
