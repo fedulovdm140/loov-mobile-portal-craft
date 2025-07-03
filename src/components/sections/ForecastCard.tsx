@@ -16,49 +16,49 @@ export const ForecastCard = () => {
   const forecastTotal = closedRevenueMonth + expectedClosedRevenue;
 
   return (
-    <Card className="bg-gradient-to-br from-white to-gray-50/30 shadow-lg border-0 ring-1 ring-gray-200/60">
-      <CardHeader className="pb-1 sm:pb-3 px-2 sm:px-4 pt-2 sm:pt-4">
-        <CardTitle className="text-xs sm:text-base font-bold text-gray-800 flex items-center gap-1.5 sm:gap-3">
-          <div className="w-5 h-5 sm:w-7 sm:h-7 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center shadow-sm">
-            <BarChart3 className="w-2.5 h-2.5 sm:w-4 sm:h-4 text-white" />
+    <Card className="bg-white shadow-sm border border-gray-100">
+      <CardHeader className="pb-3 px-4 pt-4">
+        <CardTitle className="text-lg font-semibold text-gray-900 flex items-center gap-3">
+          <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+            <BarChart3 className="w-4 h-4 text-white" />
           </div>
           <span>Закрытые сделки</span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-1.5 sm:space-y-3 px-2 sm:px-4 pt-0 pb-2 sm:pb-4">
+      <CardContent className="space-y-4 px-4 pb-4">
         {/* Forecast Achievement */}
-        <div className="bg-gradient-to-r from-purple-50 to-violet-50/50 rounded-lg p-2 border border-purple-200/50 shadow-sm">
+        <div className="bg-gray-50 rounded-lg p-4 border-l-4 border-blue-500">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="w-5 h-5 bg-purple-500 rounded-lg flex items-center justify-center">
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-6 bg-blue-500 rounded-lg flex items-center justify-center">
                 <Target className="w-3 h-3 text-white" />
               </div>
               <div>
-                <div className="text-xs font-bold text-purple-800">Прогноз плана</div>
-                <div className="text-xs text-purple-600">{forecastTotal.toLocaleString('ru-RU')} ₽</div>
+                <div className="text-sm font-medium text-gray-900">Прогноз плана</div>
+                <div className="text-xs text-gray-600">{forecastTotal.toLocaleString('ru-RU')} ₽</div>
               </div>
             </div>
           </div>
         </div>
 
         {/* Daily & Monthly Progress */}
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-4">
           {/* Daily Progress */}
-          <div className="bg-gradient-to-br from-blue-50 to-cyan-50/50 rounded-lg p-2 border border-blue-200/50 shadow-sm">
-            <div className="flex items-center gap-1.5 mb-1">
-              <div className="w-4 h-4 bg-blue-500 rounded flex items-center justify-center">
-                <Calendar className="w-2.5 h-2.5 text-white" />
+          <div className="bg-gray-50 rounded-lg p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-5 h-5 bg-blue-500 rounded flex items-center justify-center">
+                <Calendar className="w-3 h-3 text-white" />
               </div>
-              <span className="text-xs font-bold text-blue-800">Сегодня</span>
+              <span className="text-sm font-medium text-gray-900">Сегодня</span>
             </div>
-            <div className="space-y-1">
-              <div className="flex justify-between text-xs text-blue-600 font-medium">
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm text-gray-600">
                 <span>{closedRevenueToday.toLocaleString('ru-RU')} ₽</span>
                 <span>{dailyTarget.toLocaleString('ru-RU')} ₽</span>
               </div>
-              <div className="h-1.5 bg-blue-100 rounded-full overflow-hidden">
+              <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full transition-all duration-700" 
+                  className="h-full bg-blue-500 rounded-full transition-all duration-700" 
                   style={{ width: `${Math.min(dailyProgress, 100)}%` }}
                 />
               </div>
@@ -66,21 +66,21 @@ export const ForecastCard = () => {
           </div>
 
           {/* Monthly Progress */}
-          <div className="bg-gradient-to-br from-indigo-50 to-purple-50/50 rounded-lg p-2 border border-indigo-200/50 shadow-sm">
-            <div className="flex items-center gap-1.5 mb-1">
-              <div className="w-4 h-4 bg-indigo-500 rounded flex items-center justify-center">
-                <TrendingUp className="w-2.5 h-2.5 text-white" />
+          <div className="bg-gray-50 rounded-lg p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-5 h-5 bg-blue-500 rounded flex items-center justify-center">
+                <TrendingUp className="w-3 h-3 text-white" />
               </div>
-              <span className="text-xs font-bold text-indigo-800">Месяц</span>
+              <span className="text-sm font-medium text-gray-900">Месяц</span>
             </div>
-            <div className="space-y-1">
-              <div className="flex justify-between text-xs text-indigo-600 font-medium">
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm text-gray-600">
                 <span>{closedRevenueMonth.toLocaleString('ru-RU')} ₽</span>
                 <span>{monthlyTarget.toLocaleString('ru-RU')} ₽</span>
               </div>
-              <div className="h-1.5 bg-indigo-100 rounded-full overflow-hidden">
+              <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-gradient-to-r from-indigo-400 to-indigo-500 rounded-full transition-all duration-700" 
+                  className="h-full bg-blue-500 rounded-full transition-all duration-700" 
                   style={{ width: `${Math.min(monthlyProgress, 100)}%` }}
                 />
               </div>
