@@ -22,7 +22,7 @@ interface ConversionsDisplayProps {
 
 export const ConversionsDisplay = ({ conversionsData }: ConversionsDisplayProps) => {
   return (
-    <div className="bg-white rounded-lg p-2 sm:p-3 border border-gray-200 shadow-sm border-l-4 border-l-blue-500">
+    <div className="bg-white rounded-lg p-2 sm:p-3 border border-gray-200">
       <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
         <div className="w-4 h-4 sm:w-5 sm:h-5 bg-blue-500 rounded-lg flex items-center justify-center">
           <Percent className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" />

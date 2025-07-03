@@ -9,7 +9,7 @@ interface RevenueProgressProps {
 
 export const RevenueProgress = ({ dailyRevenue, dailyTarget, dailyProgress }: RevenueProgressProps) => {
   return (
-    <div className="bg-white rounded-lg p-2 sm:p-3 border border-gray-200 shadow-sm border-l-4 border-l-green-500">
+    <div className="bg-white rounded-lg p-2 sm:p-3 border border-gray-200">
       <div className="flex items-center justify-between mb-1.5 sm:mb-2">
         <div className="flex items-center gap-1.5 sm:gap-2">
           <div className="w-5 h-5 sm:w-6 sm:h-6 bg-green-500 rounded-lg flex items-center justify-center">

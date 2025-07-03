@@ -43,10 +43,10 @@ export const CreatedOrdersCard = () => {
   const dailyProgress = Math.round(dailyRevenue / dailyTarget * 100);
 
   return (
-    <Card className="bg-white shadow-lg border border-gray-200 border-l-4 border-l-blue-500">
+    <Card className="bg-white border border-gray-200">
       <CardHeader className="pb-1 sm:pb-3 px-2 sm:px-4 pt-2 sm:pt-4">
         <CardTitle className="text-xs sm:text-base font-bold text-gray-900 flex items-center gap-1.5 sm:gap-3">
-          <div className="w-5 h-5 sm:w-7 sm:h-7 bg-blue-500 rounded-lg flex items-center justify-center shadow-sm">
+          <div className="w-5 h-5 sm:w-7 sm:h-7 bg-blue-500 rounded-lg flex items-center justify-center">
             <TrendingUp className="w-2.5 h-2.5 sm:w-4 sm:h-4 text-white" />
           </div>
           <span>Созданные заказы</span>
