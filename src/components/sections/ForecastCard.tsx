@@ -25,52 +25,77 @@ export const ForecastCard = () => {
           <span>Закрытые сделки</span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2 sm:space-y-3 px-2 sm:px-4 pt-0 pb-2 sm:pb-4">
-        {/* Main Forecast Achievement */}
-        <div className="bg-gradient-to-r from-purple-50 to-violet-50/50 rounded-lg p-2 sm:p-3 border border-purple-200/50 shadow-sm">
+      <CardContent className="space-y-1.5 sm:space-y-3 px-2 sm:px-4 pt-0 pb-2 sm:pb-4">
+        {/* Forecast Achievement */}
+        <div className="bg-gradient-to-r from-purple-50 to-violet-50/50 rounded-lg p-3 border border-purple-200/50 shadow-sm">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1.5 sm:gap-2">
-              <div className="w-5 h-5 sm:w-6 sm:h-6 bg-purple-500 rounded-lg flex items-center justify-center">
-                <Target className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white" />
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 bg-purple-500 rounded-lg flex items-center justify-center">
+                <Target className="w-3.5 h-3.5 text-white" />
               </div>
               <div>
-                <div className="text-sm sm:text-base font-bold text-purple-800">Прогноз плана</div>
-                <div className="text-xs sm:text-sm text-purple-600">{forecastTotal.toLocaleString('ru-RU')} ₽</div>
+                <div className="text-sm font-bold text-purple-800">Прогноз плана</div>
+                <div className="text-xs text-purple-600 mt-0.5">Ожидаемое выполнение</div>
               </div>
             </div>
             <div className="text-right">
-              <div className="text-xl sm:text-2xl font-bold text-purple-700">{monthlyForecast}%</div>
+              <div className="text-lg font-bold text-purple-700">{monthlyForecast}%</div>
+              <div className="text-sm text-purple-600 font-medium">{forecastTotal.toLocaleString('ru-RU')} ₽</div>
             </div>
           </div>
         </div>
 
-        {/* Compact Daily & Monthly Stats */}
-        <div className="grid grid-cols-2 gap-2 sm:gap-3">
-          {/* Daily Stats */}
-          <div className="bg-gradient-to-br from-blue-50 to-cyan-50/50 rounded-lg p-2 sm:p-3 border border-blue-200/50 shadow-sm">
-            <div className="flex items-center gap-1.5 sm:gap-2 mb-1 sm:mb-2">
-              <div className="w-4 h-4 sm:w-5 sm:h-5 bg-blue-500 rounded-lg flex items-center justify-center">
-                <Calendar className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" />
+        {/* Daily & Monthly Progress */}
+        <div className="grid grid-cols-2 gap-3">
+          {/* Daily Progress */}
+          <div className="bg-gradient-to-br from-blue-50 to-cyan-50/50 rounded-lg p-3 border border-blue-200/50 shadow-sm">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-5 h-5 bg-blue-500 rounded-lg flex items-center justify-center">
+                <Calendar className="w-3 h-3 text-white" />
               </div>
-              <span className="text-xs sm:text-sm font-bold text-blue-800">Сегодня</span>
+              <span className="text-sm font-bold text-blue-800">Сегодня</span>
             </div>
-            <div className="text-center">
-              <div className="text-lg sm:text-xl font-bold text-blue-700">{dailyProgress}%</div>
-              <div className="text-xs sm:text-sm text-blue-600">{closedRevenueToday.toLocaleString('ru-RU')} ₽</div>
+            <div className="text-center mb-2">
+              <div className="text-xl font-bold text-blue-700">{dailyProgress}%</div>
+              <div className="text-xs text-blue-600 font-medium">от плана</div>
+            </div>
+            <div className="space-y-1">
+              <div className="flex justify-between text-xs text-blue-600 font-medium">
+                <span>{closedRevenueToday.toLocaleString('ru-RU')} ₽</span>
+                <span>{dailyTarget.toLocaleString('ru-RU')} ₽</span>
+              </div>
+              <div className="h-2 bg-blue-100 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full transition-all duration-700" 
+                  style={{ width: `${Math.min(dailyProgress, 100)}%` }}
+                />
+              </div>
             </div>
           </div>
 
-          {/* Monthly Stats */}
-          <div className="bg-gradient-to-br from-indigo-50 to-purple-50/50 rounded-lg p-2 sm:p-3 border border-indigo-200/50 shadow-sm">
-            <div className="flex items-center gap-1.5 sm:gap-2 mb-1 sm:mb-2">
-              <div className="w-4 h-4 sm:w-5 sm:h-5 bg-indigo-500 rounded-lg flex items-center justify-center">
-                <TrendingUp className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" />
+          {/* Monthly Progress */}
+          <div className="bg-gradient-to-br from-indigo-50 to-purple-50/50 rounded-lg p-3 border border-indigo-200/50 shadow-sm">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-5 h-5 bg-indigo-500 rounded-lg flex items-center justify-center">
+                <TrendingUp className="w-3 h-3 text-white" />
               </div>
-              <span className="text-xs sm:text-sm font-bold text-indigo-800">Месяц</span>
+              <span className="text-sm font-bold text-indigo-800">Месяц</span>
             </div>
-            <div className="text-center">
-              <div className="text-lg sm:text-xl font-bold text-indigo-700">{monthlyProgress}%</div>
-              <div className="text-xs sm:text-sm text-indigo-600">{closedRevenueMonth.toLocaleString('ru-RU')} ₽</div>
+            <div className="text-center mb-2">
+              <div className="text-xl font-bold text-indigo-700">{monthlyProgress}%</div>
+              <div className="text-xs text-indigo-600 font-medium">выполнено</div>
+            </div>
+            <div className="space-y-1">
+              <div className="flex justify-between text-xs text-indigo-600 font-medium">
+                <span>{closedRevenueMonth.toLocaleString('ru-RU')} ₽</span>
+                <span>{monthlyTarget.toLocaleString('ru-RU')} ₽</span>
+              </div>
+              <div className="h-2 bg-indigo-100 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-indigo-400 to-indigo-500 rounded-full transition-all duration-700" 
+                  style={{ width: `${Math.min(monthlyProgress, 100)}%` }}
+                />
+              </div>
             </div>
           </div>
         </div>
